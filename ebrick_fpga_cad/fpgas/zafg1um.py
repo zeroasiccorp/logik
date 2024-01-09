@@ -59,10 +59,13 @@ def setup(chip):
         fpga.set('fpga', part_name, 'file', 'graphfile',
                  os.path.join(arch_root, 'ebrick_fpga_core_rr_graph.xml'))
 
-        if (part_name == 'zafg1um_0202'):
+        if (part_name == 'zafg1um_0202'): 
             flop_library = os.path.join(flow_root, 'ebrick-fpga', part_name, 'techlib', 'ebrick_fpga_tech_flops.v')
             fpga.set('fpga', part_name, 'file', 'yosys_flop_techmap', flop_library)
-
+            
+            bitstream_map_file = os.path.join(arch_root, 'ebrick_fpga_core_bitstream_map.json')
+            fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
+            
             fpga.set('fpga', part_name, 'var', 'channelwidth', '128')
 
         all_fpgas.append(fpga)
