@@ -11,6 +11,8 @@ from siliconcompiler.tools.vpr import place as vpr_place
 from siliconcompiler.tools.vpr import route as vpr_route
 from siliconcompiler.tools.genfasm import bitstream as genfasm_bitstream
 
+from ebrick_fpga_cad.tools.fasm_to_bitstream import bitstream_finish
+
 ############################################################################
 # DOCS
 ############################################################################
@@ -58,10 +60,13 @@ def setup(chip, flowname='ebrick_fpga_flow'):
 ##################################################
 def flow_lookup():
     
-    flow = [('syn', yosys_syn),
-            ('place', vpr_place),
-            ('route', vpr_route),
-            ('bitstream', genfasm_bitstream)]
+    flow = [
+        ('syn', yosys_syn),
+        ('place', vpr_place),
+        ('route', vpr_route),
+        ('genfasm', genfasm_bitstream),
+        ('bitstream', bitstream_finish),
+    ]
     
     return flow
 
