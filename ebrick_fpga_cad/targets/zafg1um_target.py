@@ -4,6 +4,7 @@ import siliconcompiler
 from siliconcompiler.targets import utils
 
 
+from ebrick_fpga_cad.fpgas import zafg00um
 from ebrick_fpga_cad.fpgas import zafg1um
 from ebrick_fpga_cad.flows import ebrick_fpga_flow
 
@@ -22,6 +23,7 @@ def setup(chip):
         chip.error('FPGA partname has not been set.', fatal=True)
 
     # 2.  Load all available FPGAs
+    chip.use(zafg00um)
     chip.use(zafg1um)
 
     if part_name not in chip.getkeys('fpga'):
