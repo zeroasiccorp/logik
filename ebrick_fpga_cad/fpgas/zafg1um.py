@@ -29,7 +29,7 @@ def setup(chip):
     
     vendor = 'N/A'
 
-    lut_size = '6'
+    lut_size = '4'
     flop_async_set = '1'
     flop_async_reset = '1'
     flop_enable = '1'
@@ -66,7 +66,7 @@ def setup(chip):
             bitstream_map_file = os.path.join(arch_root, 'ebrick_fpga_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
             
-            fpga.set('fpga', part_name, 'var', 'channelwidth', '128')
+            fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
 
         all_fpgas.append(fpga)
 
