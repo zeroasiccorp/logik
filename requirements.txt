@@ -1,3 +1,2 @@
-pyverilog
-pyvcd
+pytest
 siliconcompiler
