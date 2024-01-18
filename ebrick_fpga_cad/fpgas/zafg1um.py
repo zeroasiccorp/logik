@@ -25,7 +25,7 @@ def setup(chip):
     ROOTDIR = os.path.abspath(__file__)
     
     flow_root = ROOTDIR.replace("ebrick_fpga_cad/fpgas/zafg1um.py",
-                                "demo")
+                                "examples")
     
     vendor = 'N/A'
 
