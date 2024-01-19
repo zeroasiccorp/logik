@@ -48,10 +48,9 @@ def setup(chip):
         fpga.set('fpga', part_name, 'vendor', vendor)
 
         fpga.set('fpga', part_name, 'lutsize', lut_size)
-        fpga.set('fpga', part_name, 'var', 'flop_async_set', flop_async_set)
-        fpga.set('fpga', part_name, 'var', 'flop_async_reset', flop_async_reset)
-        fpga.set('fpga', part_name, 'var', 'flop_enable', flop_enable)
-        fpga.set('fpga', part_name, 'var', 'legalize_flops', '1')
+        fpga.set('fpga', part_name, 'var', 'feature_set', 'async_set')
+        fpga.set('fpga', part_name, 'var', 'feature_set', 'async_reset')
+        fpga.set('fpga', part_name, 'var', 'feature_set', 'enable')
 
         arch_root = os.path.join(flow_root, 'ebrick-fpga', part_name, 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',

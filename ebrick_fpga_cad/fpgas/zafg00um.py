@@ -30,9 +30,6 @@ def setup(chip):
     vendor = 'N/A'
 
     lut_size = '4'
-    flop_async_set = '1'
-    flop_async_reset = '1'
-    flop_enable = '1'
     
     all_fpgas = []
 
@@ -48,10 +45,11 @@ def setup(chip):
         fpga.set('fpga', part_name, 'vendor', vendor)
 
         fpga.set('fpga', part_name, 'lutsize', lut_size)
-        fpga.set('fpga', part_name, 'var', 'flop_async_set', flop_async_set)
-        fpga.set('fpga', part_name, 'var', 'flop_async_reset', flop_async_reset)
-        fpga.set('fpga', part_name, 'var', 'flop_enable', flop_enable)
-        fpga.set('fpga', part_name, 'var', 'legalize_flops', '1')
+        #***TO DO:  Put these back in when a newer version of this arch
+        #           is being tested
+        #fpga.add('fpga', part_name, 'var', 'feature_set', 'async_reset')
+        #fpga.add('fpga', part_name, 'var', 'feature_set', 'async_set')
+        #fpga.add('fpga', part_name, 'var', 'feature_set', 'enable')
 
         arch_root = os.path.join(flow_root, 'ebrick-fpga', part_name, 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
@@ -59,9 +57,11 @@ def setup(chip):
         fpga.set('fpga', part_name, 'file', 'graphfile',
                  os.path.join(arch_root, 'ebrick_fpga_core_rr_graph.xml'))
 
-        if (part_name == 'zafg00um_0202'): 
-            flop_library = os.path.join(flow_root, 'ebrick-fpga', part_name, 'techlib', 'ebrick_fpga_tech_flops.v')
-            fpga.set('fpga', part_name, 'file', 'yosys_flop_techmap', flop_library)
+        if (part_name == 'zafg00um_0202'):
+            #***TO DO:  Put these back in when a newer version of this arch
+            #           is being tested
+            #flop_library = os.path.join(flow_root, 'ebrick-fpga', part_name, 'techlib', 'ebrick_fpga_tech_flops.v')
+            #fpga.set('fpga', part_name, 'file', 'yosys_flop_techmap', flop_library)
             
             bitstream_map_file = os.path.join(arch_root, 'ebrick_fpga_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
