@@ -6,7 +6,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 sc ${SCRIPT_DIR}/../rtl/fir_filter.v \
    ${SCRIPT_DIR}/../rtl/fir_filter_wrapper.v \
    ${SCRIPT_DIR}/../rtl/tree_adder.v \
-   -fpga_partname "zafg1um_0202" \
+   -fpga_partname "$1" \
    -flow "ebrick_fpga_flow" \
    -target "ebrick_fpga_cad.targets.ebrick_fpga_target" \
    -design "fir_filter_wrapper" \
