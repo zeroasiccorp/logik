@@ -54,15 +54,41 @@ def setup(chip):
         fpga.set('fpga', part_name, 'var', 'feature_set', 'async_reset')
         fpga.set('fpga', part_name, 'var', 'feature_set', 'enable')
 
-        arch_root = os.path.join(flow_root, part_name, 'cad')
+        arch_root = os.path.join(flow_root, f'{part_name}_cad', 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
                  os.path.join(arch_root, 'ebrick_fpga_core.xml'))
         fpga.set('fpga', part_name, 'file', 'graphfile',
                  os.path.join(arch_root, 'ebrick_fpga_core_rr_graph.xml'))
 
-        if (part_name == 'zafg1um_0202'): 
-            flop_library = os.path.join(flow_root, part_name, 'techlib', 'ebrick_fpga_tech_flops.v')
+        if (part_name == 'zafg1um_0202'):
+
+            techlib_root = os.path.join(flow_root, f'{part_name}_cad', 'techlib')
+            
+            flop_library = os.path.join(techlib_root,'ebrick_fpga_tech_flops.v')
             fpga.set('fpga', part_name, 'file', 'yosys_flop_techmap', flop_library)
+            
+            bram_library = os.path.join(techlib_root,'ebrick_fpga_tech_bram.v')
+            fpga.set('fpga', part_name, 'file', 'yosys_memory_techmap', bram_library)
+            
+            bram_memmap = os.path.join(techlib_root,'bram_memory_map.txt')
+            fpga.set('fpga', part_name, 'file', 'yosys_memory_libmap', bram_memmap)
+            
+            dsp_library = os.path.join(techlib_root,'ebrick_fpga_tech_dsp.v')
+            fpga.set('fpga', part_name, 'file', 'yosys_dsp_techmap', dsp_library)
+
+            mae_library = os.path.join(techlib_root,'ebrick_fpga_tech_mae.v')
+            fpga.set('fpga', part_name, 'file', 'yosys_dsp_extractlib', mae_library)
+            fpga.set('fpga', part_name, 'file', 'yosys_dsp_blackboxlib', mae_library)
+
+            #Set the dsp options for the yosys built-in DSP correctly for this
+            #architecture
+            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_A_MAXWIDTH=18')
+            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_B_MAXWIDTH=18')
+            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_A_MINWIDTH=2')
+            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_B_MINWIDTH=2')
+            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_NAME=ebrick_fpga_tech_multiplier')
+
+            fpga.add('fpga', part_name, 'var', 'dsp_blackbox_options', 'BLACKBOX_MACROS')
             
             bitstream_map_file = os.path.join(arch_root, 'ebrick_fpga_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
