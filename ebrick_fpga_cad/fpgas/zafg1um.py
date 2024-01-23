@@ -24,8 +24,8 @@ def setup(chip):
 
     ROOTDIR = os.path.abspath(__file__)
     
-    flow_root = ROOTDIR.replace("ebrick_fpga_cad/fpgas/zafg1um.py",
-                                "examples")
+    flow_root = os.path.join(ROOTDIR.replace("ebrick_fpga_cad/fpgas/zafg1um.py", "examples"),
+                             'ebrick-fpga')
     
     vendor = 'N/A'
 
@@ -45,6 +45,8 @@ def setup(chip):
 
         fpga = siliconcompiler.FPGA(chip, part_name)
 
+        chip.register_package_source('ebrick_fpga', flow_root)
+        
         fpga.set('fpga', part_name, 'vendor', vendor)
 
         fpga.set('fpga', part_name, 'lutsize', lut_size)
@@ -52,14 +54,14 @@ def setup(chip):
         fpga.set('fpga', part_name, 'var', 'feature_set', 'async_reset')
         fpga.set('fpga', part_name, 'var', 'feature_set', 'enable')
 
-        arch_root = os.path.join(flow_root, 'ebrick-fpga', part_name, 'cad')
+        arch_root = os.path.join(flow_root, part_name, 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
                  os.path.join(arch_root, 'ebrick_fpga_core.xml'))
         fpga.set('fpga', part_name, 'file', 'graphfile',
                  os.path.join(arch_root, 'ebrick_fpga_core_rr_graph.xml'))
 
         if (part_name == 'zafg1um_0202'): 
-            flop_library = os.path.join(flow_root, 'ebrick-fpga', part_name, 'techlib', 'ebrick_fpga_tech_flops.v')
+            flop_library = os.path.join(flow_root, part_name, 'techlib', 'ebrick_fpga_tech_flops.v')
             fpga.set('fpga', part_name, 'file', 'yosys_flop_techmap', flop_library)
             
             bitstream_map_file = os.path.join(arch_root, 'ebrick_fpga_core_bitstream_map.json')
