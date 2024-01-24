@@ -17,7 +17,13 @@ jobs:
 
     env:
       GIT_TOKEN: ${{ secrets.ZA_TOKEN }}
-      PYTHONPATH: "/home/runner/work/ebrick-fpga-cad/ebrick-fpga-cad"
+      PYTHONPATH: "/__w/ebrick-fpga-cad/ebrick-fpga-cad"
+
+    container:
+      image: ghcr.io/siliconcompiler/sc_tools:latest
+      credentials:
+        username: ${{ secrets.ZA_ACTOR }}
+        password: ${{ secrets.ZA_TOKEN }}
 
     steps:
       - name: Check out Git repository
