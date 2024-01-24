@@ -77,16 +77,16 @@ def setup(chip):
             fpga.set('fpga', part_name, 'file', 'yosys_dsp_techmap', dsp_library)
 
             mae_library = os.path.join(techlib_root,'ebrick_fpga_tech_mae.v')
-            fpga.set('fpga', part_name, 'file', 'yosys_dsp_extractlib', mae_library)
-            fpga.set('fpga', part_name, 'file', 'yosys_dsp_blackboxlib', mae_library)
+            fpga.add('fpga', part_name, 'file', 'yosys_extractlib', mae_library)
+            fpga.add('fpga', part_name, 'file', 'yosys_macrolib', mae_library)
 
             #Set the dsp options for the yosys built-in DSP correctly for this
             #architecture
-            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_A_MAXWIDTH=18')
-            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_B_MAXWIDTH=18')
-            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_A_MINWIDTH=2')
-            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_B_MINWIDTH=2')
-            fpga.add('fpga', part_name, 'var', 'dsp_options', 'DSP_NAME=ebrick_fpga_tech_multiplier')
+            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_A_MAXWIDTH=18')
+            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_B_MAXWIDTH=18')
+            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_A_MINWIDTH=2')
+            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_B_MINWIDTH=2')
+            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_NAME=ebrick_fpga_tech_multiplier')
 
             fpga.add('fpga', part_name, 'var', 'dsp_blackbox_options', 'BLACKBOX_MACROS')
             
