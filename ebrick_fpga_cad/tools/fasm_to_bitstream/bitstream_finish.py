@@ -21,7 +21,7 @@ def setup(chip):
 
     part_name = chip.get('fpga', 'partname')
     
-    chip.set('tool', tool, 'exe', 'fasm2bitstream.py')
+    chip.set('tool', tool, 'exe', 'fasm_to_bitstream.py')
 
     # Input/output requirements.
     #chip.set('tool', tool, 'task', task, 'input', design + '.fasm', step=step, index=index)
@@ -55,10 +55,10 @@ def runtime_options(chip):
     if (len(bitstream_maps) == 1):
         options.append(bitstream_maps[0])
     elif (len(bitstream_maps) == 0):
-        chip.error("fasm2bitstream.py requires a bitstream map file",
+        chip.error("fasm_to_bitstream.py requires a bitstream map file",
                    fatal=True)
     else:
-        chip.error("Only one bitstream map file can be passed to fasm2bitstream.py", fatal=True)
+        chip.error("Only one bitstream map file can be passed to fasm_to_bitstream.py", fatal=True)
 
     json_outfile = f"outputs/{topmodule}_bitstream.json"
     options.append(json_outfile)
