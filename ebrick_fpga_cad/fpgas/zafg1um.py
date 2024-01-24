@@ -45,7 +45,17 @@ def setup(chip):
 
         fpga = siliconcompiler.FPGA(chip, part_name)
 
-        chip.register_package_source('ebrick_fpga', flow_root)
+        # Assemble the name of the CAD release to obtain
+        # from github
+
+        current_release = 'v0.5.13'
+        url_base = 'https://github.com/zeroasiccorp/ebrick-fpga/releases/download'
+        cad_release_tarball = f'ebrick-fpga_{part_name}_cad.tar.gz'
+        cad_part_release_url = f'{url_base}/{current_release}/{cad_release_tarball}'
+        
+        chip.register_package_source(name='ebrick_fpga',
+                                     path=cad_part_release_url,
+                                     ref='')
         
         fpga.set('fpga', part_name, 'vendor', vendor)
 
@@ -54,15 +64,15 @@ def setup(chip):
         fpga.set('fpga', part_name, 'var', 'feature_set', 'async_reset')
         fpga.set('fpga', part_name, 'var', 'feature_set', 'enable')
 
-        arch_root = os.path.join(flow_root, f'{part_name}_cad', 'cad')
+        cad_root = os.path.join(f'{part_name}_cad', 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
-                 os.path.join(arch_root, 'ebrick_fpga_core.xml'))
+                 os.path.join(cad_root, 'ebrick_fpga_core.xml'))
         fpga.set('fpga', part_name, 'file', 'graphfile',
-                 os.path.join(arch_root, 'ebrick_fpga_core_rr_graph.xml'))
+                 os.path.join(cad_root, 'ebrick_fpga_core_rr_graph.xml'))
 
         if (part_name == 'zafg1um_0202'):
 
-            techlib_root = os.path.join(flow_root, f'{part_name}_cad', 'techlib')
+            techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
             
             flop_library = os.path.join(techlib_root,'ebrick_fpga_tech_flops.v')
             fpga.set('fpga', part_name, 'file', 'yosys_flop_techmap', flop_library)
@@ -90,7 +100,7 @@ def setup(chip):
 
             fpga.add('fpga', part_name, 'var', 'dsp_blackbox_options', 'BLACKBOX_MACROS')
             
-            bitstream_map_file = os.path.join(arch_root, 'ebrick_fpga_core_bitstream_map.json')
+            bitstream_map_file = os.path.join(cad_root, 'ebrick_fpga_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
             
             fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
