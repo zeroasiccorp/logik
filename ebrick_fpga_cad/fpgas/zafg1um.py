@@ -2,6 +2,7 @@
 
 import os
 import siliconcompiler
+from ebrick_fpga_cad.fpgas import _common
 
 
 ####################################################
@@ -49,14 +50,11 @@ def setup(chip):
         # from github
 
         current_release = 'v0.5.13'
-        url_base = 'https://github.com/zeroasiccorp/ebrick-fpga/releases/download'
-        cad_release_tarball = f'ebrick-fpga_{part_name}_cad.tar.gz'
-        cad_part_release_url = f'{url_base}/{current_release}/{cad_release_tarball}'
-        
-        chip.register_package_source(name='ebrick_fpga',
+        cad_part_release_url = _common.get_release_url(current_release, f'ebrick-fpga_{part_name}_cad.tar.gz')
+        chip.register_package_source(name=f'ebrick_fpga-{part_name}',
                                      path=cad_part_release_url,
-                                     ref='')
-        
+                                     ref=current_release)
+
         fpga.set('fpga', part_name, 'vendor', vendor)
 
         fpga.set('fpga', part_name, 'lutsize', lut_size)
