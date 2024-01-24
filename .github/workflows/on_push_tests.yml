@@ -14,7 +14,7 @@ jobs:
 
     env:
       GIT_TOKEN: ${{ secrets.ZA_TOKEN }}
-
+      PYTHONPATH: "/__w/ebrick-fpga-cad/ebrick-fpga-cad"
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
