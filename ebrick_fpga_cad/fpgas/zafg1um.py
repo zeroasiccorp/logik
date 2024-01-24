@@ -44,8 +44,6 @@ def setup(chip):
     # Settings common to all parts in family
     for part_name in all_part_names:
 
-        fpga = siliconcompiler.FPGA(chip, part_name)
-
         # Assemble the name of the CAD release to obtain
         # from github
 
@@ -54,6 +52,8 @@ def setup(chip):
         chip.register_package_source(name=f'ebrick_fpga-{part_name}',
                                      path=cad_part_release_url,
                                      ref=current_release)
+
+        fpga = siliconcompiler.FPGA(chip, part_name, package=f'ebrick_fpga-{part_name}')
 
         fpga.set('fpga', part_name, 'vendor', vendor)
 

@@ -2,6 +2,7 @@
 
 import os
 import siliconcompiler
+from ebrick_fpga_cad.fpgas import _common
 
 
 ####################################################
@@ -40,7 +41,16 @@ def setup(chip):
     # Settings common to all parts in family
     for part_name in all_part_names:
 
-        fpga = siliconcompiler.FPGA(chip, part_name)
+        # Assemble the name of the CAD release to obtain
+        # from github
+
+        current_release = 'v0.5.13'
+        cad_part_release_url = _common.get_release_url(current_release, f'ebrick-fpga_{part_name}_cad.tar.gz')
+        chip.register_package_source(name=f'ebrick_fpga-{part_name}',
+                                     path=cad_part_release_url,
+                                     ref=current_release)
+
+        fpga = siliconcompiler.FPGA(chip, part_name, package=f'ebrick_fpga-{part_name}')
 
         fpga.set('fpga', part_name, 'vendor', vendor)
 
