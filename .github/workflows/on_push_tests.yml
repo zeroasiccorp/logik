@@ -1,15 +1,13 @@
 ---
 
 name: ebrick-fpga-cad CI Test
+
 on:
   # Runs on all PRs
   push:
   pull_request:
   # Manual Dispatch
   workflow_dispatch:
-
-env:
-  REPO_PATH: "/__w/ebrick-fpga-cad/ebrick-fpga-cad"
 
 jobs:
   ci_test:
@@ -19,12 +17,13 @@ jobs:
 
     env:
       GIT_TOKEN: ${{ secrets.ZA_TOKEN }}
-      PYTHONPATH: ${{ env.REPO_PATH }}
+      PYTHONPATH: "/__w/ebrick-fpga-cad/ebrick-fpga-cad"
+
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
         with:
-          path: ${{ env.REPO_PATH }}
+          path: "/__w/ebrick-fpga-cad/ebrick-fpga-cad"
 
       - name: Install Requirements
         run: |
