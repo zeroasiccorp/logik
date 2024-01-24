@@ -17,7 +17,10 @@ def main() :
     json_bitstream_file = sys.argv[3]
 
     config_bitstream = fasm2bitstream(fasm_file, bitstream_map_file)
+    write_bitstream_json(config_bitstream, json_bitstream_file)
 
+def write_bitstream_json(config_bitstream, json_bitstream_file) :
+    
     json_out = open(json_bitstream_file, "w")
     json_out.write(json.dumps(config_bitstream))
     json_out.write("\n")
