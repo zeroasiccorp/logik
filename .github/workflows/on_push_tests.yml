@@ -20,7 +20,8 @@ jobs:
       PYTHONPATH: "/__w/ebrick-fpga-cad/ebrick-fpga-cad"
 
     container:
-      image: ghcr.io/siliconcompiler/sc_tools:latest
+      #image: ghcr.io/siliconcompiler/sc_tools:latest
+      image: ghcr.io/zeroasiccorp/ebrick-fpga-docker:latest
       credentials:
         username: ${{ secrets.ZA_ACTOR }}
         password: ${{ secrets.ZA_TOKEN }}
