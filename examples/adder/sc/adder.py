@@ -3,8 +3,6 @@ import argparse
 import os
 
 import siliconcompiler
-import ebrick_fpga_cad
-
 from ebrick_fpga_cad.targets import ebrick_fpga_target
 
 

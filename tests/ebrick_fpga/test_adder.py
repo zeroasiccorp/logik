@@ -4,7 +4,7 @@ import subprocess
 import pytest
 import siliconcompiler
 
-@pytest.mark.quick
+
 @pytest.mark.timeout(300)
 @pytest.mark.parametrize("part_name",
                          [
@@ -17,7 +17,7 @@ def test_py(setup_example_test, part_name):
     import adder
     adder.main(part_name=part_name)
 
-@pytest.mark.quick
+
 @pytest.mark.timeout(300)
 @pytest.mark.parametrize("part_name",
                          [

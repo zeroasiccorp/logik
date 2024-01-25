@@ -10,30 +10,40 @@ on:
   workflow_dispatch:
 
 jobs:
+  docker_image:
+    uses: siliconcompiler/siliconcompiler/.github/workflows/docker_image.yml@main
+    with:
+      tool: 'tools'
+      sc_version: latest
+
   ci_test:
     name: Run ebrick-fpga CAD flow tests
+    needs: docker_image
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     env:
       GIT_TOKEN: ${{ secrets.ZA_TOKEN }}
-      PYTHONPATH: "/__w/ebrick-fpga-cad/ebrick-fpga-cad"
 
     container:
-      #image: ghcr.io/siliconcompiler/sc_tools:latest
-      image: ghcr.io/zeroasiccorp/ebrick-fpga-docker:latest
+      image: ${{ needs.docker_image.outputs.sc_tool }}
       credentials:
         username: ${{ secrets.ZA_ACTOR }}
         password: ${{ secrets.ZA_TOKEN }}
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Requirements
         run: |
+          python3 -m venv clean_venv
+          . clean_venv/bin/activate
+
           python3 -m pip install --upgrade pip
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install -e .[test]
+
       - name: Run tests
         run: |
-          pytest tests
+          . clean_venv/bin/activate
+          pytest
