@@ -1,0 +1,34 @@
+[build-system]
+requires = [
+    "setuptools >= 61.2"
+]
+
+[project]
+name = "ebrick-fpga-cad"
+authors = [{name = "Zero ASIC"}]
+description = "Library containing proprietary RTL-to-bitstream and other CAD support for ebrick-fpga."
+readme = "README.md"
+urls = {Homepage = "https://github.com/zeroasiccorp/ebrick-fpga-cad"}
+requires-python = ">= 3.8"
+dependencies = [
+    "siliconcompiler >= 0.19.1",
+    "PyGithub"
+]
+license = {text = "Zero ASIC Proprietary"}
+version = "0.0.1"
+
+[project.optional-dependencies]
+test = [
+    "pytest >= 6.2.4",
+    "pytest-timeout >= 2.1.0"
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+namespaces = false
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+timeout = "180"
