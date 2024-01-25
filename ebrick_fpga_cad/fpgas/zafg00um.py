@@ -25,10 +25,7 @@ def setup(chip):
 
     ROOTDIR = os.path.abspath(__file__)
     
-    flow_root = os.path.join(ROOTDIR.replace("ebrick_fpga_cad/fpgas/zafg00um.py", "examples"),
-                             'ebrick-fpga')
-    
-    vendor = 'N/A'
+    vendor = 'zeroasic'
 
     lut_size = '4'
     
@@ -55,26 +52,24 @@ def setup(chip):
         fpga.set('fpga', part_name, 'vendor', vendor)
 
         fpga.set('fpga', part_name, 'lutsize', lut_size)
-        #***TO DO:  Put these back in when a newer version of this arch
-        #           is being tested
-        #fpga.add('fpga', part_name, 'var', 'feature_set', 'async_reset')
-        #fpga.add('fpga', part_name, 'var', 'feature_set', 'async_set')
-        #fpga.add('fpga', part_name, 'var', 'feature_set', 'enable')
+        fpga.add('fpga', part_name, 'var', 'feature_set', 'async_reset')
+        fpga.add('fpga', part_name, 'var', 'feature_set', 'async_set')
+        fpga.add('fpga', part_name, 'var', 'feature_set', 'enable')
 
-        arch_root = os.path.join(flow_root, f'{part_name}_cad', 'cad')
+        cad_root = os.path.join(f'{part_name}_cad', 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
-                 os.path.join(arch_root, 'ebrick_fpga_core.xml'))
+                 os.path.join(cad_root, 'ebrick_fpga_core.xml'))
         fpga.set('fpga', part_name, 'file', 'graphfile',
-                 os.path.join(arch_root, 'ebrick_fpga_core_rr_graph.xml'))
+                 os.path.join(cad_root, 'ebrick_fpga_core_rr_graph.xml'))
 
         if (part_name == 'zafg00um_0202'):
-            flop_library = os.path.join(flow_root,
-                                        f'{part_name}_cad',
-                                        'techlib',
-                                        'ebrick_fpga_tech_flops.v')
+            
+            techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
+            
+            flop_library = os.path.join(techlib_root, 'ebrick_fpga_tech_flops.v')
             fpga.set('fpga', part_name, 'file', 'yosys_flop_techmap', flop_library)
             
-            bitstream_map_file = os.path.join(arch_root, 'ebrick_fpga_core_bitstream_map.json')
+            bitstream_map_file = os.path.join(cad_root, 'ebrick_fpga_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
             
             fpga.set('fpga', part_name, 'var', 'channelwidth', '128')

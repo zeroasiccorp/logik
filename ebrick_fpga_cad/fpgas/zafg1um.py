@@ -25,15 +25,9 @@ def setup(chip):
 
     ROOTDIR = os.path.abspath(__file__)
     
-    flow_root = os.path.join(ROOTDIR.replace("ebrick_fpga_cad/fpgas/zafg1um.py", "examples"),
-                             'ebrick-fpga')
-    
-    vendor = 'N/A'
+    vendor = 'zeroasic'
 
     lut_size = '4'
-    flop_async_set = '1'
-    flop_async_reset = '1'
-    flop_enable = '1'
     
     all_fpgas = []
 
@@ -58,9 +52,9 @@ def setup(chip):
         fpga.set('fpga', part_name, 'vendor', vendor)
 
         fpga.set('fpga', part_name, 'lutsize', lut_size)
-        fpga.set('fpga', part_name, 'var', 'feature_set', 'async_set')
-        fpga.set('fpga', part_name, 'var', 'feature_set', 'async_reset')
-        fpga.set('fpga', part_name, 'var', 'feature_set', 'enable')
+        fpga.add('fpga', part_name, 'var', 'feature_set', 'async_reset')
+        fpga.add('fpga', part_name, 'var', 'feature_set', 'async_set')
+        fpga.add('fpga', part_name, 'var', 'feature_set', 'enable')
 
         cad_root = os.path.join(f'{part_name}_cad', 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
@@ -72,7 +66,7 @@ def setup(chip):
 
             techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
             
-            flop_library = os.path.join(techlib_root,'ebrick_fpga_tech_flops.v')
+            flop_library = os.path.join(techlib_root, 'ebrick_fpga_tech_flops.v')
             fpga.set('fpga', part_name, 'file', 'yosys_flop_techmap', flop_library)
             
             bram_library = os.path.join(techlib_root,'ebrick_fpga_tech_bram.v')
