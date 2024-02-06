@@ -22,6 +22,18 @@ def get_release_url(release_tag, artifact_name, token=None):
             return __find_release_artifact(release, artifact_name)
     return None
 
+def get_efpga_release_url(release_tag, artifact_name, token=None):
+    if not token:
+        token = os.environ.get('GIT_TOKEN')
+    auth = Auth.Token(token)
+    g = Github(auth=auth)
+    repo = g.get_repo('zeroasiccorp/zeroasic-efpga')
+    releases = repo.get_releases()
+    for release in releases:
+        if release.tag_name == release_tag:
+            return __find_release_artifact(release, artifact_name)
+    return None
+
 
 if __name__ == "__main__":
     print(get_release_url('v0.5.13', 'ebrick-fpga_zafg1um_mini_0202_cad.tar.gz'))
