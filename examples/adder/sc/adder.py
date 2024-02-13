@@ -5,6 +5,8 @@ import os
 import siliconcompiler
 from ebrick_fpga_cad.targets import ebrick_fpga_target
 
+from adder_pin_constraints import generate_mapped_constraints
+from adder_pin_constraints import write_json_constraints
 
 def main(part_name='zafg1um_0202'):
 
@@ -25,6 +27,10 @@ def main(part_name='zafg1um_0202'):
     # 3. Define constraints
     # chip.add('input', 'constraint', 'pins', 'adder_pin_constraints.xml')
     pinmap_file = os.path.join(project_path, 'sc', f'adder_pin_constraints_{part_name}.json')
+
+    pin_constraints = generate_mapped_constraints(part_name)
+    write_json_constraints(pin_constraints, pinmap_file)
+    
     chip.add('input', 'constraint', 'pinmap', pinmap_file)
     
     for filename in src_files :
