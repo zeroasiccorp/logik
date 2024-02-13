@@ -62,13 +62,16 @@ def generate_constraints(json_generic_constraints,
                          quiet=False) :
     
         
+    reverse_constraints_map = flip_gasket_map(constraints_map)
+
     signal_dir = get_signal_directions(json_generic_constraints)
+    
     design_constraints = map_constraints(json_generic_constraints,
-                                         constraints_map,
+                                         reverse_constraints_map,
                                          verbose=verbose,
                                          quiet=quiet)
-    reverse_constraints_map = flip_gasket_map(constraints_map)
-    constraints_xml = generate_vpr_constraints_xml(design_constraints, reverse_constraints_map, signal_dir)
+
+    constraints_xml = generate_vpr_constraints_xml(design_constraints, constraints_map, signal_dir)
     return constraints_xml
 
 def get_signal_directions(json_generic_constraints) :
