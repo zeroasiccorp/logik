@@ -10,4 +10,5 @@ sc ${SCRIPT_DIR}/../rtl/fir_filter.v \
    -flow "ebrick_fpga_flow" \
    -target "ebrick_fpga_cad.targets.ebrick_fpga_target" \
    -design "fir_filter_wrapper" \
-   -D "FIR_FILTER_CONSTANT_COEFFS"
+   -D "FIR_FILTER_CONSTANT_COEFFS" \
+   -input "constraint pinmap ${SCRIPT_DIR}/fir_filter_pin_constraints_$1.json"
