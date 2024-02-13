@@ -41,7 +41,7 @@ def setup(chip):
         # Assemble the name of the CAD release to obtain
         # from github
 
-        current_release = 'v0.0.12'
+        current_release = 'v0.0.14'
         cad_part_release_url = _common.get_efpga_release_url(current_release, f'{part_name}_cad.tar.gz')
         chip.register_package_source(name=f'ebrick_fpga-{part_name}',
                                      path=cad_part_release_url,
@@ -61,6 +61,8 @@ def setup(chip):
                  os.path.join(cad_root, 'efpga_core.xml'))
         fpga.set('fpga', part_name, 'file', 'graphfile',
                  os.path.join(cad_root, 'efpga_core_rr_graph.xml'))
+        fpga.set('fpga', part_name, 'file', 'gasket_map',
+                 os.path.join(cad_root, f'{part_name}_gasket_map.json'))
 
         if (part_name == 'zaeg1aa_0101'):
 
