@@ -12,6 +12,7 @@ from siliconcompiler.tools.vpr import route as vpr_route
 from siliconcompiler.tools.genfasm import bitstream as genfasm_bitstream
 
 from ebrick_fpga_cad.tools.fasm_to_bitstream import bitstream_finish
+from ebrick_fpga_cad.tools.generate_vpr_constraints import constraint_gen
 
 ############################################################################
 # DOCS
@@ -62,6 +63,7 @@ def flow_lookup():
     
     flow = [
         ('syn', yosys_syn),
+        ('constraint_gen', constraint_gen),
         ('place', vpr_place),
         ('route', vpr_route),
         ('genfasm', genfasm_bitstream),
