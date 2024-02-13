@@ -41,7 +41,7 @@ def setup(chip):
         # Assemble the name of the CAD release to obtain
         # from github
 
-        current_release = 'v0.5.13'
+        current_release = 'v0.5.15'
         cad_part_release_url = _common.get_release_url(current_release, f'ebrick-fpga_{part_name}_cad.tar.gz')
         chip.register_package_source(name=f'ebrick_fpga-{part_name}',
                                      path=cad_part_release_url,
@@ -94,6 +94,9 @@ def setup(chip):
             
             bitstream_map_file = os.path.join(cad_root, 'ebrick_fpga_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
+            
+            gasket_map_file = os.path.join(cad_root, 'test_gasket_map.json')
+            fpga.set('fpga', part_name, 'file', 'gasket_map', gasket_map_file)
             
             fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
 
