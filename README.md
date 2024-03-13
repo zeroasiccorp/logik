@@ -24,11 +24,13 @@ Silicon Compiler is installed as part of the python package requirements for thi
 * Clone the [Yosys Github repository](https://github.com/YosysHQ)
 * Check out the current qualified version:  `git checkout yosys-0.36`
 * Follow the [Yosys build instructions](https://github.com/YosysHQ/yosys?tab=readme-ov-file#installation)
+* Add the path to the yosys executable to your PATH environment variable
 
 ### VPR Installation
 * Clone the [VPR Github repository](https://github.com/verilog-to-routing/vtr-verilog-to-routing/tree/master)
 * Check out the current qualified version:  `git checkout c4156f225c7a292c5768444631ca053ea7473428`
 * Follow the [VPR build instructions](https://github.com/verilog-to-routing/vtr-verilog-to-routing/blob/master/BUILDING.md)
+* Add the paths to the vpr and genfasm executables to your PATH environment variable
 
 ## Repository Setup
 To prepare this repository for use, it is necessary to do the following:
