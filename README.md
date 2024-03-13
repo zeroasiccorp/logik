@@ -1,14 +1,27 @@
 # ebrick-fpga-cad
 RTL-to-bitstream and other CAD support for ebrick-fpga
 
+## Install Required Software
+Currently the required tools are [Yosys](https://yosyshq.readthedocs.io/en/latest/tools.html#yosys), [VPR](https://docs.verilogtorouting.org), and [Silicon Compiler](https://docs.siliconcompiler.com).  There are two ways to do this
+    1. Obtain via Silicon Compiler installation
+    2. Build from source yourself.  This requires checking out the qualified versions of the source repositories, which are documented in instructions below
+
+### Silicon Compiler Installation
+Silicon Compiler is installed as part of the python package requirements for this repository (see below)
+
+### Yosys Installation
+* Clone the [Yosys Github repository](https://github.com/YosysHQ)
+* Check out the current qualified version:  `git checkout yosys-0.36`
+* Follow the [Yosys build instructions](https://github.com/YosysHQ/yosys?tab=readme-ov-file#installation)
+
+### VPR Installation
+* Clone the [VPR Github repository](https://github.com/verilog-to-routing/vtr-verilog-to-routing/tree/master)
+* Check out the current qualified version:  `git checkout c4156f225c7a292c5768444631ca053ea7473428`
+* Follow the [VPR build instructions](https://github.com/verilog-to-routing/vtr-verilog-to-routing/blob/master/BUILDING.md)
+
 ## Repository Setup
 To prepare this repository for use, it is necessary to do the following:
 
-* Install required software tools.  Currently these are [Yosys](https://yosyshq.readthedocs.io/en/latest/tools.html#yosys), [VPR](https://docs.verilogtorouting.org), and [Silicon Compiler](https://docs.siliconcompiler.com).  There are two ways to do this
-    1. Obtain via Silicon Compiler installation
-    2. Build from source yourself: 
-        * [Yosys Github repository](https://github.com/YosysHQ) [Yosys build instructions](https://github.com/YosysHQ/yosys?tab=readme-ov-file#installation)
-        * [VPR Github repository](https://github.com/verilog-to-routing/vtr-verilog-to-routing/tree/master)[VPR build instructions](https://github.com/verilog-to-routing/vtr-verilog-to-routing/blob/master/BUILDING.md)
 * Clone this repository:  `git clone https://github.com/zeroasiccorp/ebrick-fpga-cad`
 * Create a Python virtual environment, e.g. `python3 -m venv venv; source venv/bin/activate`
 * Install Python packages within your virtual environment; `pip install --upgrade pip; pip install -r requirements.txt`
