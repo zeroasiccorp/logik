@@ -1,6 +1,8 @@
 # ebrick-fpga-cad
 This repository contains RTL-to-bitstream and other CAD support for ebrick-fpga.
 
+This README documents how to set up and make use of the software contained in this repository, and how to run example scripts that showcase software features.
+
 ## Prerequisites
 
 * Ubuntu 20.04
