@@ -1,7 +1,16 @@
 # ebrick-fpga-cad
-RTL-to-bitstream and other CAD support for ebrick-fpga
+This repository contains RTL-to-bitstream and other CAD support for ebrick-fpga.
+
+## Prerequisites
+
+* Ubuntu 20.04
+* Python 3.8 or higher
+* git
+
+Github CLI is not required, but recommended.
 
 ## Install Required Software
+
 Currently the required tools are [Yosys](https://yosyshq.readthedocs.io/en/latest/tools.html#yosys), [VPR](https://docs.verilogtorouting.org), and [Silicon Compiler](https://docs.siliconcompiler.com).  There are two ways to do this
     1. Obtain via Silicon Compiler installation
     2. Build from source yourself.  This requires checking out the qualified versions of the source repositories, which are documented in instructions below
