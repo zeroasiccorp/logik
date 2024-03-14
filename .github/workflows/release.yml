@@ -1,0 +1,36 @@
+name: eFPGA Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        required: true
+
+jobs:
+  create_release:
+    name: Generate Release with Artifacts
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Get CAD release
+        shell: bash
+        run: |
+          echo ${{ secrets.ZA_TOKEN }} | gh auth login --with-token
+          gh auth setup-git
+
+          gh release download ${{ inputs.release_tag }} \
+            --pattern '*_cad.tar.gz' \
+            --repo zeroasiccorp/zeroasic-efpga
+
+      - name: Create eFPGA Core Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag: ${{ inputs.release_tag }}
+          token: ${{ secrets.ZA_TOKEN }}
+          name: eFPGA Release ${{ inputs.release_tag }}
+          files: *_cad.tar.gz
