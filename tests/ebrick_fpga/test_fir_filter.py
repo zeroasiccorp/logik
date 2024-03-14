@@ -1,8 +1,6 @@
-import os
-import subprocess
-
 import pytest
-import siliconcompiler
+import subprocess
+import os
 
 
 @pytest.mark.timeout(300)
@@ -16,6 +14,7 @@ def test_py(setup_example_test, part_name):
     import fir_filter
     fir_filter.main(part_name)
 
+
 @pytest.mark.timeout(300)
 @pytest.mark.parametrize("part_name",
                          [
@@ -27,6 +26,5 @@ def test_cli(setup_example_test, part_name):
     proc = subprocess.run([os.path.join(fir_filter_dir, 'fir_filter.py'),
                            '-fpga_partname',
                            part_name])
-    
-    assert proc.returncode == 0
 
+    assert proc.returncode == 0

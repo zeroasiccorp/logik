@@ -22,6 +22,7 @@ def get_release_url(release_tag, artifact_name, token=None):
             return __find_release_artifact(release, artifact_name)
     return None
 
+
 def get_efpga_release_url(release_tag, artifact_name, token=None):
     if not token:
         token = os.environ.get('GIT_TOKEN')

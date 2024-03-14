@@ -1,5 +1,3 @@
-#ebrick_fpga_target.py
-
 import siliconcompiler
 from siliconcompiler.targets import utils
 
