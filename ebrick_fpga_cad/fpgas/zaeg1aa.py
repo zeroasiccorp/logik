@@ -33,6 +33,7 @@ def setup(chip):
 
     all_part_names = [
         'zaeg1aa_0101',
+        'zaeg1aa_0202',
     ]
 
     # Settings common to all parts in family
@@ -41,7 +42,7 @@ def setup(chip):
         # Assemble the name of the CAD release to obtain
         # from github
 
-        current_release = 'v0.0.14'
+        current_release = 'v0.0.15'
         cad_part_release_url = _common.get_efpga_release_url(current_release, f'{part_name}_cad.tar.gz')
         chip.register_package_source(name=f'ebrick_fpga-{part_name}',
                                      path=cad_part_release_url,
@@ -64,7 +65,8 @@ def setup(chip):
         fpga.set('fpga', part_name, 'file', 'gasket_map',
                  os.path.join(cad_root, f'{part_name}_gasket_map.json'))
 
-        if (part_name == 'zaeg1aa_0101'):
+        if ((part_name == 'zaeg1aa_0101') or
+            (part_name == 'zaeg1aa_0202')) :
 
             techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
             
@@ -97,7 +99,10 @@ def setup(chip):
             bitstream_map_file = os.path.join(cad_root, 'efpga_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
             
-            fpga.set('fpga', part_name, 'var', 'channelwidth', '100')
+            if (part_name == 'zaeg1aa_0101') :
+                fpga.set('fpga', part_name, 'var', 'channelwidth', '100')
+            elif (part_name == 'zaeg1aa_0202') :
+                fpga.set('fpga', part_name, 'var', 'channelwidth', '128')
 
         all_fpgas.append(fpga)
 
