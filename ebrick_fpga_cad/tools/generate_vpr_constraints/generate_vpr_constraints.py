@@ -39,7 +39,6 @@ def main():
 def load_json_constraints(json_constraints_file) :
 
     json_generic_constraints = {}
-    print(f"INFO:  load JSON constraints file {json_constraints_file}") 
     with (open(json_constraints_file, "r")) as json_constraints_data :
         json_generic_constraints = json.loads(json_constraints_data.read())
 
@@ -49,7 +48,6 @@ def load_json_constraints(json_constraints_file) :
 def load_constraints_map(constraints_map_file) :
 
     constraints_map = {}
-    print(f"INFO:  load constraints map file {constraints_map_file}") 
     with (open(constraints_map_file, "r")) as constraints_map_data :
         constraints_map = json.loads(constraints_map_data.read())
     
@@ -106,12 +104,8 @@ def map_constraints(json_generic_constraints,
             if (design_pin_assignment in constraints_map) :
                 design_pin_constraint_assignment = constraints_map[design_pin_assignment]
             else :
-                if (quiet == False) :
-                    print(f"WARNING: pin assignment {design_pin_assignment} cannot be made in this architecture; skipping...")
                 design_pin_constraint_assignment = None
             
-            if (verbose) :
-                print(f"INFO:  assign {design_pin} to {design_pin_constraint_assignment}")
             design_constraints[design_pin] = design_pin_constraint_assignment
 
     return design_constraints
@@ -135,11 +129,9 @@ def generate_partition_list_xml(pin_map, gasket_map, signal_dir) :
 
         errors = 0
         if ((pin in pin_map == False)) :
-            print(f"generate_partition_list_xml() ERROR: pin map is missing pin {pin}")
             errors += 1
         else :
             if (pin_map[pin] == None) :
-                print(f"generate_partition_list_xml() ERROR: pin map for pin {pin} is None")
                 errors += 1
             
         if (errors == 0) :
@@ -181,15 +173,10 @@ def generate_vpr_pb_name(pin_name, signal_dir, verbose=True) :
     #generating placement constraints
 
     if (signal_dir[pin_name] == "output") :
-        if (verbose) :
-            print(f"generate_vpr_pb_name() INFO:  Map {pin_name} based on signal direction {signal_dir[pin_name]} of {pin_name}")
         return "out:"+pin_name
     elif (signal_dir[pin_name] == "input") :
-        if (verbose) :
-            print(f"generate_vpr_pb_name() INFO:  Map {pin_name} based on signal direction {signal_dir[pin_name]} of {pin_name}")
         return pin_name
     else :
-        print("generate_vpr_pb_name() ERROR: pin "+pin_name+" has illegal direction "+signal_dir[pin_name])
         return pin_name
     
 def generate_partition_name(pin) :

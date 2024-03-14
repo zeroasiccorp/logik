@@ -34,14 +34,6 @@ def fasm2bitstream(fasm_file, bitstream_map_file, verbose=False, fasm_warnings=F
 
     fasm_features = load_fasm_data(fasm_file, all_warnings=fasm_warnings, verbose=verbose)
 
-    if (verbose) :
-        for feature in fasm_features :
-            info("fasm2bitstream()",
-                 "apply FASM feature "+feature)
-    else :
-        info("fasm2bitstream()",
-             "apply "+str(len(fasm_features))+" features")
-        
     config_bitstream = generate_bitstream_from_fasm(bitstream_map, fasm_features)
 
     return config_bitstream
@@ -89,17 +81,9 @@ def load_fasm_data(filename, all_warnings=False, verbose=False) :
                         base_feature_value = feature_array[1]
 
                         if (base_feature_length != len(base_feature_value)) :
-                            error("load_fasm_data()",
-                                  "wrong number of bits in feature value array")
-                            info("load_fasm_data()",
-                                 "expected "+str(base_feature_length))
-                            info("load_fasm_data()",
-                                 " got "+str(len(base_feature_value))+")")
                             errors += 1
                                             
                     if (len(feature_name_fields) < 3) :
-                        error("load_fasm_data()",
-                              "wrong number of fields for array FASM feature name")
                         errors += 1
                         
                     if (errors == 0) :
@@ -113,8 +97,6 @@ def load_fasm_data(filename, all_warnings=False, verbose=False) :
                             if (base_feature_value[i] == "1") :
                                 cur_index = base_feature_name_msb-i
                                 indexed_feature_name = base_feature_name+"["+str(cur_index)+"]"
-                                if (verbose) :
-                                    info("load_fasm_data() INFO: add feature "+indexed_feature_name)
                                 canonical_fasm_feature_list.append(indexed_feature_name)
                                 
                 else :
@@ -141,11 +123,6 @@ def generate_bitstream_from_fasm(address_map,
                 bitstream[x][y].append([0] * len(address_map[x][y][address]))
                 
     for fasm_feature in fasm_data :
-        if (verbose) :
-            info("generate_bitstream_from_fasm()",
-                  "detect FASM feature for "+address_map[x][y][address][bit])
-            info("generate_bitstream_from_fasm()",
-                 f"apply FASM feature to x={x} y={y} addr={address} bit={bit}")
         x_i = feature_index[fasm_feature]['x']
         y_i = feature_index[fasm_feature]['y']
         addr_i = feature_index[fasm_feature]['address']
@@ -174,17 +151,3 @@ def format_binary_bitstream_address(address, address_width) :
     formatted_address = format(address, 'b').zfill(address_width)
     return str(address_width) + "'b" + formatted_address
 
-def info(caller, message) :
-
-    print(f'{caller} INFO: {message}')
-
-def warning(caller, message) :
-
-    print(f'{caller} WARNING: {message}')
-
-def error(caller, message) :
-
-    print(f'{caller} ERROR: {message}')
-
-if __name__ == "__main__" :
-    main()
