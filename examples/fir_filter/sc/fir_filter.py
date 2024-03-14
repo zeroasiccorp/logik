@@ -9,12 +9,23 @@ from fir_filter_pin_constraints import generate_mapped_constraints
 from fir_filter_pin_constraints import write_json_constraints
 
 
-def main(part_name='zafg1um_0202'):
-
+def main():
+    
     top_module = 'fir_filter_wrapper'
     
     chip = siliconcompiler.Chip(f'{top_module}')
 
+    additional_args = {
+        '-part_name': {
+            'type': str,
+        }
+    }
+    
+    args = chip.create_cmdline('sc',
+                               additional_args=additional_args)
+
+    part_name = args['part_name']
+    
     chip.set('fpga', 'partname', part_name)
 
     # 1. Defining the project
@@ -49,7 +60,4 @@ def main(part_name='zafg1um_0202'):
 
 
 if __name__ == "__main__":
-    option_parser = argparse.ArgumentParser("ebrick-fpga CAD FIR Filter Demo")
-    option_parser.add_argument("-part_name", default="zafg1um_0202")
-    options = option_parser.parse_args()
-    main(part_name=options.part_name)
+    main()
