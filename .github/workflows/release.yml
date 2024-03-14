@@ -23,7 +23,7 @@ jobs:
           gh auth setup-git
 
           gh release download ${{ inputs.release_tag }} \
-            --pattern '*_cad.tar.gz' \
+            --pattern '*_demo_cad.tar.gz' \
             --repo zeroasiccorp/zeroasic-efpga
 
       - name: Create eFPGA Core Release
