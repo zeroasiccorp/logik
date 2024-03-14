@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 
-import argparse
 import os
 
 import siliconcompiler
 from ebrick_fpga_cad.targets import ebrick_fpga_target
 
-from adder_pin_constraints import generate_mapped_constraints
-from adder_pin_constraints import write_json_constraints
 
 def main(part_name='ebrick_fpga_demo'):
     
-    top_module = 'adder'
+    top_module = 'fir_filter_wrapper'
     
     chip = siliconcompiler.Chip(f'{top_module}')
 
@@ -25,19 +22,16 @@ def main(part_name='ebrick_fpga_demo'):
     # 1. Defining the project
 
     # 2. Define source files
-    project_path = os.path.abspath(__file__).replace('sc/adder.py','')
+    project_path = os.path.abspath(__file__).replace('fir_filter.py','')
     src_files = [
-        'adder.v',
+        "tree_adder.v",
+        "fir_filter.v",
+        "fir_filter_wrapper.v",
     ]
-
-    # 3. Define constraints
-    # chip.add('input', 'constraint', 'pins', 'adder_pin_constraints.xml')
-    pinmap_file = os.path.join(project_path, 'sc', f'adder_pin_constraints_{set_part_name}.json')
-
-    pin_constraints = generate_mapped_constraints(set_part_name)
-    write_json_constraints(pin_constraints, pinmap_file)
     
-    chip.add('input', 'constraint', 'pinmap', pinmap_file)
+    # 3. Define constraints
+    chip.add('input', 'constraint', 'pinmap',
+             os.path.join(project_path, 'constraints', f'pin_constraints_{set_part_name}.json'))
     
     for filename in src_files :
         chip.input(os.path.join(project_path, 'rtl', filename))
@@ -45,6 +39,11 @@ def main(part_name='ebrick_fpga_demo'):
     # 3. Load target
     chip.load_target(ebrick_fpga_target)
 
+    # 4. Customize steps for this design
+    chip.add('option', 'define', 'FIR_FILTER_CONSTANT_COEFFS')
+
+    chip.set('option', 'quiet', True)
+    
     chip.run()
 
 

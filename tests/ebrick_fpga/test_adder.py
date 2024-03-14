@@ -11,7 +11,7 @@ import siliconcompiler
                              'ebrick_fpga_demo',
                          ])
 def test_py(setup_example_test, part_name):
-    setup_example_test('adder/sc')
+    setup_example_test('adder')
 
     import adder
     adder.main(part_name=part_name)
@@ -23,7 +23,7 @@ def test_py(setup_example_test, part_name):
                              'ebrick_fpga_demo',
                          ])
 def test_cli(setup_example_test, part_name):
-    adder_dir = setup_example_test('adder/sc')
+    adder_dir = setup_example_test('adder')
 
     proc = subprocess.run([os.path.join(adder_dir, 'adder.py'),
                            '-fpga_partname',

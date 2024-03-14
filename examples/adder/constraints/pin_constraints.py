@@ -18,14 +18,13 @@ def main():
 
     options = option_parser.parse_args()
     part_name = options.part_name
-    log_file = options.log
     
     if (part_name == "raw") :
         pin_constraints = generate_raw_constraints()
     else :
         pin_constraints = generate_mapped_constraints(part_name)
         
-    write_json_constraints(pin_constraints, os.path.join(ROOTDIR, "adder_pin_constraints_{part_name}.json"))
+    write_json_constraints(pin_constraints, os.path.join(ROOTDIR, f"pin_constraints_{part_name}.json"))
 
 def generate_mapped_constraints(part_name) :
 
