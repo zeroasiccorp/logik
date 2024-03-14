@@ -35,6 +35,7 @@ def main(part_name='zafg1um_0202'):
     write_json_constraints(pin_constraints, pinmap_file)
     
     chip.add('input', 'constraint', 'pinmap', pinmap_file)
+    chip.add('input', 'constraint', 'sdc', 'fir_filter.sdc')
     
     for filename in src_files :
         chip.input(os.path.join(project_path, 'rtl', filename))
