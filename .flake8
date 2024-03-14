@@ -1,0 +1,8 @@
+[flake8]
+extend-exclude = testbench/build
+max-line-length = 100
+ignore =
+    E125,
+    E129,
+    E128,
+    W503
