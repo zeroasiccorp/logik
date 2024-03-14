@@ -30,7 +30,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag: ${{ inputs.release_tag }}
+          tag_name: ${{ inputs.release_tag }}
           token: ${{ secrets.ZA_TOKEN }}
           name: eFPGA Release ${{ inputs.release_tag }}
-          files: *_cad.tar.gz
+          files: '*_cad.tar.gz'
