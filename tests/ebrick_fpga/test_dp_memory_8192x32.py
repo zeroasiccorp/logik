@@ -2,7 +2,6 @@ import os
 import subprocess
 
 import pytest
-import siliconcompiler
 
 
 @pytest.mark.timeout(300)
