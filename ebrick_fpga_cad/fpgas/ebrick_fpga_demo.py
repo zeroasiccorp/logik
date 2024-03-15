@@ -1,4 +1,4 @@
-#zaeg1aa.py
+#ebrick_fpga_demo.py
 
 import os
 import siliconcompiler
@@ -6,11 +6,11 @@ from ebrick_fpga_cad.fpgas import _common
 
 
 ####################################################
-# Setup for zaeg1aa Family FPGAs
+# Setup for ebrick_fpga_demo Family FPGAs
 ####################################################
 def setup(chip):
     '''
-    The zaeg1aa FPGA family is a set of
+    The ebrick_fpga_demo FPGA family is a set of
     open source architectures used as illustrative
     examples for academic FPGA architectures.  They
     are based on numerous examples furnished over the
@@ -32,8 +32,7 @@ def setup(chip):
     all_fpgas = []
 
     all_part_names = [
-        'zaeg1aa_0101',
-        'zaeg1aa_0202',
+        'ebrick_fpga_demo',
     ]
 
     # Settings common to all parts in family
@@ -42,7 +41,7 @@ def setup(chip):
         # Assemble the name of the CAD release to obtain
         # from github
 
-        current_release = 'v0.0.15'
+        current_release = 'v0.1.4'
         cad_part_release_url = _common.get_efpga_release_url(current_release, f'{part_name}_cad.tar.gz')
         chip.register_package_source(name=f'ebrick_fpga-{part_name}',
                                      path=cad_part_release_url,
@@ -59,14 +58,11 @@ def setup(chip):
 
         cad_root = os.path.join(f'{part_name}_cad', 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
-                 os.path.join(cad_root, 'efpga_core.xml'))
+                 os.path.join(cad_root, 'ebrick_fpga_core.xml'))
         fpga.set('fpga', part_name, 'file', 'graphfile',
-                 os.path.join(cad_root, 'efpga_core_rr_graph.xml'))
-        fpga.set('fpga', part_name, 'file', 'gasket_map',
-                 os.path.join(cad_root, f'{part_name}_gasket_map.json'))
+                 os.path.join(cad_root, 'ebrick_fpga_core_rr_graph.xml'))
 
-        if ((part_name == 'zaeg1aa_0101') or
-            (part_name == 'zaeg1aa_0202')) :
+        if (part_name == 'ebrick_fpga_demo'):
 
             techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
             
@@ -92,17 +88,17 @@ def setup(chip):
             fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_B_MAXWIDTH=18')
             fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_A_MINWIDTH=2')
             fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_B_MINWIDTH=2')
-            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_NAME=_dsp_block_')
+            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_NAME=tech_multiplier')
 
             fpga.add('fpga', part_name, 'var', 'dsp_blackbox_options', 'BLACKBOX_MACROS')
             
-            bitstream_map_file = os.path.join(cad_root, 'efpga_core_bitstream_map.json')
+            bitstream_map_file = os.path.join(cad_root, 'ebrick_fpga_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
             
-            if (part_name == 'zaeg1aa_0101') :
-                fpga.set('fpga', part_name, 'var', 'channelwidth', '100')
-            elif (part_name == 'zaeg1aa_0202') :
-                fpga.set('fpga', part_name, 'var', 'channelwidth', '128')
+            gasket_map_file = os.path.join(cad_root, f'{part_name}_gasket_map.json')
+            fpga.set('fpga', part_name, 'file', 'gasket_map', gasket_map_file)
+            
+            fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
 
         all_fpgas.append(fpga)
 

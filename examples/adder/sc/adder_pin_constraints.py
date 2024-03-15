@@ -31,27 +31,8 @@ def generate_mapped_constraints(part_name) :
 
     pin_constraints = {}
     
-    if (part_name.startswith("zaeg1aa")) :
+    if (part_name == 'ebrick_fpga_demo') :
         
-        for i in range(8) :
-            pin_constraints[f'a[{i}]'] = {
-                "direction": "input",
-                "pin": f'gpio_in_left[{i}]'
-            }
-        
-        for i in range(8) :
-            pin_constraints[f'b[{i}]'] = {
-                "direction": "input",
-                "pin": f'gpio_in_left[{i+8}]'
-            }
-        
-        for i in range(9) :
-            pin_constraints[f'y[{i}]'] = {
-                "direction": "output",
-                "pin": f'gpio_out_bottom[{i}]'
-            }
-                
-    elif (part_name.startswith("zafg")) :
         for i in range(8) :
             pin_constraints[f'a[{i}]'] = {
                 "direction": "input",
@@ -69,6 +50,9 @@ def generate_mapped_constraints(part_name) :
                 "direction": "output",
                 "pin": f'gpio_out[{i+16}]'
             }
+                
+    else :
+        print(f"ERROR: unsupported part name {part_name}")
                 
     return pin_constraints
 

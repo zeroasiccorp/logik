@@ -6,7 +6,7 @@ from ebrick_fpga_cad.tools.fasm_to_bitstream import fasm_to_bitstream as fasm_ut
 # Make Docs
 ######################################################################
 #def make_docs(chip):
-#    chip.set('fpga', 'partname', 'zafg1um_0202')
+#    chip.set('fpga', 'partname', 'ebrick_fpga_demo')
 #    chip.load_target("ebrick_fpga_flow")
 
 
