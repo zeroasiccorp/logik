@@ -51,7 +51,9 @@ def generate_mapped_constraints(part_name) :
                 "pin": f'gpio_out_bottom[{i}]'
             }
                 
-    elif (part_name.startswith("zafg")) :
+    elif ((part_name == 'ebrick_fpga_demo') or
+          (part_name.startswith("zafg"))) :
+        
         for i in range(8) :
             pin_constraints[f'a[{i}]'] = {
                 "direction": "input",
