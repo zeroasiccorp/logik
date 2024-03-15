@@ -8,7 +8,7 @@ from ebrick_fpga_cad.targets import ebrick_fpga_target
 
 def main(part_name='ebrick_fpga_demo'):
     
-    top_module = 'fir_filter_wrapper'
+    top_module = 'fir_filter'
     
     chip = siliconcompiler.Chip(f'{top_module}')
 
@@ -27,7 +27,6 @@ def main(part_name='ebrick_fpga_demo'):
     src_files = [
         "tree_adder.v",
         "fir_filter.v",
-        "fir_filter_wrapper.v",
     ]
     
     # 3. Define constraints
@@ -42,11 +41,9 @@ def main(part_name='ebrick_fpga_demo'):
 
     # 4. Customize steps for this design
     chip.add('option', 'define', 'FIR_FILTER_CONSTANT_COEFFS')
-
-    chip.set('option', 'quiet', True)
     
     chip.run()
-
+    chip.summary()
 
 if __name__ == "__main__":
     main()
