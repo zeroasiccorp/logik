@@ -31,39 +31,7 @@ def generate_mapped_constraints(part_name, data_width=16, num_taps=8) :
     
     pin_constraints = {}
     
-    if (part_name.startswith("zaeg1aa")) :
-
-        pin_constraints["clk"] = {
-            "direction": 'input',
-            "pin": 'gpio_in_left[0]'
-        }
-        pin_constraints["resetn"] =  {
-            "direction": 'input',
-            "pin": 'gpio_in_left[1]'
-        }
-        pin_constraints["input_valid"] =  {
-            "direction": 'input',
-            "pin": 'gpio_in_left[2]'
-        }
-        pin_constraints["output_valid"] =  {
-            "direction": 'output',
-            "pin": 'gpio_out_left[3]'
-        }
-        
-        for i in range(data_width) :
-            pin_constraints[f'x[{i}]'] = {
-                "direction": "input",
-                "pin": f'gpio_in_bottom[{i}]'
-            }
-        
-        for i in range(output_width) :
-            pin_constraints[f'y[{i}]'] = {
-                "direction": "output",
-                "pin": f'gpio_out_bottom[{i+data_width}]'
-            }
-                
-    elif ((part_name == 'ebrick_fpga_demo') or
-          (part_name.startswith("zafg"))) :
+    if (part_name == 'ebrick_fpga_demo') :
                 
         pin_constraints["clk"] = {
             "direction": 'input',
@@ -93,6 +61,9 @@ def generate_mapped_constraints(part_name, data_width=16, num_taps=8) :
                 "direction": "output",
                 "pin": f'gpio_out[{i+data_width+4}]'
             }
+
+    else :
+        print(f"ERROR: unsupported part name {part_name}")
                 
     return pin_constraints
 

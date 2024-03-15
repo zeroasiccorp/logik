@@ -10,7 +10,7 @@ from fir_filter_pin_constraints import generate_mapped_constraints
 from fir_filter_pin_constraints import write_json_constraints
 
 
-def main(part_name='zafg1um_0202'):
+def main(part_name='ebrick_fpga_demo'):
     
     top_module = 'fir_filter_wrapper'
     
