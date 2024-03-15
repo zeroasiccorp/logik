@@ -14,9 +14,10 @@ def main(part_name='ebrick_fpga_demo'):
 
     if (__name__ == '__main__') :
         chip.create_cmdline(switchlist=['-fpga_partname'])
-    else :
-        chip.set('fpga', 'partname', part_name)
-        
+
+    # Set default part name
+    chip.set('fpga', 'partname', part_name, clobber=False)
+
     set_part_name = chip.get('fpga', 'partname')
     
     # 1. Defining the project
