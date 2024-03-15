@@ -37,7 +37,7 @@ def setup(chip):
         # Assemble the name of the CAD release to obtain
         # from github
 
-        current_release = 'v0.1.4'
+        current_release = 'v0.1.6'
         cad_part_release_url = _common.get_efpga_release_url(
             current_release,
             f'{part_name}_cad.tar.gz')
@@ -87,7 +87,7 @@ def setup(chip):
             fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_B_MAXWIDTH=18')
             fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_A_MINWIDTH=2')
             fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_B_MINWIDTH=2')
-            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_NAME=tech_multiplier')
+            fpga.add('fpga', part_name, 'var', 'yosys_dsp_options', 'DSP_NAME=_dsp_block_')
 
             fpga.add('fpga', part_name, 'var', 'dsp_blackbox_options', 'BLACKBOX_MACROS')
 
