@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 import argparse
 import os
@@ -8,14 +9,19 @@ from ebrick_fpga_cad.targets import ebrick_fpga_target
 from adder_pin_constraints import generate_mapped_constraints
 from adder_pin_constraints import write_json_constraints
 
-def main(part_name='zafg1um_0202'):
-
+def main(part_name='ebrick_fpga_demo'):
+    
     top_module = 'adder'
     
     chip = siliconcompiler.Chip(f'{top_module}')
 
-    chip.set('fpga', 'partname', part_name)
-
+    if (__name__ == '__main__') :
+        chip.create_cmdline(switchlist=['-fpga_partname'])
+    else :
+        chip.set('fpga', 'partname', part_name)
+        
+    set_part_name = chip.get('fpga', 'partname')
+    
     # 1. Defining the project
 
     # 2. Define source files
@@ -26,9 +32,9 @@ def main(part_name='zafg1um_0202'):
 
     # 3. Define constraints
     # chip.add('input', 'constraint', 'pins', 'adder_pin_constraints.xml')
-    pinmap_file = os.path.join(project_path, 'sc', f'adder_pin_constraints_{part_name}.json')
+    pinmap_file = os.path.join(project_path, 'sc', f'adder_pin_constraints_{set_part_name}.json')
 
-    pin_constraints = generate_mapped_constraints(part_name)
+    pin_constraints = generate_mapped_constraints(set_part_name)
     write_json_constraints(pin_constraints, pinmap_file)
     
     chip.add('input', 'constraint', 'pinmap', pinmap_file)
@@ -43,7 +49,4 @@ def main(part_name='zafg1um_0202'):
 
 
 if __name__ == "__main__":
-    option_parser = argparse.ArgumentParser("ebrick-fpga CAD adder Demo")
-    option_parser.add_argument("-part_name", default="zafg1um_0202")
-    options = option_parser.parse_args()
-    main(part_name=options.part_name)
+    main()

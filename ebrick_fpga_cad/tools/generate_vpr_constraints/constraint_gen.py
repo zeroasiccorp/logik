@@ -11,7 +11,7 @@ from siliconcompiler.tools.vpr._xml_constraint import write_vpr_constraints_xml_
 # Make Docs
 ######################################################################
 #def make_docs(chip):
-#    chip.set('fpga', 'partname', 'zafg1um_0202')
+#    chip.set('fpga', 'partname', 'ebrick_fpga_demo')
 #    chip.load_target("ebrick_fpga_flow")
 
 

@@ -32,3 +32,6 @@ namespaces = false
 [tool.pytest.ini_options]
 testpaths = "tests"
 timeout = "180"
+markers = [
+    "quick: always run this test on push"
+]
