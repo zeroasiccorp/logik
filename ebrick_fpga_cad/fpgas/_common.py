@@ -36,4 +36,4 @@ def get_efpga_release_url(release_tag, artifact_name, token=None):
 
 
 if __name__ == "__main__":
-    print(get_release_url('v0.5.13', 'ebrick-fpga_zafg1um_mini_0202_cad.tar.gz'))
+    print(get_release_url('v0.1.4', 'ebrick_fpga_demo_cad.tar.gz'))
