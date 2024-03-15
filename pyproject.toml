@@ -20,7 +20,8 @@ version = "0.0.1"
 [project.optional-dependencies]
 test = [
     "pytest >= 6.2.4",
-    "pytest-timeout >= 2.1.0"
+    "pytest-timeout >= 2.1.0",
+    "flake8 == 7.0.0"
 ]
 
 [tool.setuptools]

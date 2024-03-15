@@ -1,9 +1,4 @@
-#ebrick_fpga_flow.py
-
-import siliconcompiler
-import re
-
-from siliconcompiler import SiliconCompilerError
+from siliconcompiler import Flow, Chip
 from siliconcompiler.flows._common import setup_frontend
 
 from siliconcompiler.tools.yosys import syn_fpga as yosys_syn
@@ -13,6 +8,7 @@ from siliconcompiler.tools.genfasm import bitstream as genfasm_bitstream
 
 from ebrick_fpga_cad.tools.fasm_to_bitstream import bitstream_finish
 from ebrick_fpga_cad.tools.generate_vpr_constraints import constraint_gen
+
 
 ############################################################################
 # DOCS
@@ -26,12 +22,18 @@ def make_docs(chip):
 ############################################################################
 def setup(chip, flowname='ebrick_fpga_flow'):
     '''
-
     '''
 
-    flow = siliconcompiler.Flow(chip, flowname)
+    flow = Flow(chip, flowname)
 
-    flow_pipe = flow_lookup()
+    flow_pipe = [
+        ('syn', yosys_syn),
+        ('constraint_gen', constraint_gen),
+        ('place', vpr_place),
+        ('route', vpr_route),
+        ('genfasm', genfasm_bitstream),
+        ('bitstream', bitstream_finish),
+    ]
 
     flowtools = setup_frontend(chip)
     flowtools.extend(flow_pipe)
@@ -59,21 +61,6 @@ def setup(chip, flowname='ebrick_fpga_flow'):
 
 
 ##################################################
-def flow_lookup():
-    
-    flow = [
-        ('syn', yosys_syn),
-        ('constraint_gen', constraint_gen),
-        ('place', vpr_place),
-        ('route', vpr_route),
-        ('genfasm', genfasm_bitstream),
-        ('bitstream', bitstream_finish),
-    ]
-    
-    return flow
-
-
-##################################################
 if __name__ == "__main__":
-    flow = make_docs(siliconcompiler.Chip('<flow>'))
+    flow = make_docs(Chip('<flow>'))
     flow.write_flowgraph(f"{flow.top()}.png", flow=flow.top())
