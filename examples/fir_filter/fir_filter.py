@@ -7,7 +7,7 @@ from ebrick_fpga_cad.targets import ebrick_fpga_target
 
 
 def main(part_name='ebrick_fpga_demo'):
-    chip = Chip('fir_filter_wrapper')
+    chip = Chip('fir_filter')
 
     if __name__ == '__main__':
         chip.create_cmdline(
@@ -26,8 +26,7 @@ def main(part_name='ebrick_fpga_demo'):
     project_path = os.path.abspath(os.path.dirname(__file__))
     for filename in (
             "tree_adder.v",
-            "fir_filter.v",
-            "fir_filter_wrapper.v"):
+            "fir_filter.v"):
         chip.input(os.path.join(project_path, 'rtl', filename))
 
     # 3. Define constraints
