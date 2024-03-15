@@ -1,5 +1,7 @@
 # ebrick-fpga-cad
-This repository contains RTL-to-bitstream and other CAD support for ebrick-fpga.
+This repository contains RTL-to-bitstream and other CAD support for ebrick-fpga.  The RTL-to-bitstream flow is implemented as a custom [Silicon Compiler](https://siliconcompiler.com) flow graph:
+
+![image info](images/fpga_flow.png)
 
 This README documents how to set up and make use of the software contained in this repository, and how to run example scripts that showcase software features.
 
@@ -53,5 +55,4 @@ Within the python virtual environment set up as described above and starting fro
 
 * `cd examples/fir_filter/sc`
 * `python3 fir_filter.py`
-
 
