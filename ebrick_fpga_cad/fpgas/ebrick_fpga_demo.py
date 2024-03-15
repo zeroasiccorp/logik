@@ -60,6 +60,8 @@ def setup(chip):
         fpga.set('fpga', part_name, 'file', 'graphfile',
                  os.path.join(cad_root, 'ebrick_fpga_core_rr_graph.xml'))
 
+        _common.set_fpga_resources(fpga)
+
         if part_name == 'ebrick_fpga_demo':
             techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
 
