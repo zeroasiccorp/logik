@@ -41,7 +41,8 @@ def main(part_name='ebrick_fpga_demo'):
 
     # 4. Customize steps for this design
     chip.add('option', 'define', 'FIR_FILTER_CONSTANT_COEFFS')
-    
+
+    chip.set('option', 'quiet', True)
     chip.run()
     chip.summary()
 
