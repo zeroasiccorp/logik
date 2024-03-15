@@ -30,20 +30,20 @@ def set_fpga_resources(fpga):
         'dpram_16384x2',
         'dpram_32768x1'])
     fpga.add('fpga', part_name, 'resources', 'dsps', [
-        'ebrick_fpga_adder',
-        'ebrick_fpga_adder_regi',
-        'ebrick_fpga_adder_rego',
-        'ebrick_fpga_adder_regio',
-        'ebrick_fpga_acc',
-        'ebrick_fpga_acc_regi',
-        'ebrick_fpga_mult',
-        'ebrick_fpga_mult_regi',
-        'ebrick_fpga_mult_rego',
-        'ebrick_fpga_mult_regio',
-        'ebrick_fpga_macc',
-        'ebrick_fpga_macc_regi',
-        'ebrick_fpga_macc_pipe',
-        'ebrick_fpga_macc_pipe_regi'])
+        'adder',
+        'adder_regi',
+        'adder_rego',
+        'adder_regio',
+        'acc',
+        'acc_regi',
+        'mult',
+        'mult_regi',
+        'mult_rego',
+        'mult_regio',
+        'macc',
+        'macc_regi',
+        'macc_pipe',
+        'macc_pipe_regi'])
 
 
 def __find_release_artifact(release, artifact_name):
