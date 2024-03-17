@@ -25,7 +25,7 @@ Constructing a Silicon Compiler run script can be broken down into the following
 Import modules
 ++++++++++++++
 
-All Silicon Compiler run scripts are pure Python scripts that import Silicon Compiler functionality like any other python module.  Similarly, the <tool_name> RTL-to-bitstream flow is enabled as a set of Python modules that integrate to Silicon Compiler.
+All Silicon Compiler run scripts are pure Python scripts that import Silicon Compiler functionality like any other Python module.  Similarly, the <tool_name> RTL-to-bitstream flow is enabled as a set of Python modules that integrate to Silicon Compiler.
 
 The minimum import requirements in a <tool_name> Silicon Compiler run script are:
 
@@ -161,4 +161,25 @@ The XML placement constraints file must be added to the Silicon Compiler chip ob
 
 in your Silicon Compiler run script.
 
+Add Options
+-----------
 
+Numerous options can be added to your run script to control Silicon Compiler behavior or configure tools in the RTL-to-bitstream flow to behave as desired.
+
+Any compiler directives that are required for HDL synthesis should be specified as Silicon Compiler options.  These are furnished with Chip class member function calls of the form
+
+`chip.add('option', 'define', <compiler_directive>)`
+
+For complete Silicon Compiler option specifications, refer to []().
+
+Add Execution Calls
+-------------------
+
+The final two lines of every run script should be the same:
+
+```
+chip.run()
+chip.summary()
+```
+
+The `run()` call invokes the RTL-to-bitstream flow with all settings specified.  The `summary()` call reports results of the run in tabular form.  Included in the summary results are key design metrics such as FPGA resource utilization and tool execution runtimes.
