@@ -1,5 +1,9 @@
 # ebrick-fpga-cad
-This repository contains RTL-to-bitstream and other CAD support for ebrick-fpga.  The RTL-to-bitstream flow is implemented as a custom [Silicon Compiler](https://siliconcompiler.com) flow graph:
+This repository contains RTL-to-bitstream and other CAD support for ebrick-fpga.
+
+HDL simulation support is not explicitly provided within this repository.  However, [Silicon Compiler](https://siliconcompiler.com) supports HDL simulation flows using open source simulators.  Consult Silicon Compiler documentation for details.
+
+The RTL-to-bitstream flow is implemented as a custom [Silicon Compiler](https://siliconcompiler.com) flow graph:
 
 ![image info](images/fpga_flow.png)
 
@@ -15,7 +19,17 @@ Github CLI is not required, but recommended.
 
 ## Install Required Software
 
-Currently the required tools are [Yosys](https://yosyshq.readthedocs.io/en/latest/tools.html#yosys), [VPR](https://docs.verilogtorouting.org), and [Silicon Compiler](https://docs.siliconcompiler.com).  There are two ways to do this
+Currently the minimum required tools are:
+
+* [Yosys](https://yosyshq.readthedocs.io/en/latest/tools.html#yosys)
+* [VPR](https://docs.verilogtorouting.org),
+* [Silicon Compiler](https://docs.siliconcompiler.com).
+
+For VHDL support, [GHDL](https://) is also required.
+
+For SystemVerilog support, [sv2v](https://) is also required.
+
+There are two ways to install the above software tools:
     1. Obtain via Silicon Compiler installation
     2. Build from source yourself.  This requires checking out the qualified versions of the source repositories, which are documented in instructions below
 
@@ -33,6 +47,18 @@ Silicon Compiler is installed as part of the python package requirements for thi
 * Check out the current qualified version:  `git checkout c4156f225c7a292c5768444631ca053ea7473428`
 * Follow the [VPR build instructions](https://github.com/verilog-to-routing/vtr-verilog-to-routing/blob/master/BUILDING.md)
 * Add the paths to the vpr and genfasm executables to your PATH environment variable
+
+### GHDL Installation
+* Clone the [GHDL Github repository](https://github.com/)
+* Check out the current qualified version:  `git checkout `
+* Follow the [GHDL build instructions](https://github.com/`
+* Add the path to the ghdl executable to your PATH environment variable
+
+### sv2v Installation
+* Clone the [sv2v Github repository](https://github.com/)
+* Check out the current qualified version:  `git checkout `
+* Follow the [sv2v build instructions](https://github.com/`
+* Add the path to the sv2v executable to your PATH environment variable
 
 ## Repository Setup
 To prepare this repository for use, it is necessary to do the following:
