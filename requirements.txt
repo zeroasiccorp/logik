@@ -1,2 +1,9 @@
 siliconcompiler
 PyGithub
+pytest-timeout
+
+# Docs dependencies
+#:docs
+sphinx
+sphinx-rtd-theme
+autodocsumm
