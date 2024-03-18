@@ -1,0 +1,6 @@
+{
+  "clk": {
+    "direction": "input",
+    "pin": "clk[0]"
+  }
+}
