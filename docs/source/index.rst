@@ -5,12 +5,20 @@ Documentation Home
 
 .. toctree::
     :maxdepth: 3
-    :caption: Contents:
+    :caption: Usage
     
     getting_started
     design_preparation
     sc_preparation
     execution
+
+.. toctree::
+    :maxdepth: 1
+    :caption: References
+
+    timing_constraints	      
+    pin_constraints	      
+    external_links
     
 
 Indices and tables
