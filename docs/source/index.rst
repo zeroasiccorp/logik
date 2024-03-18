@@ -7,7 +7,6 @@ Documentation Home
     :maxdepth: 3
     :caption: Contents:
     
-    index
     getting_started
     design_preparation
     execution
