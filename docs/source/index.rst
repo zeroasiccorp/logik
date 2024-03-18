@@ -9,6 +9,7 @@ Documentation Home
     
     getting_started
     design_preparation
+    sc_preparation
     execution
     
 

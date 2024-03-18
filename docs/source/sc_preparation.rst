@@ -5,9 +5,6 @@ Developing a Silicon Compiler run script for RTL-to-bitstream flow execution fol
 
 For most designs, the example Silicon Compiler run scripts provided with <tool_name> can be used as templates for creating your own.  The commands used in these examples and the general method for constructing run scripts are described below.
 
-Silicon Compiler Run Script Construction Steps
-----------------------------------------------
-
 Constructing a Silicon Compiler run script can be broken down into the following steps:
 
 * Import modules
@@ -23,65 +20,69 @@ Constructing a Silicon Compiler run script can be broken down into the following
   
 
 Import modules
-++++++++++++++
+--------------
 
 All Silicon Compiler run scripts are pure Python scripts that import Silicon Compiler functionality like any other Python module.  Similarly, the <tool_name> RTL-to-bitstream flow is enabled as a set of Python modules that integrate to Silicon Compiler.
 
 The minimum import requirements in a <tool_name> Silicon Compiler run script are:
 
-```
-import siliconcompiler
-from ebrick_fpga_cad.targets import ebrick_fpga_target
-```
+::
+
+   import siliconcompiler
+   from ebrick_fpga_cad.targets import ebrick_fpga_target
+
 
 Additional module imports may be required depending on project-specific requirements.
 
 Create Main Function
-++++++++++++++++++++
+--------------------
 
 Since the Silicon Compiler run script is just a Python script, executing it from the command-line requires the same infrastructure as any other Python script.  In most design flows, the most convenient way to enable this will be to simply encapsulate the script in a main() function:
 
 In Python, an executable main() function is implemented with the following code:
 
-```
-def main(<main_function_parameters (optional)>):
+::
 
-    #Insert your main function here
+   def main(<main_function_parameters (optional)>):
 
-if __name__ == "__main__":
-    main()
-```
+       #Insert your main function here
+
+   if __name__ == "__main__":
+       main()
 
 Experienced Python programmers may prefer to use their own scripting methodology for executing the script instead of the above.  Any approach that conforms to both Python and Silicon Compiler requirements should work.
 
 Create Chip Object
-++++++++++++++++++
+------------------
 
 Silicon Compiler design information is encapsulated in a Python class called Chip.  An instance of this class is required for all Silicon Compiler run scripts and is commonly referred to as the chip object.
 
 The Chip class constructor requires one parameter:  the name of the top level module in your RTL design.  A complete Chip instantiation takes the form
 
-```
-chip = siliconcompiler.Chip('<your_top_module_name>')
-```
+::
+
+   chip = siliconcompiler.Chip('<your_top_module_name>')
+
 
 Nearly all components of a Silicon Compiler run script are calls to member functions of this class instance; it should be the first (or nearly the first) line in your main function.
 
 Throughout this documentation, "chip" will be used to refer to the Chip class instance.  However, there is no requirement that the instance be assigned to this variable name.
 
 Select part name
-++++++++++++++++
+----------------
 
 As of this writing, the only part name that is enabled for use is `ebrick_fpga_demo`
 
 In your Silicon Compiler run script, include the following call
 
-`chip.set('fpga', 'partname', 'ebrick_fpga_demo')`
+::
+
+   chip.set('fpga', 'partname', 'ebrick_fpga_demo')
 
 to select the ebrick_fpga_demo part as your selected part name.
 
 Register Packages (if needed)
-+++++++++++++++++++++++++++++
+-----------------------------
 
 Designs with dependencies on third-party or packaged IP from previous projects may require a method for importing design IP from a source other than local working directories.  In Silicon Compiler, such imports are supported via the Silicon Compiler package registry, and the import process is referred to as registering a package.
 
@@ -96,7 +97,7 @@ chip.register_package
 
 
 Set input source files
-++++++++++++++++++++++
+----------------------
 
 All HDL source files must be added to the Silicon Compiler chip object for inclusion.  For each HDL file, include the following call in your Silicon Compiler run script
 
@@ -113,7 +114,7 @@ Limited support is provided for VHDL and SystemVerilog inputs.  The limits to su
 For large designs, it may be convenient to organize your HDL files into a directory tree that is processed using Python functions, so that the above calls can be embedded in loops.
 
 Adding source files from a registered package
-`````````````````````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When importing IP from a package in the Silicon Compiler package registry, the same function calls are used as described above, but it is also necessary to specify the package name.  The call takes the form:
 
@@ -121,7 +122,7 @@ When importing IP from a package in the Silicon Compiler package registry, the s
 
 
 Set Timing Constraints
-++++++++++++++++++++++
+----------------------
 
 Timing constraints must be provided in a single SDC file.  The SDC file must be added to the Silicon Compiler chip object for inclusion.  Include the call
 
@@ -130,7 +131,7 @@ Timing constraints must be provided in a single SDC file.  The SDC file must be 
 in your Silicon Compiler run script
 
 Set Pin Constraints
-++++++++++++++++++++
+--------------------
 
 Pin constraints may be provided in one of two files:
 
@@ -140,24 +141,28 @@ Pin constraints may be provided in one of two files:
 > [!NOTE] If you need to specify placement constraints for design blocks in addition to specifying pin constraints, the XML placement constraints file must be used.
 
 JSON Pin Constraint Specification
-`````````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The JSON pin constraint file is unique to this flow.  For additional information on creating the JSON pin constraint file, see []().
 
 The XML placement constraints file must be added to the Silicon Compiler chip object for inclusion.  Include the call
 
-`chip.add('input', 'constraint', 'pinmap', '<your_json_file_name>')`
+::
+
+   chip.add('input', 'constraint', 'pinmap', '<your_json_file_name>')
 
 in your Silicon Compiler run script
 
 VPR XML Placement Constraint Specification
-``````````````````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 VPR XML placement constraints are portable to any VPR-based place and route flow.  For additional information on creating a VPR XML placement constraint file, see ()[].
 
 The XML placement constraints file must be added to the Silicon Compiler chip object for inclusion.  Include the call
 
-`chip.add('input', 'constraint', '', '<your_xml_file_name>')`
+::
+   
+   chip.add('input', 'constraint', '', '<your_xml_file_name>')
 
 in your Silicon Compiler run script.
 
@@ -168,7 +173,9 @@ Numerous options can be added to your run script to control Silicon Compiler beh
 
 Any compiler directives that are required for HDL synthesis should be specified as Silicon Compiler options.  These are furnished with Chip class member function calls of the form
 
-`chip.add('option', 'define', <compiler_directive>)`
+::
+
+   chip.add('option', 'define', <compiler_directive>)
 
 For complete Silicon Compiler option specifications, refer to []().
 
@@ -177,9 +184,9 @@ Add Execution Calls
 
 The final two lines of every run script should be the same:
 
-```
-chip.run()
-chip.summary()
-```
-
+::
+   
+   chip.run()
+   chip.summary()
+   
 The `run()` call invokes the RTL-to-bitstream flow with all settings specified.  The `summary()` call reports results of the run in tabular form.  Included in the summary results are key design metrics such as FPGA resource utilization and tool execution runtimes.
