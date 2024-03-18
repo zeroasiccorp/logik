@@ -37,7 +37,7 @@ def setup(chip):
         # Assemble the name of the CAD release to obtain
         # from github
 
-        current_release = 'v0.1.7'
+        current_release = 'v0.1.8'
         cad_part_release_url = _common.get_efpga_release_url(
             current_release,
             f'{part_name}_cad.tar.gz')
