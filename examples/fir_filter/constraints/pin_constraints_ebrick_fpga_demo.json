@@ -1,0 +1,222 @@
+{
+  "clk": {
+    "direction": "input",
+    "pin": "gpio_in_left[0]"
+  },
+  "resetn": {
+    "direction": "input",
+    "pin": "gpio_in_left[1]"
+  },
+  "input_valid": {
+    "direction": "input",
+    "pin": "gpio_in_left[2]"
+  },
+  "output_valid": {
+    "direction": "output",
+    "pin": "gpio_out_left[3]"
+  },
+  "x[0]": {
+    "direction": "input",
+    "pin": "gpio_in[4]"
+  },
+  "x[1]": {
+    "direction": "input",
+    "pin": "gpio_in[5]"
+  },
+  "x[2]": {
+    "direction": "input",
+    "pin": "gpio_in[6]"
+  },
+  "x[3]": {
+    "direction": "input",
+    "pin": "gpio_in[7]"
+  },
+  "x[4]": {
+    "direction": "input",
+    "pin": "gpio_in[8]"
+  },
+  "x[5]": {
+    "direction": "input",
+    "pin": "gpio_in[9]"
+  },
+  "x[6]": {
+    "direction": "input",
+    "pin": "gpio_in[10]"
+  },
+  "x[7]": {
+    "direction": "input",
+    "pin": "gpio_in[11]"
+  },
+  "x[8]": {
+    "direction": "input",
+    "pin": "gpio_in[12]"
+  },
+  "x[9]": {
+    "direction": "input",
+    "pin": "gpio_in[13]"
+  },
+  "x[10]": {
+    "direction": "input",
+    "pin": "gpio_in[14]"
+  },
+  "x[11]": {
+    "direction": "input",
+    "pin": "gpio_in[15]"
+  },
+  "x[12]": {
+    "direction": "input",
+    "pin": "gpio_in[16]"
+  },
+  "x[13]": {
+    "direction": "input",
+    "pin": "gpio_in[17]"
+  },
+  "x[14]": {
+    "direction": "input",
+    "pin": "gpio_in[18]"
+  },
+  "x[15]": {
+    "direction": "input",
+    "pin": "gpio_in[19]"
+  },
+  "y[0]": {
+    "direction": "output",
+    "pin": "gpio_out[20]"
+  },
+  "y[1]": {
+    "direction": "output",
+    "pin": "gpio_out[21]"
+  },
+  "y[2]": {
+    "direction": "output",
+    "pin": "gpio_out[22]"
+  },
+  "y[3]": {
+    "direction": "output",
+    "pin": "gpio_out[23]"
+  },
+  "y[4]": {
+    "direction": "output",
+    "pin": "gpio_out[24]"
+  },
+  "y[5]": {
+    "direction": "output",
+    "pin": "gpio_out[25]"
+  },
+  "y[6]": {
+    "direction": "output",
+    "pin": "gpio_out[26]"
+  },
+  "y[7]": {
+    "direction": "output",
+    "pin": "gpio_out[27]"
+  },
+  "y[8]": {
+    "direction": "output",
+    "pin": "gpio_out[28]"
+  },
+  "y[9]": {
+    "direction": "output",
+    "pin": "gpio_out[29]"
+  },
+  "y[10]": {
+    "direction": "output",
+    "pin": "gpio_out[30]"
+  },
+  "y[11]": {
+    "direction": "output",
+    "pin": "gpio_out[31]"
+  },
+  "y[12]": {
+    "direction": "output",
+    "pin": "gpio_out[32]"
+  },
+  "y[13]": {
+    "direction": "output",
+    "pin": "gpio_out[33]"
+  },
+  "y[14]": {
+    "direction": "output",
+    "pin": "gpio_out[34]"
+  },
+  "y[15]": {
+    "direction": "output",
+    "pin": "gpio_out[35]"
+  },
+  "y[16]": {
+    "direction": "output",
+    "pin": "gpio_out[36]"
+  },
+  "y[17]": {
+    "direction": "output",
+    "pin": "gpio_out[37]"
+  },
+  "y[18]": {
+    "direction": "output",
+    "pin": "gpio_out[38]"
+  },
+  "y[19]": {
+    "direction": "output",
+    "pin": "gpio_out[39]"
+  },
+  "y[20]": {
+    "direction": "output",
+    "pin": "gpio_out[40]"
+  },
+  "y[21]": {
+    "direction": "output",
+    "pin": "gpio_out[41]"
+  },
+  "y[22]": {
+    "direction": "output",
+    "pin": "gpio_out[42]"
+  },
+  "y[23]": {
+    "direction": "output",
+    "pin": "gpio_out[43]"
+  },
+  "y[24]": {
+    "direction": "output",
+    "pin": "gpio_out[44]"
+  },
+  "y[25]": {
+    "direction": "output",
+    "pin": "gpio_out[45]"
+  },
+  "y[26]": {
+    "direction": "output",
+    "pin": "gpio_out[46]"
+  },
+  "y[27]": {
+    "direction": "output",
+    "pin": "gpio_out[47]"
+  },
+  "y[28]": {
+    "direction": "output",
+    "pin": "gpio_out[48]"
+  },
+  "y[29]": {
+    "direction": "output",
+    "pin": "gpio_out[49]"
+  },
+  "y[30]": {
+    "direction": "output",
+    "pin": "gpio_out[50]"
+  },
+  "y[31]": {
+    "direction": "output",
+    "pin": "gpio_out[51]"
+  },
+  "y[32]": {
+    "direction": "output",
+    "pin": "gpio_out[52]"
+  },
+  "y[33]": {
+    "direction": "output",
+    "pin": "gpio_out[53]"
+  },
+  "y[34]": {
+    "direction": "output",
+    "pin": "gpio_out[54]"
+  }
+}
