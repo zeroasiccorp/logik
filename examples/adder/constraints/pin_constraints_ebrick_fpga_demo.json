@@ -1,0 +1,102 @@
+{
+  "a[0]": {
+    "direction": "input",
+    "pin": "gpio_in[0]"
+  },
+  "a[1]": {
+    "direction": "input",
+    "pin": "gpio_in[1]"
+  },
+  "a[2]": {
+    "direction": "input",
+    "pin": "gpio_in[2]"
+  },
+  "a[3]": {
+    "direction": "input",
+    "pin": "gpio_in[3]"
+  },
+  "a[4]": {
+    "direction": "input",
+    "pin": "gpio_in[4]"
+  },
+  "a[5]": {
+    "direction": "input",
+    "pin": "gpio_in[5]"
+  },
+  "a[6]": {
+    "direction": "input",
+    "pin": "gpio_in[6]"
+  },
+  "a[7]": {
+    "direction": "input",
+    "pin": "gpio_in[7]"
+  },
+  "b[0]": {
+    "direction": "input",
+    "pin": "gpio_in[8]"
+  },
+  "b[1]": {
+    "direction": "input",
+    "pin": "gpio_in[9]"
+  },
+  "b[2]": {
+    "direction": "input",
+    "pin": "gpio_in[10]"
+  },
+  "b[3]": {
+    "direction": "input",
+    "pin": "gpio_in[11]"
+  },
+  "b[4]": {
+    "direction": "input",
+    "pin": "gpio_in[12]"
+  },
+  "b[5]": {
+    "direction": "input",
+    "pin": "gpio_in[13]"
+  },
+  "b[6]": {
+    "direction": "input",
+    "pin": "gpio_in[14]"
+  },
+  "b[7]": {
+    "direction": "input",
+    "pin": "gpio_in[15]"
+  },
+  "y[0]": {
+    "direction": "output",
+    "pin": "gpio_out[16]"
+  },
+  "y[1]": {
+    "direction": "output",
+    "pin": "gpio_out[17]"
+  },
+  "y[2]": {
+    "direction": "output",
+    "pin": "gpio_out[18]"
+  },
+  "y[3]": {
+    "direction": "output",
+    "pin": "gpio_out[19]"
+  },
+  "y[4]": {
+    "direction": "output",
+    "pin": "gpio_out[20]"
+  },
+  "y[5]": {
+    "direction": "output",
+    "pin": "gpio_out[21]"
+  },
+  "y[6]": {
+    "direction": "output",
+    "pin": "gpio_out[22]"
+  },
+  "y[7]": {
+    "direction": "output",
+    "pin": "gpio_out[23]"
+  },
+  "y[8]": {
+    "direction": "output",
+    "pin": "gpio_out[24]"
+  }
+}

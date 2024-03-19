@@ -28,8 +28,8 @@ def setup_example_test(monkeypatch):
 
     return setup
 
-def ebrick_fpga_cad_root() :
 
-    cur_dir = os.path.abspath(__file__).replace('/conftest.py',"")
+def ebrick_fpga_cad_root():
+    cur_dir = os.path.abspath(__file__).replace('/conftest.py', "")
     root_dir = cur_dir.replace("/tests", "")
     return root_dir
