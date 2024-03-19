@@ -5,40 +5,38 @@ module umi_adder
     parameter DW = 32
     )
    (
-    input 		    nreset,
-    input 		    clk,
-    // Host port (per clink)
+    input 	    nreset,
+    input 	    clk,
+    // Host port (not used)
     /*
-    output 		    user_uhost_req_valid,
-    output [CW-1:0]  user_uhost_req_cmd,
-    output [AW-1:0] user_uhost_req_dstaddr,
-    output [AW-1:0] user_uhost_req_srcaddr,
-    output [DW-1:0] user_uhost_req_data,
-    input 		    user_uhost_req_ready,
+    output 	    uhost_req_valid,
+    output [CW-1:0] uhost_req_cmd,
+    output [AW-1:0] uhost_req_dstaddr,
+    output [AW-1:0] uhost_req_srcaddr,
+    output [DW-1:0] uhost_req_data,
+    input 	    uhost_req_ready,
 
-    input 		    uhost_resp_valid,
-    input [CW-1:0]   uhost_resp_cmd,
+    input 	    uhost_resp_valid,
+    input [CW-1:0]  uhost_resp_cmd,
     input [AW-1:0]  uhost_resp_dstaddr,
     input [AW-1:0]  uhost_resp_srcaddr,
     input [DW-1:0]  uhost_resp_data,
-    output 		    uhost_resp_ready,
+    output 	    uhost_resp_ready,
      */
     // Device port
-    input 		    user_udev_req_valid,
-    input [CW-1:0]   user_udev_req_cmd,
-    input [AW-1:0]  user_udev_req_dstaddr,
-    input [AW-1:0]  user_udev_req_srcaddr,
-    input [DW-1:0]  user_udev_req_data,
-    output 		    user_udev_req_ready,
+    input 	    udev_req_valid,
+    input [CW-1:0]  udev_req_cmd,
+    input [AW-1:0]  udev_req_dstaddr,
+    input [AW-1:0]  udev_req_srcaddr,
+    input [DW-1:0]  udev_req_data,
+    output 	    udev_req_ready,
     
-    output 		    user_udev_resp_valid,
-    output [CW-1:0]  user_udev_resp_cmd,
-    output [AW-1:0] user_udev_resp_dstaddr,
-    output [AW-1:0] user_udev_resp_srcaddr,
-    output [DW-1:0] user_udev_resp_data,
-    input 		    user_udev_resp_ready,    
-
-    // output wire [15:0] debug    
+    output 	    udev_resp_valid,
+    output [CW-1:0] udev_resp_cmd,
+    output [AW-1:0] udev_resp_dstaddr,
+    output [AW-1:0] udev_resp_srcaddr,
+    output [DW-1:0] udev_resp_data,
+    input 	    udev_resp_ready   
     );
     
     // declare memory interface wires and umi endpoint
@@ -69,18 +67,18 @@ module umi_adder
     ) umi_endpoint_i (
         .clk(clk),
         .nreset(nreset),
-        .udev_req_valid(user_udev_req_valid),
-        .udev_req_cmd(user_udev_req_cmd[CW-1:0]),
-        .udev_req_dstaddr(user_udev_req_dstaddr[AW-1:0]),
-        .udev_req_srcaddr(user_udev_req_srcaddr[AW-1:0]),
-        .udev_req_data(user_udev_req_data[DW-1:0]),
-        .udev_req_ready(user_udev_req_ready),
-        .udev_resp_valid(user_udev_resp_valid),
-        .udev_resp_cmd(user_udev_resp_cmd[CW-1:0]),
-        .udev_resp_dstaddr(user_udev_resp_dstaddr[AW-1:0]),
-        .udev_resp_srcaddr(user_udev_resp_srcaddr[AW-1:0]),
-        .udev_resp_data(user_udev_resp_data[DW-1:0]),
-        .udev_resp_ready(user_udev_resp_ready),
+        .udev_req_valid(udev_req_valid),
+        .udev_req_cmd(udev_req_cmd[CW-1:0]),
+        .udev_req_dstaddr(udev_req_dstaddr[AW-1:0]),
+        .udev_req_srcaddr(udev_req_srcaddr[AW-1:0]),
+        .udev_req_data(udev_req_data[DW-1:0]),
+        .udev_req_ready(udev_req_ready),
+        .udev_resp_valid(udev_resp_valid),
+        .udev_resp_cmd(udev_resp_cmd[CW-1:0]),
+        .udev_resp_dstaddr(udev_resp_dstaddr[AW-1:0]),
+        .udev_resp_srcaddr(udev_resp_srcaddr[AW-1:0]),
+        .udev_resp_data(udev_resp_data[DW-1:0]),
+        .udev_resp_ready(udev_resp_ready),
         .loc_addr(loc_addr),
         .loc_write(loc_write),
         .loc_read(loc_read),
@@ -131,4 +129,4 @@ module umi_adder
         end
     end
 
-endmodule // umi_loopback
+endmodule // umi_adder
