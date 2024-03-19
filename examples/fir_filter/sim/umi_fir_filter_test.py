@@ -1,25 +1,127 @@
+#!/usr/bin/env python3
 #umi_fir_filter_test.py
-#Peter Grossmann
-#31 October 2023
-#$Id$
-#$Log$
+
+# Copyright (c) 2024 Zero ASIC Corporation
+# This code is licensed under Apache License 2.0 (see LICENSE for details)
 
 import argparse
 import ast
 import numpy as np
 import random
+import sys
 
 from pathlib import Path
-from switchboard import SbDut, UmiTxRx, random_umi_packet, delete_queue, verilator_run, binary_run
+from siliconcompiler.package import path as sc_path
+from switchboard import SbDut
+from switchboard import UmiTxRx
+from switchboard import random_umi_packet
+from switchboard import delete_queue
+from switchboard import verilator_run
+from switchboard import binary_run
+#from switchboard import SbDut, UmiTxRx, PyUmiPacket, UmiCmd, umi_opcode
 
-def main() :
+import lambdalib
+import umi
 
-    #option_parser = argparse.ArgumentParser()
-    #***TO DO:  Add back in a command-line option to put more randomness back
-    #           into the packet generation
-    #option_parser.add_argument("",)
+from generate_vectors import generate_fir_filter_vectors
 
-    umi_queues = setup_queues()
+
+def run_test(trace=False, fast=False):
+    ############################
+    # build the RTL simulation #
+    ############################
+
+    print('*** Building the RTL simulation ***')
+
+    # SbDut is a subclass of siliconcompiler.Chip, with some extra
+    # options and features geared towards simulation with switchboard.
+    #
+    # Here's what the constructor arguments mean:
+    # * 'umi_fir_filter_test' is the name of the top-level module
+    # * 'tool' indicates the Verilog simulation tool ('verilator' or 'icarus')
+    # * 'trace' indicates whether waveforms should be dumped
+    # * 'default_main' is Verilator-specific; when True indicats that 
+    #   switchboard's default C++ main() implementation should be used.
+    #   this testbench has its own main; so we set it to False
+
+    dut = SbDut('umi_fir_filter_test', tool='verilator', trace=trace, default_main=False)
+
+    # The next few commands specify the Verilog sources to be used in the
+    # simulation.  
+
+    # import the UMI library
+    dut.use(umi)
+    dut.add('option', 'library', 'umi')
+
+    # import lambdalib
+    dut.use(lambdalib)
+    dut.add('option', 'library', 'lambdalib_stdlib')
+
+    # Add this repo as a package source
+    dut.register_package_source(
+        name='umi_fir_filter',
+        path='git+https://github.com/zeroasiccorp/ebrick-fpga-cad.git',
+        ref='umi_fir_filter')
+
+    dut.input('examples/fir_filter/rtl/fir_filter.v', package='umi_fir_filter')
+    dut.input('examples/fir_filter/rtl/tree_adder.v', package='umi_fir_filter')
+    dut.input('examples/fir_filter/rtl/umi_fir_filter.v', package='umi_fir_filter')
+    dut.input('examples/fir_filter/rtl/umi_fir_filter_regs.v', package='umi_fir_filter')
+
+    dut.input('examples/fir_filter/sim/umi_device_interface.v', package='umi_fir_filter')
+    dut.input('examples/fir_filter/sim/umi_fir_filter_test.v', package='umi_fir_filter')
+
+    dut.input('examples/fir_filter/sim/umi_fir_filter_test.cc', package='umi_fir_filter')
+
+    # Setup all the needed compiler directives
+
+    dut.add('option', 'define', 'FIR_FILTER_CONSTANT_COEFFS')
+    dut.add('option', 'define', 'VECTOR_COUNT_MAX=100')
+
+    # Set include directories
+    dut.add('option', 'idir', 'examples/fir_filter/rtl', package='umi_fir_filter')
+    
+    # build() kicks off the simulator build using the source files configured
+    # in the previous commands. The result depends on the simulator being used
+    # For Verilator, the output of build() is an executable that can be run
+    # in a standalone fashion, while for Icarus Verilog, the result is a binary
+    # run with vvp. The "fast" argument indicates whether the build should be
+    # skipped if the binary output already exists.
+
+    dut.build(fast=fast)
+
+
+    #############################
+    # create switchboard queues #
+    #############################
+
+    print('*** Creating switchboard queues ***')
+
+    # These commands create new switchboard queues that will show up
+    # as files in the file system. The queue names must match the
+    # names used on the Verilog side in testbench.sv. This is somewhat
+    # similar to specifying TCP ports to be used on two sides of a
+    # connection.
+
+    all_queues = setup_queues()
+
+    #############################
+    # launch the RTL simulation #
+    #############################
+
+    print('*** Launching RTL simulation ***')
+
+    # simulate() launches the RTL simulation built earlier via the build() command
+
+    dut.simulate()
+
+    #Generate the fir filter vectors
+    generate_fir_filter_vectors(16, 100)
+    
+    run_umi_fir_filter_test(all_queues)
+
+
+def run_umi_fir_filter_test(umi_queues) :
 
     device = UmiTxRx(umi_queues['client2rtl'], umi_queues['rtl2client'])
     host = UmiTxRx(umi_queues['host2rtl'], umi_queues['rtl2host'])
@@ -41,13 +143,6 @@ def main() :
     print("INFO:  Load coefficients")
     load_coeffs(device, coeffs)
 
-    print("INFO:  Lauch verilator simulation")
-    #Per suggestion from switchboard experts,
-    #start the verilator sim after putting stuff in the queue
-    vsim_process = verilator_run("obj_dir/Vumi_fir_filter_test",
-                                 plusargs=['trace']
-    )
-    
     print("INFO:  Generate samples")
     run_samples(device, input_vectors)
 
@@ -118,4 +213,15 @@ def setup_queues(client2rtl="client2rtl.q",
      
 
 if __name__ == '__main__':
-    main()
+    from argparse import ArgumentParser
+
+    parser = ArgumentParser()
+    parser.add_argument('--fast', action='store_true',
+        help="don't build the simulator if one is found")
+    parser.add_argument('--trace', action='store_true',
+        help="dump waveforms during simulation")
+
+    args = parser.parse_args()
+
+    run_test(trace=args.trace, fast=args.fast)
+
