@@ -30,8 +30,13 @@ def run(chip):
 
     if len(bitstream_maps) == 1:
         json_outfile = f"outputs/{topmodule}_bitstream.json"
+        binary_outfile = f"outputs/{topmodule}_bitstream.bin"
         config_bitstream = fasm_utils.fasm2bitstream(fasm_file, bitstream_maps[0])
         fasm_utils.write_bitstream_json(config_bitstream, json_outfile)
+        umi_bitstream = fasm_utils.generate_umi_bitstream(config_bitstream)
+        binary_bitstream = fasm_utils.format_binary_bitstream(umi_bitstream)
+        fasm_utils.write_bitstream_binary(binary_bitstream, binary_outfile)
+        
     elif len(bitstream_maps) == 0:
         chip.error("fasm_to_bitstream requires a bitstream map file",
                    fatal=True)
