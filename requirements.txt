@@ -1,2 +1,4 @@
 siliconcompiler
 PyGithub
+switchboard-hw
+git+https://github.com/zeroasiccorp/umi
