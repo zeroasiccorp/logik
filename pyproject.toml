@@ -12,7 +12,8 @@ urls = {Homepage = "https://github.com/zeroasiccorp/ebrick-fpga-cad"}
 requires-python = ">= 3.8"
 dependencies = [
     "siliconcompiler == 0.21.4",
-    "PyGithub == 2.1.1"
+    "PyGithub == 2.1.1",
+    "switchboard-hw == 0.0.38"
 ]
 license = {text = "Zero ASIC Proprietary"}
 version = "0.0.1"
