@@ -17,13 +17,20 @@ def main() :
     option_parser.add_argument("num_vectors", help="number of vectors to generate", type=int)
     
     options = option_parser.parse_args()
-    num_coeffs = 8
     
     test_data_width = options.test_data_width
-    output_data_width = 2*test_data_width+int(math.log2(num_coeffs))
     num_vectors = options.num_vectors
+
+    generate_fir_filter_vectors(test_data_width, num_vectors)
+
+
+def generate_fir_filter_vectors(test_data_width, num_vectors) :
+    
+    num_coeffs = 8
+    
     num_corner_cases = 0
     
+    output_data_width = 2*test_data_width+int(math.log2(num_coeffs))
     out_file = open("fir_filter_coeff_vectors.dat", "w")
 
     #***NOTE:  This MUST match what's in fir_filter_wrapper.v
