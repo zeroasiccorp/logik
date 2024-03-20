@@ -29,11 +29,13 @@ def run(chip):
     bitstream_maps = chip.find_files('fpga', part_name, 'file', 'bitstream_map')
 
     if len(bitstream_maps) == 1:
-        json_outfile = f"outputs/{topmodule}_bitstream.json"
-        binary_outfile = f"outputs/{topmodule}_bitstream.bin"
+        json_outfile = f"outputs/{topmodule}.json"
+        dat_outfile = f"outputs/{topmodule}.dat"
+        binary_outfile = f"outputs/{topmodule}.bin"
         config_bitstream = fasm_utils.fasm2bitstream(fasm_file, bitstream_maps[0])
         fasm_utils.write_bitstream_json(config_bitstream, json_outfile)
         umi_bitstream = fasm_utils.generate_umi_bitstream(config_bitstream)
+        fasm_utils.write_bitstream_data(umi_bitstream, dat_outfile)
         binary_bitstream = fasm_utils.format_binary_bitstream(umi_bitstream)
         fasm_utils.write_bitstream_binary(binary_bitstream, binary_outfile)
         

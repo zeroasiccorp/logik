@@ -22,6 +22,13 @@ def write_bitstream_json(config_bitstream, json_bitstream_file):
     json_out.write("\n")
     json_out.close()
 
+
+def write_bitstream_data(config_bitstream, dat_bitstream_file):
+    dat_out = open(dat_bitstream_file, "w")
+    for entry in config_bitstream:
+        dat_out.write(f'{entry}\n')
+    dat_out.close()
+
     
 def write_bitstream_binary(binary_bitstream, binary_bitstream_file):
     binary_bitstream.tofile(binary_bitstream_file)
