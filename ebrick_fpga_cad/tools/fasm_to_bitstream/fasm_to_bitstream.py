@@ -103,7 +103,7 @@ def calculate_config_data_width(bitstream_map):
 #bitstream word per array element, so it's up to the receiver
 #of this data to assemble it into UMI words of the correct size
 def generate_umi_bitstream(bitstream_map,
-                           umi_rom_data_width=256,
+                           umi_rom_data_width=128,
                            reverse=True,
                            show_map=False,
                            verbose=False):
@@ -127,7 +127,7 @@ def generate_umi_bitstream(bitstream_map,
     else :
         bitstream_addresses_per_rom_address = 1
 
-    config_words_per_address= int(umi_rom_data_width / config_data_width)
+    config_words_per_address = int(umi_rom_data_width / config_data_width)
     
     umi_addresses_per_row = int(math.ceil(num_bitstream_columns / bitstream_addresses_per_rom_address))
 
@@ -149,6 +149,15 @@ def generate_umi_bitstream(bitstream_map,
         stop_address = bitstream_size
         address_increment = bitstream_addresses_per_rom_address * umi_addresses_per_row
 
+    #We choose to format this array of bitstream data such that there is
+    #one complete UMI data word per entry in the bitstream data array that
+    #we return.  To make that happen, count the number of config words we
+    #process, concatenate each word to a variable as we go, and then
+    #every time we hit the count of config words per UMI word, dump the
+    #current word onto the array and start again.
+    config_word_counter = 0
+    cur_umi_word = ''
+    
     for address in range(start_address, stop_address, address_increment) :
             
         for k in range(umi_addresses_per_row) :
@@ -166,19 +175,27 @@ def generate_umi_bitstream(bitstream_map,
                                                         reverse=False)
 
                 if (x >= num_bitstream_columns) :
-                    umi_bitstream.append(format(0, "0x").zfill(int(config_data_width/4)))
-
+                    cur_config_word = format(0, "0x").zfill(int(config_data_width/4))
                 else :
-
                     address_in_range = check_bitstream_map_address(x, y, addr, bitstream_map)
-
                     if (address_in_range) :
                         bitstream_data = concatenate_data(bitstream_map[x][y][addr])
                     else :
                         bitstream_data = 0
 
-                    formatted_bitstream_data = format(bitstream_data, "0x").zfill(int(config_data_width/4))
-                    umi_bitstream.append(formatted_bitstream_data)
+                    cur_config_word = format(bitstream_data, "0x").zfill(int(config_data_width/4))
+
+                cur_umi_word += cur_config_word
+                config_word_counter += 1
+                if (config_word_counter == config_words_per_address):
+                    umi_bitstream.append(cur_umi_word)
+                    config_word_counter = 0
+                    cur_umi_word = ''
+
+    #***ASSUMPTION:  The above loop *should* be designed such that
+    #                the number of entries always ends with a complete
+    #                umi word, such that we don't have to do any
+    #                cleanup/zero padding here at the end
 
     return umi_bitstream
 
