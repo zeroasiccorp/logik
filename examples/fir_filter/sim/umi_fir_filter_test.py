@@ -103,7 +103,7 @@ def run_test(trace=False, fast=False):
     # similar to specifying TCP ports to be used on two sides of a
     # connection.
 
-    all_queues = setup_queues()
+    umi_queues = setup_queues()
 
     #############################
     # launch the RTL simulation #
@@ -118,11 +118,6 @@ def run_test(trace=False, fast=False):
     #Generate the fir filter vectors
     generate_fir_filter_vectors(16, 100)
     
-    run_umi_fir_filter_test(all_queues)
-
-
-def run_umi_fir_filter_test(umi_queues) :
-
     device = UmiTxRx(umi_queues['client2rtl'], umi_queues['rtl2client'])
     host = UmiTxRx(umi_queues['host2rtl'], umi_queues['rtl2host'])
 
@@ -141,14 +136,17 @@ def run_umi_fir_filter_test(umi_queues) :
     ]
 
     print("INFO:  Load coefficients")
-    load_coeffs(device, coeffs)
+    device.write(0x0000000000000010, np.array(coeffs, dtype='uint16'), posted=True)
 
     print("INFO:  Generate samples")
-    run_samples(device, input_vectors)
+    for i in range(len(input_vectors)) :
+        device.write(0x0000000000000020, input_vectors[i])
 
     print("INFO:  Read back samples")
-    filter_output = read_samples(device, len(input_vectors))
-
+    filter_output = []
+    for i in range(len(input_vectors)):
+        filter_output.append(device.read(0x0000000000000030+(64*i), np.uint64))
+    
     print("INFO:  Check outputs")
     errors = 0
     for i in range(len(filter_output)) :
@@ -174,23 +172,6 @@ def load_binary_data(datafile) :
     
     return np.array(binary_data, dtype='uint64')
         
-def load_coeffs(umi, coeffs) :
-
-    umi.write(0x0000000000000010, np.array(coeffs, dtype='uint16'), posted=True)
-
-def run_samples(umi, data_samples) :
-
-    for i in range(len(data_samples)) :
-        umi.write(0x0000000000000020, data_samples[i])
-
-def read_samples(umi, num_samples) :
-
-    output_data = []
-    for i in range(num_samples) :
-        output_data.append(umi.read(0x0000000000000030+(64*i), np.uint64))
-        
-    return output_data
-                           
 def setup_queues(client2rtl="client2rtl.q",
                  rtl2client="rtl2client.q",
                  host2rtl="host2rtl.q",
