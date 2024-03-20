@@ -29,7 +29,7 @@ def run(chip):
     bitstream_maps = chip.find_files('fpga', part_name, 'file', 'bitstream_map')
 
     if len(bitstream_maps) == 1:
-        json_outfile = f"outputs/{topmodule}_bitstream.json"
+        json_outfile = f"outputs/{topmodule}.json"
         config_bitstream = fasm_utils.fasm2bitstream(fasm_file, bitstream_maps[0])
         fasm_utils.write_bitstream_json(config_bitstream, json_outfile)
     elif len(bitstream_maps) == 0:
