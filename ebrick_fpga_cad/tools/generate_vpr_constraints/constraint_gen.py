@@ -50,15 +50,3 @@ def run(chip):
     constraint_utils.write_vpr_constraints_xml_file(xml_data, xml_constraints_file)
 
     return 0
-
-
-################################
-# Post_process (post executable)
-################################
-
-
-def post_process(chip):
-    ''' Tool specific function to run after step execution
-    '''
-    design = chip.top()
-    shutil.copy(f'inputs/{design}.blif', 'outputs')
