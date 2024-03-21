@@ -1,24 +1,19 @@
 #!/usr/bin/env python3
-#umi_fir_filter_test.py
+# umi_fir_filter_test.py
 
 # Copyright (c) 2024 Zero ASIC Corporation
 # This code is licensed under Apache License 2.0 (see LICENSE for details)
 
-import argparse
-import ast
 import numpy as np
-import random
 import sys
 
-from pathlib import Path
-from siliconcompiler.package import path as sc_path
 from switchboard import SbDut
 from switchboard import UmiTxRx
-from switchboard import random_umi_packet
+# from switchboard import random_umi_packet
 from switchboard import delete_queue
-from switchboard import verilator_run
-from switchboard import binary_run
-#from switchboard import SbDut, UmiTxRx, PyUmiPacket, UmiCmd, umi_opcode
+# from switchboard import verilator_run
+# from switchboard import binary_run
+# from switchboard import SbDut, UmiTxRx, PyUmiPacket, UmiCmd, umi_opcode
 
 import lambdalib
 import umi
@@ -40,14 +35,14 @@ def run_test(trace=False, fast=False):
     # * 'umi_fir_filter_test' is the name of the top-level module
     # * 'tool' indicates the Verilog simulation tool ('verilator' or 'icarus')
     # * 'trace' indicates whether waveforms should be dumped
-    # * 'default_main' is Verilator-specific; when True indicats that 
+    # * 'default_main' is Verilator-specific; when True indicats that
     #   switchboard's default C++ main() implementation should be used.
     #   this testbench has its own main; so we set it to False
 
     dut = SbDut('umi_fir_filter_test', tool='verilator', trace=trace, default_main=False)
 
     # The next few commands specify the Verilog sources to be used in the
-    # simulation.  
+    # simulation.
 
     # import the UMI library
     dut.use(umi)
@@ -80,7 +75,7 @@ def run_test(trace=False, fast=False):
 
     # Set include directories
     dut.add('option', 'idir', 'examples/fir_filter/rtl', package='umi_fir_filter')
-    
+
     # build() kicks off the simulator build using the source files configured
     # in the previous commands. The result depends on the simulator being used
     # For Verilator, the output of build() is an executable that can be run
@@ -115,15 +110,15 @@ def run_test(trace=False, fast=False):
 
     dut.simulate()
 
-    #Generate the fir filter vectors
+    # Generate the fir filter vectors
     generate_fir_filter_vectors(16, 100)
-    
+
     device = UmiTxRx(umi_queues['client2rtl'], umi_queues['rtl2client'])
     host = UmiTxRx(umi_queues['host2rtl'], umi_queues['rtl2host'])
 
     input_vectors = load_binary_data("fir_filter_input_vectors.dat")
     expected_output = load_binary_data("fir_filter_output_vectors.dat")
-    
+
     coeffs = [
         0x0001,
         0x0002,
@@ -139,59 +134,59 @@ def run_test(trace=False, fast=False):
     device.write(0x0000000000000010, np.array(coeffs, dtype='uint16'), posted=True)
 
     print("INFO:  Generate samples")
-    for i in range(len(input_vectors)) :
+    for i in range(len(input_vectors)):
         device.write(0x0000000000000020, input_vectors[i])
 
     print("INFO:  Read back samples")
     filter_output = []
     for i in range(len(input_vectors)):
-        filter_output.append(device.read(0x0000000000000030+(64*i), np.uint64))
-    
+        filter_output.append(device.read(0x0000000000000030 + (64*i), np.uint64))
+
     print("INFO:  Check outputs")
     errors = 0
-    for i in range(len(filter_output)) :
-        if (expected_output[i] != filter_output[i]) :
+    for i in range(len(filter_output)):
+        if (expected_output[i] != filter_output[i]):
             print(f"ERROR in output {i}: expected {hex(expected_output[i])} got {hex(filter_output[i])}")
             errors += 1
 
     print(f"ERRORS = {errors}")
-    if (errors == 0) :
+    if (errors == 0):
         print("PASS")
-    else :
+    else:
         print("FAIL")
 
-def load_binary_data(datafile) :
+def load_binary_data(datafile):
 
     binary_data = []
-    
-    with open(datafile, "r") as bin_data :
-        for data_entry in bin_data.readlines() :
+
+    with open(datafile, "r") as bin_data:
+        for data_entry in bin_data.readlines():
             binary_data.append(int(data_entry, base=2))
 
     bin_data.close()
-    
+
     return np.array(binary_data, dtype='uint64')
-        
+
+
 def setup_queues(client2rtl="client2rtl.q",
                  rtl2client="rtl2client.q",
                  host2rtl="host2rtl.q",
-                 rtl2host="rtl2host.q"
-) :
+                 rtl2host="rtl2host.q"):
 
     # clean up old queues if present
     for q in [client2rtl, rtl2client, host2rtl, rtl2host]:
         delete_queue(q)
-        
+
     all_queues = { "client2rtl": client2rtl,
                    "rtl2client": rtl2client,
                    "host2rtl": host2rtl,
                    "rtl2host": rtl2host,
-                   #"tb2bitstreamif": tb2bitstreamif,
-                   #"bitstreamif2tb": bitstreamif2tb
+                   # "tb2bitstreamif": tb2bitstreamif,
+                   # "bitstreamif2tb": bitstreamif2tb
                    }
-    
+
     return all_queues
-     
+
 
 if __name__ == '__main__':
     from argparse import ArgumentParser
