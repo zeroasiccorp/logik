@@ -1,19 +1,19 @@
 {
   "clk": {
     "direction": "input",
-    "pin": "gpio_in_left[0]"
+    "pin": "clk[0]"
   },
   "resetn": {
     "direction": "input",
-    "pin": "gpio_in_left[1]"
+    "pin": "gpio_in[1]"
   },
   "input_valid": {
     "direction": "input",
-    "pin": "gpio_in_left[2]"
+    "pin": "gpio_in[2]"
   },
   "output_valid": {
     "direction": "output",
-    "pin": "gpio_out_left[3]"
+    "pin": "gpio_out[3]"
   },
   "x[0]": {
     "direction": "input",
