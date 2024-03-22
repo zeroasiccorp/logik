@@ -53,7 +53,7 @@ def calculate_bitstream_rows(bitstream_map) :
     return max_rows
     
 
-def calculate_address_length(bitstream_map) :
+def calculate_address_size(bitstream_map) :
 
     return get_max_bitstream_address_length(bitstream_map)
 
@@ -78,6 +78,43 @@ def calculate_config_data_width(bitstream_map):
 
     return max_config_width
 
+#In this converter, the bitstream address space is flattened
+#into a vector; this is useful for prepping the bitstream for
+#storage into a ROM that will be loaded over a serial interface
+#To align to the bitstream ordering that is required by
+#the bitstream loading circuit, it is necessary to do some
+#arithmetic to pick which configuration words go in which
+#order in the flattened vector; see below for details
+def generate_flattened_bitstream(bitstream_map):
+
+    #Convert FPGA array dimensions into address space bit widths;
+    #this will assist in flattening the address space:
+    num_bitstream_columns = calculate_bitstream_columns(bitstream_map)
+    num_bitstream_rows = calculate_bitstream_rows(bitstream_map)
+    address_length = int.bit_length(calculate_address_size(bitstream_map))
+    x_length = int.bit_length(num_bitstream_columns-1)
+    y_length = int.bit_length(num_bitstream_rows-1)
+
+    #Get the word size of the words in the bitstream
+    config_data_width = calculate_config_data_width(bitstream_map)
+    
+    input_bus_width = x_length + y_length + address_length
+
+    print(f"Vector size stats: {x_length} {y_length} {address_length} {input_bus_width}")
+    
+    bitstream_vector = [0] * pow(2, input_bus_width)
+
+    for x in range(len(bitstream_map)):
+        for y in range(len(bitstream_map[x])):
+            for address in range(len(bitstream_map[x][y])):
+                
+                vector_address = y * pow(2,x_length+address_length) + x * pow(2, address_length) + address
+                
+                bitstream_data = concatenate_data(bitstream_map[x][y][address])
+                formatted_data = format(bitstream_data, "0x").zfill(int(config_data_width/4))
+                bitstream_vector[vector_address] = formatted_data
+                
+    return bitstream_vector
 
 #The native bitstream in this flow organizes data into a 4-D array
 #The first dimension is the X-coordinate in the VPR model
@@ -110,7 +147,7 @@ def generate_umi_bitstream(bitstream_map,
 
     num_bitstream_columns = calculate_bitstream_columns(bitstream_map)
     num_bitstream_rows = calculate_bitstream_rows(bitstream_map)
-    address_length = calculate_address_length(bitstream_map)
+    address_length = calculate_address_size(bitstream_map)
     config_data_width = calculate_config_data_width(bitstream_map)
     x_length = int.bit_length(num_bitstream_columns-1)
     y_length = int.bit_length(num_bitstream_rows-1)
