@@ -28,7 +28,6 @@ def setup(chip, flowname='ebrick_fpga_flow'):
 
     flow_pipe = [
         ('syn', yosys_syn),
-        ('constraint_gen', constraint_gen),
         ('place', vpr_place),
         ('route', vpr_route),
         ('genfasm', genfasm_bitstream),
@@ -56,6 +55,9 @@ def setup(chip, flowname='ebrick_fpga_flow'):
                        'pins', 'peakpower', 'leakagepower'):
             flow.set('flowgraph', flowname, step, index, 'weight', metric, 1.0)
         prevstep = step
+
+    flow.node(flowname, 'constraint_gen', constraint_gen)
+    flow.edge(flowname, 'constraint_gen', 'place')
 
     return flow
 
