@@ -51,8 +51,7 @@ def setup(chip, flowname='ebrick_fpga_flow'):
                        'setupwns', 'setuptns', 'setuppaths'):
             flow.set('flowgraph', flowname, step, index, 'goal', metric, 0)
         # Metrics
-        for metric in ('luts', 'dsps', 'brams', 'registers',
-                       'pins', 'peakpower', 'leakagepower'):
+        for metric in ('luts', 'dsps', 'brams', 'registers', 'pins'):
             flow.set('flowgraph', flowname, step, index, 'weight', metric, 1.0)
         prevstep = step
 
