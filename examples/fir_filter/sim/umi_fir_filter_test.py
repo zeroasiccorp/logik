@@ -34,7 +34,7 @@ def run_test(trace=False, fast=False):
     #   switchboard's default C++ main() implementation should be used.
     #   this testbench has its own main; so we set it to False
 
-    dut = SbDut('umi_fir_filter_test', tool='verilator', trace=trace, default_main=False)
+    dut = SbDut('testbench', tool='verilator', trace=trace, default_main=True)
 
     # The next few commands specify the Verilog sources to be used in the
     # simulation.
@@ -58,10 +58,7 @@ def run_test(trace=False, fast=False):
     dut.input('examples/fir_filter/rtl/umi_fir_filter.v', package='umi_fir_filter')
     dut.input('examples/fir_filter/rtl/umi_fir_filter_regs.v', package='umi_fir_filter')
 
-    dut.input('examples/fir_filter/sim/umi_device_interface.v', package='umi_fir_filter')
-    dut.input('examples/fir_filter/sim/umi_fir_filter_test.v', package='umi_fir_filter')
-
-    dut.input('examples/fir_filter/sim/umi_fir_filter_test.cc', package='umi_fir_filter')
+    dut.input('examples/fir_filter/sim/testbench.sv', package='umi_fir_filter')
 
     # Setup all the needed compiler directives
 
