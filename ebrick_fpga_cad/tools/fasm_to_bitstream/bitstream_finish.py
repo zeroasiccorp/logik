@@ -41,7 +41,7 @@ def run(chip):
         fasm_utils.write_bitstream_data(umi_bitstream, umi_outfile)
         binary_bitstream = fasm_utils.format_binary_bitstream(umi_bitstream)
         fasm_utils.write_bitstream_binary(binary_bitstream, binary_outfile)
-        
+
     elif len(bitstream_maps) == 0:
         chip.error("fasm_to_bitstream requires a bitstream map file",
                    fatal=True)
