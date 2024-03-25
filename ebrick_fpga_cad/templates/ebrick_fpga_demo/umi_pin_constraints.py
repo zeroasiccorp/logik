@@ -13,22 +13,27 @@ def main() :
         json_out.write('\n')
         
 
-def generate_umi_pin_constraints(num_umi_ports=3,
-                                 fpga_ports_per_umi=300,
+def generate_umi_pin_constraints(fpga_ports_per_umi=300,
                                  umi_cmd_width=32,
                                  umi_data_width=128,
-                                 umi_addr_width=64) :
+                                 umi_addr_width=64,
+                                 umi_ports_used=[1,2,3],
+                                 port_types = ["uhost_req",
+                                               "uhost_resp",
+                                               "udev_req",
+                                               "udev_resp"],
+                                 umi_port_num_offset=1,
+                                 index_control_bits=True) :
     
     umi_to_fpga_pin_map = {}
 
-    port_types = ["uhost_req",
-                  "uhost_resp",
-                  "udev_req",
-                  "udev_resp"]
+   
 
     umi_bus_index = 0
-    for i in range(num_umi_ports) :
+    for umi_port_num in umi_ports_used:
 
+        i = umi_port_num - umi_port_num_offset
+        
         for j in range(len(port_types)) :
             
             #Resetting the umi bus index here re-locks
@@ -36,8 +41,11 @@ def generate_umi_pin_constraints(num_umi_ports=3,
             #for each port
             umi_bus_index = (len(port_types)*i+j)*fpga_ports_per_umi
             port = port_types[j]
-            
-            cur_signal = f'{port}_valid[{i}]'
+
+            if (index_control_bits == True):
+                cur_signal = f'{port}_valid[{umi_bus_index}]'
+            else:
+                cur_signal = f'{port}_valid'
 
             #***NOTE:  This direction will be the same for
             #          everything except ready
@@ -101,7 +109,11 @@ def generate_umi_pin_constraints(num_umi_ports=3,
                 cur_dir = 'output'
                 cur_dir_short = 'out'
 
-            cur_signal = f'{port}_ready[{i}]'
+            if (index_control_bits == True):
+                cur_signal = f'{port}_ready[{umi_bus_index}]'
+            else:
+                cur_signal = f'{port}_ready'
+                
             mapped_signal_name = f"umi_io_{cur_dir_short}[{umi_bus_index}]"
             umi_to_fpga_pin_map[cur_signal] = {
                 "direction": cur_dir,
