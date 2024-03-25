@@ -25,6 +25,11 @@ def generate_umi_pin_constraints(fpga_ports_per_umi=300,
                                  umi_port_num_offset=1,
                                  index_control_bits=True):
 
+    port_type_index = { "uhost_req" : 0,
+                        "uhost_resp" : 1,
+                        "udev_req" : 2,
+                        "udev_resp" : 3 }
+                            
     umi_to_fpga_pin_map = {}
 
     umi_bus_index = 0
@@ -32,13 +37,12 @@ def generate_umi_pin_constraints(fpga_ports_per_umi=300,
 
         i = umi_port_num - umi_port_num_offset
 
-        for j in range(len(port_types)):
+        for port in port_types :
 
             # Resetting the umi bus index here re-locks
             # the index to a particular side of the array
             # for each port
-            umi_bus_index = (len(port_types) * i + j) * fpga_ports_per_umi
-            port = port_types[j]
+            umi_bus_index = (4 * i + port_type_index[port]) * fpga_ports_per_umi
 
             if (index_control_bits):
                 cur_signal = f'{port}_valid[{umi_bus_index}]'
