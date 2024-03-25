@@ -1,19 +1,26 @@
-//umi_fir_filter_test.v
+// testbench.sv - umi_fir_filter_test
 //Peter Grossmann
 //6 October 2023
 //$Id$
 //$Log$
 
-module umi_fir_filter_test
+module testbench
   # (
      parameter DW=128,
      parameter AW=64,
      parameter CW=32
      )
-   ( 
-     input  clk,
-     input  resetn
+   (
+     input  clk
      );
+
+   wire         resetn;
+   reg [7:0]    resetn_vec = 8'b00;
+
+   assign resetn = resetn_vec[7];
+
+   always @(posedge clk)
+       resetn_vec <= {resetn_vec[6:0], 1'b1};
 
    reg [31:0] timeout_counter;
 
@@ -25,7 +32,7 @@ module umi_fir_filter_test
 	 timeout_counter <= timeout_counter + 1;
       end
    end
-   
+
    always@(*) begin
       if (timeout_counter == 100*`VECTOR_COUNT_MAX) begin
 	 $display("TIMEOUT");
@@ -49,7 +56,7 @@ module umi_fir_filter_test
 
    umi_device_interface
      #(
-       .DW(128) 
+       .DW(128)
        )
    umi_device_interface (
 			 .clk(clk),
@@ -66,7 +73,7 @@ module umi_fir_filter_test
 			 .umi_resp_data(udev_resp_data),
 			 .umi_resp_ready(udev_resp_ready)
 			 );
-   
+
    umi_fir_filter
    dut (
 	.clk(clk),
