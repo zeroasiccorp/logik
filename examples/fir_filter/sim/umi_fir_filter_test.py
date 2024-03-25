@@ -5,15 +5,10 @@
 # This code is licensed under Apache License 2.0 (see LICENSE for details)
 
 import numpy as np
-import sys
 
 from switchboard import SbDut
 from switchboard import UmiTxRx
-# from switchboard import random_umi_packet
 from switchboard import delete_queue
-# from switchboard import verilator_run
-# from switchboard import binary_run
-# from switchboard import SbDut, UmiTxRx, PyUmiPacket, UmiCmd, umi_opcode
 
 import lambdalib
 import umi
@@ -85,7 +80,6 @@ def run_test(trace=False, fast=False):
 
     dut.build(fast=fast)
 
-
     #############################
     # create switchboard queues #
     #############################
@@ -114,7 +108,7 @@ def run_test(trace=False, fast=False):
     generate_fir_filter_vectors(16, 100)
 
     device = UmiTxRx(umi_queues['client2rtl'], umi_queues['rtl2client'])
-    host = UmiTxRx(umi_queues['host2rtl'], umi_queues['rtl2host'])
+    # host = UmiTxRx(umi_queues['host2rtl'], umi_queues['rtl2host'])
 
     input_vectors = load_binary_data("fir_filter_input_vectors.dat")
     expected_output = load_binary_data("fir_filter_output_vectors.dat")
@@ -140,13 +134,13 @@ def run_test(trace=False, fast=False):
     print("INFO:  Read back samples")
     filter_output = []
     for i in range(len(input_vectors)):
-        filter_output.append(device.read(0x0000000000000030 + (64*i), np.uint64))
+        filter_output.append(device.read(0x0000000000000030 + (64 * i), np.uint64))
 
     print("INFO:  Check outputs")
     errors = 0
     for i in range(len(filter_output)):
         if (expected_output[i] != filter_output[i]):
-            print(f"ERROR in output {i}: expected {hex(expected_output[i])} got {hex(filter_output[i])}")
+            print(f"ERROR {i}: expected {hex(expected_output[i])} got {hex(filter_output[i])}")
             errors += 1
 
     print(f"ERRORS = {errors}")
@@ -154,6 +148,7 @@ def run_test(trace=False, fast=False):
         print("PASS")
     else:
         print("FAIL")
+
 
 def load_binary_data(datafile):
 
@@ -177,13 +172,10 @@ def setup_queues(client2rtl="client2rtl.q",
     for q in [client2rtl, rtl2client, host2rtl, rtl2host]:
         delete_queue(q)
 
-    all_queues = { "client2rtl": client2rtl,
-                   "rtl2client": rtl2client,
-                   "host2rtl": host2rtl,
-                   "rtl2host": rtl2host,
-                   # "tb2bitstreamif": tb2bitstreamif,
-                   # "bitstreamif2tb": bitstreamif2tb
-                   }
+    all_queues = {"client2rtl": client2rtl,
+                  "rtl2client": rtl2client,
+                  "host2rtl": host2rtl,
+                  "rtl2host": rtl2host}
 
     return all_queues
 
@@ -200,4 +192,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     run_test(trace=args.trace, fast=args.fast)
-
