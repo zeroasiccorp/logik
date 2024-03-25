@@ -29,10 +29,12 @@ def setup(chip):
 
     all_part_names = [
         'ebrick_fpga_demo',
+        'ebrick_fpga_demo_mini',
     ]
 
     # Settings common to all parts in family
     for part_name in all_part_names:
+
         fpga = FPGA(chip, part_name, package=f'ebrick_fpga-{part_name}')
         _common.register_package(
             fpga,
@@ -54,7 +56,8 @@ def setup(chip):
 
         _common.set_fpga_resources(fpga)
 
-        if part_name == 'ebrick_fpga_demo':
+        if ((part_name == 'ebrick_fpga_demo') or
+            (part_name == 'ebrick_fpga_demo_mini')):
             techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
 
             flop_library = os.path.join(techlib_root, 'tech_flops.v')
@@ -89,8 +92,11 @@ def setup(chip):
             gasket_map_file = os.path.join(cad_root, f'{part_name}_gasket_map.json')
             fpga.set('fpga', part_name, 'file', 'gasket_map', gasket_map_file)
 
-            fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
-
+            if (part_name == 'ebrick_fpga_demo'):
+                fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
+            elif (part_name == 'ebrick_fpga_demo_mini'):
+                fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
+                
         all_fpgas.append(fpga)
 
     return all_fpgas
