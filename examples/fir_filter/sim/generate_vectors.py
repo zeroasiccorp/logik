@@ -1,8 +1,6 @@
 # generate_vectors.py
 
 import argparse
-import math
-import random
 import numpy as np
 
 
@@ -15,12 +13,12 @@ def generate_fir_filter_vectors(dtype=np.uint16,
                                 num_corner_cases=0):
 
     num_coeffs = coeffs_vector.size
-    num_inputs = num_vectors-num_corner_cases
+    num_inputs = num_vectors - num_corner_cases
     abs_min = np.iinfo(dtype).min
     abs_max = np.iinfo(dtype).max
 
     inputs_vector = np.random.randint(low=abs_min,
-                                     high=(abs_max+1),
+                                     high=(abs_max + 1),
                                      size=num_inputs,
                                      dtype=dtype)
 
@@ -38,7 +36,7 @@ def write_vector_to_file(file_name, data_vector, dtype=np.uint64):
     out_file = open(file_name, "w")
 
     for i in range(data_vector.size):
-        vector_elem = format(data_vector[i], 'b').zfill(8*dtype.itemsize)
+        vector_elem = format(data_vector[i], 'b').zfill(8 * dtype.itemsize)
         out_file.write(vector_elem)
         out_file.write("\n")
 
@@ -53,7 +51,7 @@ def main():
     option_parser.add_argument("num_vectors", help="number of vectors to generate", type=int)
     options = option_parser.parse_args()
 
-    data_width = int(options.data_width/8)
+    data_width = int(options.data_width / 8)
     data_type = np.dtype(f'u{data_width}')
     num_vectors = options.num_vectors
 

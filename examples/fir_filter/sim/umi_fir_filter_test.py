@@ -8,7 +8,6 @@ import numpy as np
 
 from switchboard import SbDut
 from switchboard import UmiTxRx
-from switchboard import delete_queue
 
 import lambdalib
 import umi
@@ -90,7 +89,7 @@ def run_test(trace=False, fast=False):
     # connection.
 
     device = UmiTxRx('client2rtl.q', 'rtl2client.q', fresh=True)
-    #host = UmiTxRx('host2rtl.q', 'rtl2host.q', fresh=True)
+    # host = UmiTxRx('host2rtl.q', 'rtl2host.q', fresh=True)
 
     #############################
     # launch the RTL simulation #
