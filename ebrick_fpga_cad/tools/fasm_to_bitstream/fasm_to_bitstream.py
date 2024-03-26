@@ -101,8 +101,6 @@ def generate_flattened_bitstream(bitstream_map):
 
     input_bus_width = x_length + y_length + address_length
 
-    print(f"Vector size stats: {x_length} {y_length} {address_length} {input_bus_width}")
-
     bitstream_vector = [0] * pow(2, input_bus_width)
 
     for x in range(len(bitstream_map)):
