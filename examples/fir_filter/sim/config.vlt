@@ -1,6 +1,0 @@
-`verilator_config
-lint_off -rule UNUSED
-lint_off -rule UNDRIVEN -file "*umi_endpoint.v"
-lint_off -rule PINCONNECTEMPTY -file "*umi_endpoint.v"
-lint_off -rule PINCONNECTEMPTY -file "*umi_unpack.v"
-lint_off -rule PINCONNECTEMPTY -file "*umi_pack.v"
