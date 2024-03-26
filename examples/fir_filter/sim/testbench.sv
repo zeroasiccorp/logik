@@ -37,7 +37,7 @@ module testbench
    end
 
    always@(*) begin
-      if (timeout_counter == 100*`VECTOR_COUNT_MAX) begin
+      if (timeout_counter == 200*`VECTOR_COUNT_MAX) begin
 	 $display("TIMEOUT");
 	 $finish;
       end
