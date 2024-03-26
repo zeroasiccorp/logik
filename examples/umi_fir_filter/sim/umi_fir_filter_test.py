@@ -48,14 +48,14 @@ def run_test(trace=False, fast=False):
     dut.register_package_source(
         name='umi_fir_filter',
         path='git+https://github.com/zeroasiccorp/ebrick-fpga-cad.git',
-        ref='umi_fir_filter')
+        ref='ali_umi_fir_filter')
 
-    dut.input('examples/fir_filter/rtl/fir_filter.v', package='umi_fir_filter')
-    dut.input('examples/fir_filter/rtl/tree_adder.v', package='umi_fir_filter')
-    dut.input('examples/fir_filter/rtl/umi_fir_filter.v', package='umi_fir_filter')
-    dut.input('examples/fir_filter/rtl/umi_fir_filter_regs.v', package='umi_fir_filter')
+    dut.input('examples/umi_fir_filter/rtl/fir_filter.v', package='umi_fir_filter')
+    dut.input('examples/umi_fir_filter/rtl/tree_adder.v', package='umi_fir_filter')
+    dut.input('examples/umi_fir_filter/rtl/umi_fir_filter.v', package='umi_fir_filter')
+    dut.input('examples/umi_fir_filter/rtl/umi_fir_filter_regs.v', package='umi_fir_filter')
 
-    dut.input('examples/fir_filter/sim/testbench.sv', package='umi_fir_filter')
+    dut.input('examples/umi_fir_filter/sim/testbench.sv', package='umi_fir_filter')
 
     # Setup all the needed compiler directives
 
@@ -63,7 +63,7 @@ def run_test(trace=False, fast=False):
     dut.add('option', 'define', 'VECTOR_COUNT_MAX=100')
 
     # Set include directories
-    dut.add('option', 'idir', 'examples/fir_filter/rtl', package='umi_fir_filter')
+    dut.add('option', 'idir', 'examples/umi_fir_filter/rtl', package='umi_fir_filter')
 
     # build() kicks off the simulator build using the source files configured
     # in the previous commands. The result depends on the simulator being used
