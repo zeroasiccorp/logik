@@ -1,4 +1,3 @@
-
 //The UMI FIR filter design makes use of
 //three configuration registers, each of which
 //is accessed with a 2-bit address.
