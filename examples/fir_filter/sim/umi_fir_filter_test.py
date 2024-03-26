@@ -89,7 +89,8 @@ def run_test(trace=False, fast=False):
     # similar to specifying TCP ports to be used on two sides of a
     # connection.
 
-    umi_queues = setup_queues()
+    device = UmiTxRx('client2rtl.q', 'rtl2client.q', fresh=True)
+    #host = UmiTxRx('host2rtl.q', 'rtl2host.q', fresh=True)
 
     #############################
     # launch the RTL simulation #
@@ -102,14 +103,6 @@ def run_test(trace=False, fast=False):
     dut.simulate()
 
     # Generate the fir filter vectors
-    generate_fir_filter_vectors(16, 100)
-
-    device = UmiTxRx(umi_queues['client2rtl'], umi_queues['rtl2client'])
-    # host = UmiTxRx(umi_queues['host2rtl'], umi_queues['rtl2host'])
-
-    input_vectors = load_binary_data("fir_filter_input_vectors.dat")
-    expected_output = load_binary_data("fir_filter_output_vectors.dat")
-
     coeffs = [
         0x0001,
         0x0002,
@@ -120,6 +113,8 @@ def run_test(trace=False, fast=False):
         0x0002,
         0x0001,
     ]
+
+    input_vectors, expected_output = generate_fir_filter_vectors(dtype=np.uint16, num_vectors=100)
 
     print("INFO:  Load coefficients")
     device.write(0x0000000000000010, np.array(coeffs, dtype='uint16'), posted=True)
@@ -145,36 +140,6 @@ def run_test(trace=False, fast=False):
         print("PASS")
     else:
         print("FAIL")
-
-
-def load_binary_data(datafile):
-
-    binary_data = []
-
-    with open(datafile, "r") as bin_data:
-        for data_entry in bin_data.readlines():
-            binary_data.append(int(data_entry, base=2))
-
-    bin_data.close()
-
-    return np.array(binary_data, dtype='uint64')
-
-
-def setup_queues(client2rtl="client2rtl.q",
-                 rtl2client="rtl2client.q",
-                 host2rtl="host2rtl.q",
-                 rtl2host="rtl2host.q"):
-
-    # clean up old queues if present
-    for q in [client2rtl, rtl2client, host2rtl, rtl2host]:
-        delete_queue(q)
-
-    all_queues = {"client2rtl": client2rtl,
-                  "rtl2client": rtl2client,
-                  "host2rtl": host2rtl,
-                  "rtl2host": rtl2host}
-
-    return all_queues
 
 
 if __name__ == '__main__':
