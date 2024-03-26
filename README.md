@@ -38,8 +38,6 @@ There are two options for setting up these tools:  running within a docker conta
 
 ### Running Within Docker
 
-Once in the terminal, start a Docker container from our ebrick-demo image. The -v part of the command makes the sc_work folder in the container visible outside of the container. This will be useful later on if you want to view waveforms from simulations or the results of physical implementation runs.
-
 First, install Docker if you haven't already.  Here are the instructions for various platforms:
 * [Linux Docker installation](https://docs.docker.com/desktop/install/linux-install/)
 * [macOS Docker installation](https://docs.docker.com/desktop/install/mac-install/)
@@ -53,7 +51,7 @@ Then launch a terminal:
 * Windows: Open `Windows PowerShell` from the Start menu.
 
 ```console
-docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/zeroasiccorp/ebrick-demo:latest
+docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_tools:latest
 ```
 
 ### Installing Required Software Manually
