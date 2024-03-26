@@ -2,7 +2,8 @@ import argparse
 import json
 import math
 import os
-from ebrick_fpga_cad.templates.ebrick_fpga_demo.umi_pin_constraints import generate_umi_pin_constraints
+from ebrick_fpga_cad.templates.ebrick_fpga_demo.umi_pin_constraints \
+        import generate_umi_pin_constraints
 
 
 def main():
@@ -23,9 +24,7 @@ def main():
                      f"pin_constraints_{part_name}.json"))
 
 
-def generate_mapped_constraints(part_name, data_width=16, num_taps=8):
-
-    output_width = int(2 * data_width + math.log2(num_taps))
+def generate_mapped_constraints(part_name):
 
     pin_constraints = {}
 
@@ -39,20 +38,15 @@ def generate_mapped_constraints(part_name, data_width=16, num_taps=8):
             "direction": 'input',
             "pin": 'gpio_in[1]'
         }
-        pin_constraints.update(generate_umi_pin_constraints(num_umi_ports=1,
-                                                            fpga_ports_per_umi=300,
+        pin_constraints.update(generate_umi_pin_constraints(fpga_ports_per_umi=300,
                                                             umi_cmd_width=32,
                                                             umi_data_width=128,
-                                                            umi_addr_width=64))
-
-        keys_to_be_removed = []
-
-        for key in pin_constraints:
-            if 'uhost' in key:
-                keys_to_be_removed.append(key)
-
-        for key in keys_to_be_removed:
-            pin_constraints.pop(key, None)
+                                                            umi_addr_width=64,
+                                                            umi_ports_used=[1],
+                                                            port_types=["udev_req",
+                                                                        "udev_resp"],
+                                                            umi_port_num_offset=1,
+                                                            index_control_bits=False))
 
     else:
         print(f"ERROR: unsupported part name {part_name}")
