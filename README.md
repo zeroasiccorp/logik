@@ -24,6 +24,10 @@ This flow makes use of several open-source electronic design automation (EDA) to
 * [VPR](https://docs.verilogtorouting.org),
 * [Silicon Compiler](https://docs.siliconcompiler.com).
 
+For VHDL support, [GHDL](https://ghdl.github.io/ghdl/) is also required.
+
+For SystemVerilog support, [sv2v](https://github.com/zachjs/sv2v?tab=readme-ov-file#sv2v-systemverilog-to-verilog) is also required.
+
 To integrate this software with a complete FPGA development environment or to run HDL simulations on provided examples, simulation tools are also needed.  The following open source options are available:
 
 * [GTKWave](https://gtkwave.sourceforge.net/)
