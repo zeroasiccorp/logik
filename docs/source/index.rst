@@ -7,7 +7,8 @@ Documentation Home
     :maxdepth: 3
     :caption: Usage
     
-    getting_started
+    prerequisites
+    tool_installations
     design_preparation
     sc_preparation
     execution
