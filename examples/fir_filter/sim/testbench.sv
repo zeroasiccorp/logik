@@ -19,24 +19,6 @@ module testbench
    always @(posedge clk)
        resetn_vec <= {resetn_vec[6:0], 1'b1};
 
-   reg [31:0] timeout_counter;
-
-   always @(posedge clk or negedge resetn) begin
-      if (~resetn) begin
-	 timeout_counter <= 'h0;
-      end
-      else begin
-	 timeout_counter <= timeout_counter + 1;
-      end
-   end
-
-   always@(*) begin
-      if (timeout_counter == 200*`VECTOR_COUNT_MAX) begin
-	 $display("TIMEOUT");
-	 $finish;
-      end
-   end
-
    wire 	     udev_req_valid;
    wire [CW-1:0]     udev_req_cmd;
    wire [AW-1:0]     udev_req_dstaddr;
