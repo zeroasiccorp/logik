@@ -56,8 +56,7 @@ def setup(chip):
 
         _common.set_fpga_resources(fpga)
 
-        if ((part_name == 'ebrick_fpga_demo') or
-            (part_name == 'ebrick_fpga_demo_mini')):
+        if ((part_name == 'ebrick_fpga_demo') or (part_name == 'ebrick_fpga_demo_mini')):
             techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
 
             flop_library = os.path.join(techlib_root, 'tech_flops.v')
@@ -96,7 +95,7 @@ def setup(chip):
                 fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
             elif (part_name == 'ebrick_fpga_demo_mini'):
                 fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
-                
+
         all_fpgas.append(fpga)
 
     return all_fpgas
