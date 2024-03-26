@@ -1,8 +1,3 @@
-//umi_fir_filter_regs.v
-//Peter Grossmann
-//31 October 20223
-//$Id$
-//$Log$
 
 module umi_fir_filter_regs
   #(

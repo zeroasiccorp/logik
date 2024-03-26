@@ -1,9 +1,3 @@
-//tree_adder.v
-//Peter Grossmann
-//6 October 2023
-//$Id$
-//$Log$
-
 module tree_adder
   # (
      parameter DATA_WIDTH = 16,

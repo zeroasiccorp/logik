@@ -1,9 +1,3 @@
-//umi_fir_filter_output_store.v
-//Peter Grossmann
-//1 November 2023
-//$Id$
-//$Log$
-
 module umi_fir_filter_output_store
   # (
      parameter DATA_WIDTH = 32,
