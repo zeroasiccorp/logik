@@ -32,19 +32,19 @@ def generate_mapped_constraints(part_name, data_width=16, num_taps=8):
 
         pin_constraints["clk"] = {
             "direction": 'input',
-            "pin": 'gpio_in_left[0]'
+            "pin": 'clk[0]'
         }
         pin_constraints["resetn"] = {
             "direction": 'input',
-            "pin": 'gpio_in_left[1]'
+            "pin": 'gpio_in[1]'
         }
         pin_constraints["input_valid"] = {
             "direction": 'input',
-            "pin": 'gpio_in_left[2]'
+            "pin": 'gpio_in[2]'
         }
         pin_constraints["output_valid"] = {
             "direction": 'output',
-            "pin": 'gpio_out_left[3]'
+            "pin": 'gpio_out[3]'
         }
 
         for i in range(data_width):

@@ -1,5 +1,5 @@
 import os
-import siliconcompiler
+from siliconcompiler import FPGA, Chip
 from ebrick_fpga_cad.fpgas import _common
 
 
@@ -29,23 +29,17 @@ def setup(chip):
 
     all_part_names = [
         'ebrick_fpga_demo',
+        'ebrick_fpga_demo_mini',
     ]
 
     # Settings common to all parts in family
     for part_name in all_part_names:
 
-        # Assemble the name of the CAD release to obtain
-        # from github
-
-        current_release = 'v0.1.8'
-        cad_part_release_url = _common.get_efpga_release_url(
-            current_release,
+        fpga = FPGA(chip, part_name, package=f'ebrick_fpga-{part_name}')
+        _common.register_package(
+            fpga,
+            f'ebrick_fpga-{part_name}',
             f'{part_name}_cad.tar.gz')
-        chip.register_package_source(name=f'ebrick_fpga-{part_name}',
-                                     path=cad_part_release_url,
-                                     ref=current_release)
-
-        fpga = siliconcompiler.FPGA(chip, part_name, package=f'ebrick_fpga-{part_name}')
 
         fpga.set('fpga', part_name, 'vendor', vendor)
 
@@ -62,7 +56,7 @@ def setup(chip):
 
         _common.set_fpga_resources(fpga)
 
-        if part_name == 'ebrick_fpga_demo':
+        if ((part_name == 'ebrick_fpga_demo') or (part_name == 'ebrick_fpga_demo_mini')):
             techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
 
             flop_library = os.path.join(techlib_root, 'tech_flops.v')
@@ -97,7 +91,10 @@ def setup(chip):
             gasket_map_file = os.path.join(cad_root, f'{part_name}_gasket_map.json')
             fpga.set('fpga', part_name, 'file', 'gasket_map', gasket_map_file)
 
-            fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
+            if (part_name == 'ebrick_fpga_demo'):
+                fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
+            elif (part_name == 'ebrick_fpga_demo_mini'):
+                fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
 
         all_fpgas.append(fpga)
 
@@ -106,5 +103,5 @@ def setup(chip):
 
 #########################
 if __name__ == "__main__":
-    for fpga in setup(siliconcompiler.Chip('<fpga>')):
+    for fpga in setup(Chip('<fpga>')):
         fpga.write_manifest(f'{fpga.design}.json')

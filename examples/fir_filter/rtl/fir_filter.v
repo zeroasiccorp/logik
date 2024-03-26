@@ -1,9 +1,3 @@
-//fir_filter.v
-//Peter Grossmann
-//6 October 2023
-//$Id$
-//$Log$
-
 //This module implements a simple N-tap FIR filter
 //The goal is to provide a very explicit, clear, flexible
 //implementation of the canonical FIR filter equation.
