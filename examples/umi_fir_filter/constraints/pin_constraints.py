@@ -2,7 +2,7 @@ import argparse
 import json
 import os
 from ebrick_fpga_cad.templates.ebrick_fpga_demo.umi_pin_constraints \
-import generate_umi_pin_constraints
+    import generate_umi_pin_constraints
 
 
 def main():
