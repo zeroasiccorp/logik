@@ -1,9 +1,3 @@
-// testbench.sv - umi_fir_filter_test
-//Peter Grossmann
-//6 October 2023
-//$Id$
-//$Log$
-
 module testbench
   # (
      parameter DW=128,
