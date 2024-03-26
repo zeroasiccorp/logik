@@ -2,6 +2,7 @@ import argparse
 import json
 import math
 import os
+from ebrick_fpga_cad.templates.ebrick_fpga_demo.umi_pin_constraints import generate_umi_pin_constraints
 
 
 def main():
@@ -34,30 +35,24 @@ def generate_mapped_constraints(part_name, data_width=16, num_taps=8):
             "direction": 'input',
             "pin": 'clk[0]'
         }
-        pin_constraints["resetn"] = {
+        pin_constraints["nreset"] = {
             "direction": 'input',
             "pin": 'gpio_in[1]'
         }
-        pin_constraints["input_valid"] = {
-            "direction": 'input',
-            "pin": 'gpio_in[2]'
-        }
-        pin_constraints["output_valid"] = {
-            "direction": 'output',
-            "pin": 'gpio_out[3]'
-        }
+        pin_constraints.update(generate_umi_pin_constraints(num_umi_ports=1,
+                                                            fpga_ports_per_umi=300,
+                                                            umi_cmd_width=32,
+                                                            umi_data_width=128,
+                                                            umi_addr_width=64))
 
-        for i in range(data_width):
-            pin_constraints[f'x[{i}]'] = {
-                "direction": "input",
-                "pin": f'gpio_in[{i+4}]'
-            }
+        keys_to_be_removed = []
 
-        for i in range(output_width):
-            pin_constraints[f'y[{i}]'] = {
-                "direction": "output",
-                "pin": f'gpio_out[{i+data_width+4}]'
-            }
+        for key in pin_constraints:
+            if 'uhost' in key:
+                keys_to_be_removed.append(key)
+
+        for key in keys_to_be_removed:
+            pin_constraints.pop(key, None)
 
     else:
         print(f"ERROR: unsupported part name {part_name}")

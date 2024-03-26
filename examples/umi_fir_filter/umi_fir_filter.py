@@ -5,9 +5,12 @@ import os
 from siliconcompiler import Chip
 from ebrick_fpga_cad.targets import ebrick_fpga_target
 
+import lambdalib
+import umi
+
 
 def main(part_name='ebrick_fpga_demo'):
-    chip = Chip('fir_filter')
+    chip = Chip('umi_fir_filter')
 
     if __name__ == '__main__':
         chip.create_cmdline(
@@ -26,8 +29,21 @@ def main(part_name='ebrick_fpga_demo'):
     project_path = os.path.abspath(os.path.dirname(__file__))
     for filename in (
             "tree_adder.v",
-            "fir_filter.v"):
+            "fir_filter.v",
+            "umi_fir_filter.v",
+            "umi_fir_filter_output_store.v",
+            "umi_fir_filter_regs.v"):
         chip.input(os.path.join(project_path, 'rtl', filename))
+
+    chip.add('option', 'idir', os.path.join(project_path, 'rtl'))
+
+    # import the UMI library
+    chip.use(umi)
+    chip.add('option', 'library', 'umi')
+
+    # import lambdalib
+    chip.use(lambdalib)
+    chip.add('option', 'library', 'lambdalib_stdlib')
 
     # 3. Define constraints
     chip.add('input', 'constraint', 'pinmap',
