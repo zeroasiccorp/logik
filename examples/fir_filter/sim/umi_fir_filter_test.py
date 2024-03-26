@@ -12,8 +12,6 @@ from switchboard import UmiTxRx
 import lambdalib
 import umi
 
-from generate_vectors import generate_fir_filter_vectors
-
 
 def run_test(trace=False, fast=False):
     ############################
@@ -113,7 +111,21 @@ def run_test(trace=False, fast=False):
         0x0001,
     ]
 
-    input_vectors, expected_output = generate_fir_filter_vectors(dtype=np.uint16, num_vectors=100)
+    dtype = np.uint16
+    num_vectors = 100
+    abs_min = np.iinfo(dtype).min
+    abs_max = np.iinfo(dtype).max
+
+    input_vectors = np.random.randint(low=abs_min,
+                                      high=(abs_max + 1),
+                                      size=num_vectors,
+                                      dtype=dtype)
+
+    expected_output = np.zeros(num_vectors, dtype=np.uint64)
+    for i in range(num_vectors):
+        for j in range(len(coeffs)):
+            if ((i - j) >= 0):
+                expected_output[i] += coeffs[j] * input_vectors[i - j]
 
     print("INFO:  Load coefficients")
     device.write(0x0000000000000010, np.array(coeffs, dtype='uint16'), posted=True)
