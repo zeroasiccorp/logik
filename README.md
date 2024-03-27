@@ -77,9 +77,9 @@ cd examples/adder
 python3 adder.py
 ```
 
-## Hello world circuit
+## Running a Bitstream with Cloud Emulation
 
-To test out a bitstream with our web-based emulation tool, try running the hello world example in [examples/umi_hello](examples/umi_hello).  In that example, the RTL implemented on the FPGA sends a hello world message as a sequence of characters to an address that causes the characters to be printed out when run in an emulation environment.
+To test out a bitstream with our web-based emulation tool, try running the hello world example in [examples/umi_hello](examples/umi_hello).  In that example, RTL implemented on ebrick-fpga sends a hello world message as a sequence of characters to an address that causes the characters to be printed out when run in an emulation environment.
 
 As with the adder example, first build a bitstream:
 
@@ -98,12 +98,19 @@ Then:
 4. Click "Suggest Layout"
 5. In the middle of the page, click "Emulate"
 6. Wait for the Linux Terminal to display a prompt.  (may take a few minutes)
-7. Click "Upload File" and select `ebrick-fpga-cad/examples/umi_hello/build/umi_hello/job0/bitstream/0/outputs/umi_hello.dat` (this is the bitstream you just built)
-8. Wait for the status bar to indicate that the file upload was successful.
-9. In the Linux Terminal shell, type `init-fpga.sh` (this script is in the `PATH`, so no need to `cd` anywhere)
-10. Scroll down to the Output Terminal.  You should see the text `Hello World!` appear in a few seconds, if it's not already there.
+7. Copy-paste the following command into the Linux Terminal and run it to fix the `init-fpga.sh` script (TODO: remove the need for this)
+```console
+head -n 14 /usr/bin/init-fpga.sh > temp && echo "sudo gridrw \$FPGA_LOC chiplet 0x4000000000 l 0
+sudo gridrw \$FPGA_LOC chiplet 0x1000000000 l 0
+sudo gridrw \$FPGA_LOC chiplet 0x1000000000 l 1
+sudo gridrw \$FPGA_LOC chiplet 0x4000000000 l 1" >> temp && sudo mv temp /usr/bin/init-fpga.sh && sudo chmod +x /usr/bin/init-fpga.sh
+```
+8. Click "Upload File" and select `ebrick-fpga-cad/examples/umi_hello/build/umi_hello/job0/bitstream/0/outputs/umi_hello.dat` (this is the bitstream you just built)
+9. Wait for the status bar to indicate that the file upload was successful.  (should take 5-10 seconds)
+10. In the Linux Terminal shell, type `init-fpga.sh` (this script is in the `PATH`, so no need to `cd` anywhere)
+11. Scroll down to the Output Terminal.  You should see the text `Hello World!` appear in a few seconds, if it's not already there.
 
-Suggested next step: try modifying the hello world string in `ebrick-fpga-cad/examples/umi_hello/rtl/umi_hello.v`, rebuild the bitstream, and go through steps 7-10 (i.e., from uploading the bitstream onwards) to run the new bitstream. 
+Suggested next step: try modifying the hello world string in `ebrick-fpga-cad/examples/umi_hello/rtl/umi_hello.v`, rebuild the bitstream, and go through steps 8-11 (i.e., from uploading the bitstream onwards) to run the new bitstream. 
 
 ## Additional Examples and Documentation
 
