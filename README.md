@@ -100,7 +100,10 @@ Then:
 6. Wait for the Linux Terminal to display a prompt.  (may take a few minutes)
 7. Copy-paste the following command into the Linux Terminal and run it to fix the `init-fpga.sh` script (TODO: remove the need for this)
 ```console
-head -n 14 /usr/bin/init-fpga.sh > temp && echo "sudo gridrw \$FPGA_LOC chiplet 0x4000000000 l 0\nsudo gridrw \$FPGA_LOC chiplet 0x1000000000 l 0\nsudo gridrw \$FPGA_LOC chiplet 0x1000000000 l 1\nsudo gridrw \$FPGA_LOC chiplet 0x4000000000 l 1\n" >> temp && sudo mv temp /usr/bin/init-fpga.sh
+head -n 14 /usr/bin/init-fpga.sh > temp && echo "sudo gridrw \$FPGA_LOC chiplet 0x4000000000 l 0
+sudo gridrw \$FPGA_LOC chiplet 0x1000000000 l 0
+sudo gridrw \$FPGA_LOC chiplet 0x1000000000 l 1
+sudo gridrw \$FPGA_LOC chiplet 0x4000000000 l 1" >> temp && sudo mv temp /usr/bin/init-fpga.sh && sudo chmod +x /usr/bin/init-fpga.sh
 ```
 8. Click "Upload File" and select `ebrick-fpga-cad/examples/umi_hello/build/umi_hello/job0/bitstream/0/outputs/umi_hello.dat` (this is the bitstream you just built)
 9. Wait for the status bar to indicate that the file upload was successful.  (should take 5-10 seconds)
