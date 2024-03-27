@@ -1,3 +1,5 @@
+import shutil
+
 from ebrick_fpga_cad.tools.generate_vpr_constraints import \
     generate_vpr_constraints as constraint_utils
 from siliconcompiler.tools.vpr.vpr import find_single_file
@@ -48,3 +50,15 @@ def run(chip):
     constraint_utils.write_vpr_constraints_xml_file(xml_data, xml_constraints_file)
 
     return 0
+
+
+################################
+# Post_process (post executable)
+################################
+
+
+def post_process(chip):
+    ''' Tool specific function to run after step execution
+    '''
+    design = chip.top()
+    shutil.copy(f'inputs/{design}.blif', 'outputs')
