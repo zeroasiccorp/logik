@@ -49,7 +49,7 @@ def setup(chip):
         fpga.add('fpga', part_name, 'var', 'feature_set', 'enable')
 
         fpga.add('fpga', part_name, 'var', 'vpr_clock_model', 'route')
-        
+
         cad_root = os.path.join(f'{part_name}_cad', 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
                  os.path.join(cad_root, 'ebrick_fpga_core.xml'))
