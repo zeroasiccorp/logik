@@ -30,15 +30,88 @@ def generate_mapped_constraints(part_name):
     
     if (part_name == 'ebrick_fpga_demo'):
 
-        pin_constraints["clk"] = {
+        pin_constraints["fpga_clk[0]"] = {
             "direction": 'input',
             "pin": 'clk[0]'
         }
-
-        #***NOTE:  bringing in pin constraints here at the end with update
-        #          will allow us to place the boilerplate UMI pin constraints
-        #          at the end of the JSON file
-        pin_constraints.update(ebrick_fpga_demo.generate_umi_pin_constraints())
+        
+        pin_constraints["fpga_clk[1]"] = {
+            "direction": 'input',
+            "pin": 'clk[1]'
+        }
+        
+        pin_constraints["fpga_clk[2]"] = {
+            "direction": 'input',
+            "pin": 'clk[2]'
+        }
+        
+        pin_constraints["nreset"] = {
+            "direction": 'input',
+            "pin": 'gpio_in[0]'
+        }
+        
+        pin_constraints["go"] = {
+            "direction": 'input',
+            "pin": 'gpio_in[1]'
+        }
+        
+        pin_constraints["testmode"] = {
+            "direction": 'input',
+            "pin": 'gpio_in[2]'
+        }
+        
+        pin_constraints["jtag_tck"] = {
+            "direction": 'input',
+            "pin": 'gpio_in[3]'
+        }
+        
+        pin_constraints["jtag_tms"] = {
+            "direction": 'input',
+            "pin": 'gpio_in[4]'
+        }
+        
+        pin_constraints["jtag_tdi"] = {
+            "direction": 'input',
+            "pin": 'gpio_in[5]'
+        }
+        
+        pin_constraints["jtag_tdo"] = {
+            "direction": 'output',
+            "pin": 'gpio_out[6]'
+        }
+        
+        pin_constraints["jtag_tdo_oe"] = {
+            "direction": 'output',
+            "pin": 'gpio_out[7]'
+        }
+        
+        for i in range(16) :
+            pin_constraints[f"no_rxgpio[{i}]"] = {
+                "direction": 'input',
+                "pin": f'gpio_in[{i + 16}]'
+            }
+        for i in range(16) :
+            pin_constraints[f"no_txgpio[{i}]"] = {
+                "direction": 'output',
+                "pin": f'gpio_out[{i + 32}]'
+            }
+        for i in range(16) :
+            pin_constraints[f"no_txgpio_oe[{i}]"] = {
+                "direction": 'input',
+                "pin": f'gpio_out[{i + 48}]'
+            }
+       
+        # ***NOTE:  bringing in pin constraints here at the end with update
+        #           will allow us to place the boilerplate UMI pin constraints
+        #           at the end of the JSON file
+        pin_constraints.update(ebrick_fpga_demo.generate_umi_pin_constraints(umi_data_width=32,
+                                                                             umi_ports_used=[1, 2, 3],
+                                                                             port_types=["uhost_req",
+                                                                                         "uhost_resp",
+                                                                                         "udev_req",
+                                                                                         "udev_resp"],
+                                                                             umi_port_num_offset=1,
+                                                                             index_control_bits=True))
     
     else:
         print(f"ERROR: unsupported part name {part_name}")
