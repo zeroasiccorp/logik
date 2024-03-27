@@ -161,3 +161,6 @@ cython_debug/
 
 # Emacs backup files
 *~
+
+# Switchboard
+*.q

@@ -9,8 +9,12 @@ import numpy as np
 from switchboard import SbDut
 from switchboard import UmiTxRx
 
-import lambdalib
-import umi
+# Since the examples are not part of the package, need to update the sys path
+import sys
+from os import path
+sys.path.append(path.join(path.abspath(path.dirname(__file__)), '..'))
+
+import umi_fir_filter  # noqa: E402
 
 
 def run_test(trace=False, fast=False):
@@ -33,37 +37,11 @@ def run_test(trace=False, fast=False):
 
     dut = SbDut('testbench', tool='verilator', trace=trace, default_main=True)
 
-    # The next few commands specify the Verilog sources to be used in the
-    # simulation.
+    # Setup umi fir filter source
+    umi_fir_filter.setup(dut)
 
-    # import the UMI library
-    dut.use(umi)
-    dut.add('option', 'library', 'umi')
-
-    # import lambdalib
-    dut.use(lambdalib)
-    dut.add('option', 'library', 'lambdalib_stdlib')
-
-    # Add this repo as a package source
-    dut.register_package_source(
-        name='umi_fir_filter',
-        path='git+https://github.com/zeroasiccorp/ebrick-fpga-cad.git',
-        ref='umi_fir_filter')
-
-    dut.input('examples/fir_filter/rtl/fir_filter.v', package='umi_fir_filter')
-    dut.input('examples/fir_filter/rtl/tree_adder.v', package='umi_fir_filter')
-    dut.input('examples/fir_filter/rtl/umi_fir_filter.v', package='umi_fir_filter')
-    dut.input('examples/fir_filter/rtl/umi_fir_filter_regs.v', package='umi_fir_filter')
-
-    dut.input('examples/fir_filter/sim/testbench.sv', package='umi_fir_filter')
-
-    # Setup all the needed compiler directives
-
-    dut.add('option', 'define', 'FIR_FILTER_CONSTANT_COEFFS')
-    dut.add('option', 'define', 'VECTOR_COUNT_MAX=100')
-
-    # Set include directories
-    dut.add('option', 'idir', 'examples/fir_filter/rtl', package='umi_fir_filter')
+    dut.input('sim/testbench.sv',
+              package='umi_fir_filter')
 
     # build() kicks off the simulator build using the source files configured
     # in the previous commands. The result depends on the simulator being used
@@ -87,7 +65,6 @@ def run_test(trace=False, fast=False):
     # connection.
 
     device = UmiTxRx('client2rtl.q', 'rtl2client.q', fresh=True)
-    # host = UmiTxRx('host2rtl.q', 'rtl2host.q', fresh=True)
 
     #############################
     # launch the RTL simulation #
