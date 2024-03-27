@@ -1,7 +1,7 @@
 from siliconcompiler.package import register_private_github_data_source
 
 
-fpga_version = 'v0.1.15'
+fpga_version = 'v0.1.17'
 
 
 def register_package(fpga, package_name, artifact):

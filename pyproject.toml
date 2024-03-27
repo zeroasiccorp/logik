@@ -16,16 +16,19 @@ dependencies = [
     "sphinx",
     "sphinx-rtd-theme",
     "switchboard-hw == 0.0.38",
-    "umi @ git+https://github.com/zeroasiccorp/umi.git@ab0920ec84948204ce944e6c146239abb4a7bfd6"
+    "umi @ git+https://github.com/zeroasiccorp/umi@main"
 ]
 license = {text = "Zero ASIC Proprietary"}
-version = "0.0.1"
+version = "0.0.2"
 
 [project.optional-dependencies]
 test = [
     "pytest == 8.1.1",
     "pytest-timeout == 2.3.1",
     "flake8 == 7.0.0"
+]
+examples = [
+    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@767861e1b50edbc4c70a21ee8b079ac83e0303e9"
 ]
 
 [tool.setuptools]
