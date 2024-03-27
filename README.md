@@ -72,7 +72,7 @@ To prepare this repository for use, it is necessary to do the following.  If you
 
 To test your setup, run the following to try the flow on a trivial circuit (8-bit adder):
 
-```
+```console
 cd examples/adder
 python3 adder.py
 ```
@@ -109,6 +109,6 @@ Suggested next step: try modifying the hello world string in `ebrick-fpga-cad/ex
 
 To run additional examples and learn more about the flow, please consult the user guide built in the repository setup step; this can be accessed by opening
 
-```
+```console
 firefox ./docs/build/html/index.html
 ```
