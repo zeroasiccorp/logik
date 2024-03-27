@@ -4,7 +4,7 @@ Documentation Home
 <name> provides RTL-to-bitstream enablement for Zero ASIC FPGA chiplet and eFPGA core products.  This set of documents comprise a complete reference for its implementation and use.
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 2
     :caption: Usage
     
     prerequisites
