@@ -58,7 +58,6 @@ def generate_umi_pin_constraints(fpga_ports_per_umi=300,
                 cur_dir = 'input'
                 cur_dir_short = 'in'
 
-
             mapped_signal_name = f"umi_io_{cur_dir_short}[{umi_bus_index}]"
             umi_to_fpga_pin_map[cur_signal] = {
                 "direction": cur_dir,
