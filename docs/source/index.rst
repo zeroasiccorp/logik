@@ -18,7 +18,8 @@ Documentation Home
     :caption: References
 
     timing_constraints	      
-    pin_constraints	      
+    pin_constraints
+    template_constraints
     external_links
     
 
