@@ -9,19 +9,19 @@ from ebrick_fpga_cad.targets import ebrick_fpga_target
 
 
 def main(part_name='ebrick_fpga_demo'):
-    
+
     top_module = 'ebrick_core_fpga_wrapper'
-    
+
     chip = siliconcompiler.Chip(f'{top_module}')
 
-    if (__name__ == '__main__') :
+    if (__name__ == '__main__'):
         chip.create_cmdline(switchlist=['-fpga_partname'])
 
     # Set default part name
     chip.set('fpga', 'partname', part_name, clobber=False)
-        
+
     set_part_name = chip.get('fpga', 'partname')
-    
+
     # 1. Project setup
 
     # Add picorv32 data source
@@ -64,7 +64,7 @@ def main(part_name='ebrick_fpga_demo'):
 
     # Add the wrapper around ebrick_core to map it to a valid ebrick_fpga_demo pinout
     chip.input(os.path.join('rtl', 'ebrick_core_fpga_wrapper.v'), package='ebrick_fpga_demo')
-    
+
     # Set the top module to ebrick_core
     chip.set('option', 'entrypoint', 'ebrick_core_fpga_wrapper')
 
@@ -72,7 +72,7 @@ def main(part_name='ebrick_fpga_demo'):
     chip.add('input', 'constraint', 'pinmap',
              os.path.join('constraints', f'pin_constraints_{set_part_name}.json'),
              package='ebrick_fpga_demo')
-    
+
     # 3. Load target
     chip.load_target(ebrick_fpga_target)
 
@@ -81,6 +81,7 @@ def main(part_name='ebrick_fpga_demo'):
     chip.set('option', 'quiet', True)
     chip.run()
     chip.summary()
+
 
 if __name__ == "__main__":
     main()
