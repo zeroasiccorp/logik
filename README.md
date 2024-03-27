@@ -37,7 +37,7 @@ To prepare this repository for use, it is necessary to do the following:
 
 * Clone this repository:  `git clone https://github.com/zeroasiccorp/ebrick-fpga-cad`
 * Create a Python virtual environment, e.g. `python3 -m venv venv; source venv/bin/activate`
-* Install Python packages within your virtual environment; `pip install --upgrade pip; pip install -r requirements.txt`
+* Install Python packages within your virtual environment; `pip install --upgrade pip; pip install -e .`
 * Set up authentication to the Silicon Compiler package registry.
 
 > [!NOTE]
@@ -47,11 +47,46 @@ To prepare this repository for use, it is necessary to do the following:
 
 ## Running Examples
 
-There are two example circuits provided to demonstrate the Silicon Compiler RTL-to-bitstream flow for ebrick-fpga:  an adder and a FIR filter.  The instructions below are for the FIR filter; running the adder is the same except for the directory and file names that are used.
+There are three example circuits provided to demonstrate the Silicon Compiler RTL-to-bitstream flow for ebrick-fpga: an adder, an FIR filter, and a "hello world" circuit for use with our web-based emulation tool.
 
-Within the python virtual environment set up as described above and starting from your ebrick-fpga-cad repo clone root directory, run the following:
+### FIR filter and adder
 
-* `cd examples/fir_filter/sc`
-* `python3 fir_filter.py`
+The instructions below are for the FIR filter; running the adder is the same except for the directory and file names that are used.
 
+Within the Python virtual environment set up as described above and starting from your ebrick-fpga-cad repo clone root directory, run the following:
 
+```console
+cd examples/umi_fir_filter
+```
+
+```console
+python3 umi_fir_filter.py
+```
+
+### Hello world circuit
+
+This example shows how to run a generated bitstream with web-based emulation.  The RTL implemented on the FPGA sends a hello world message as a sequence of characters to a special address that causes the characters to be printed out when run in an emulation environment.
+
+As with the previous examples, first build a bitstream:
+
+```console
+cd examples/umi_hello
+```
+
+```console
+python3 umi_hello.py
+```
+
+Then:
+1. In a web browser, go to [https://preview.zeroasic.com/emulation](https://preview.zeroasic.com/emulation).  (TODO: replace with non-preview URL)
+2. Log in if necessary (menu in the upper right corner)
+3. Under "Select a Demo" on the left side of the window, click "FPGA"
+4. Click "Suggest Layout"
+5. In the middle of the page, click "Emulate"
+6. Wait for the Linux Terminal to display a prompt.  (may take a few minutes)
+7. Click "Upload File" and select `ebrick-fpga-cad/examples/umi_hello/build/umi_hello/job0/bitstream/0/outputs/umi_hello.dat` (this is the bitstream you just built)
+8. Wait for the status bar to indicate that the file upload was successful.
+9. In the Linux Terminal shell, type `init-fpga.sh` (this script is in the `PATH`, so no need to `cd` anywhere)
+10. Scroll down to the Output Terminal.  You should see the text `Hello World!` appear in a few seconds, if it's not already there.
+
+Suggested next step: try modifying the hello world string in `ebrick-fpga-cad/examples/umi_hello/rtl/umi_hello.v`, rebuild the bitstream, and go through steps 7-10 (i.e., from uploading the bitstream onwards) to run the new bitstream. 
