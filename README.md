@@ -72,16 +72,43 @@ To prepare this repository for use, it is necessary to do the following.  If you
 
 To test your setup, run the following to try the flow on a trivial circuit (8-bit adder):
 
-```
+```console
 cd examples/adder
 python3 adder.py
 ```
+
+## Hello world circuit
+
+To test out a bitstream with our web-based emulation tool, try running the hello world example in [examples/umi_hello](examples/umi_hello).  In that example, the RTL implemented on the FPGA sends a hello world message as a sequence of characters to an address that causes the characters to be printed out when run in an emulation environment.
+
+As with the adder example, first build a bitstream:
+
+```console
+cd examples/umi_hello
+```
+
+```console
+python3 umi_hello.py
+```
+
+Then:
+1. In a web browser, go to [https://preview.zeroasic.com/emulation](https://preview.zeroasic.com/emulation).  (TODO: replace with non-preview URL)
+2. Log in if necessary (menu in the upper right corner)
+3. Under "Select a Demo" on the left side of the window, click "FPGA"
+4. Click "Suggest Layout"
+5. In the middle of the page, click "Emulate"
+6. Wait for the Linux Terminal to display a prompt.  (may take a few minutes)
+7. Click "Upload File" and select `ebrick-fpga-cad/examples/umi_hello/build/umi_hello/job0/bitstream/0/outputs/umi_hello.dat` (this is the bitstream you just built)
+8. Wait for the status bar to indicate that the file upload was successful.
+9. In the Linux Terminal shell, type `init-fpga.sh` (this script is in the `PATH`, so no need to `cd` anywhere)
+10. Scroll down to the Output Terminal.  You should see the text `Hello World!` appear in a few seconds, if it's not already there.
+
+Suggested next step: try modifying the hello world string in `ebrick-fpga-cad/examples/umi_hello/rtl/umi_hello.v`, rebuild the bitstream, and go through steps 7-10 (i.e., from uploading the bitstream onwards) to run the new bitstream. 
 
 ## Additional Examples and Documentation
 
 To run additional examples and learn more about the flow, please consult the user guide built in the repository setup step; this can be accessed by opening
 
-```
+```console
 firefox ./docs/build/html/index.html
 ```
-
