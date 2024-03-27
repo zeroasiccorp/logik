@@ -11,7 +11,9 @@ readme = "README.md"
 urls = {Homepage = "https://github.com/zeroasiccorp/ebrick-fpga-cad"}
 requires-python = ">= 3.8"
 dependencies = [
-    "siliconcompiler == 0.21.5"
+    "siliconcompiler == 0.21.5",
+    "switchboard-hw == 0.0.38",
+    "umi @ git+https://github.com/zeroasiccorp/umi.git@ab0920ec84948204ce944e6c146239abb4a7bfd6"
 ]
 license = {text = "Zero ASIC Proprietary"}
 version = "0.0.1"
