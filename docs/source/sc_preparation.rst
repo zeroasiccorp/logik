@@ -12,6 +12,7 @@ Constructing a Silicon Compiler run script can be broken down into the following
 * Create chip object
 * Select part name
 * Register packages (if needed)
+* Import libraries (if needed)
 * Set input source files
 * Set timing constraints
 * Set pin constraints
@@ -71,7 +72,9 @@ Throughout this documentation, "chip" will be used to refer to the Chip class in
 Select part name
 ----------------
 
-As of this writing, the only part name that is enabled for use is `ebrick_fpga_demo`
+.. note::
+
+   As of this writing, the only part name that is enabled for use is "ebrick_fpga_demo"
 
 In your Silicon Compiler run script, include the following call
 
@@ -86,14 +89,20 @@ Register Packages (if needed)
 
 Designs with dependencies on third-party or packaged IP from previous projects may require a method for importing design IP from a source other than local working directories.  In Silicon Compiler, such imports are supported via the Silicon Compiler package registry, and the import process is referred to as registering a package.
 
-Registering a package is enabled with a dedicated Chip class member function.  For complete details on this function, refer to []().
+Registering a package is enabled with a dedicated Chip class member function called register_package_source().  For complete details on this function, refer to `Silicon Compiler's documentation of the register_package_source() function <https://docs.siliconcompiler.com/en/stable/reference_manual/core_api.html#siliconcompiler.Chip.register_package_source>`_.
 
-An example use case for the package registry is shown below, outlining how to import a public Github repository so that its contents can be 
+An example use case for the package registry is shown below, outlining how to import a public Github repository so that its contents can be used as a package within Silicon Compiler.  In this example, three parameters are provided to the register_package_source function:  name, path, and ref.  Name specifies a package name to be used when referring to the package elsewhere in code.  Path specifies where Silicon Compiler can obtain the package; in this case, the package is obtained through Github.  ref specifies to Silicon Compiler that the cloned Github repository should be checked out at a particular commit hash.  Specifying ref is not necessary if the package is to be cloned from github on its main branch.
 
-chip.register_package
+::
 
-> [!NOTE]
-> This method is also used for importing Zero ASIC IP blocks (e.g. UMI)
+    chip.register_package_source(
+        name='picorv32',
+        path='git+https://github.com/YosysHQ/picorv32.git',
+        ref='a7b56fc81ff1363d20fd0fb606752458cd810552')
+
+.. note::
+
+   This method is also used for importing Zero ASIC IP blocks (e.g. UMI)
 
 
 Set input source files
@@ -101,15 +110,21 @@ Set input source files
 
 All HDL source files must be added to the Silicon Compiler chip object for inclusion.  For each HDL file, include the following call in your Silicon Compiler run script
 
-`chip.input('rtl', 'verilog', <your_hdl_file_name>)`
+::
+
+    chip.input('rtl', 'verilog', <your_hdl_file_name>)
 
 for Verilog source.
 
 Limited support is provided for VHDL and SystemVerilog inputs.  The limits to support are imposed by the capabilities of GHDL and sv2v, respectively, for translating VHDL and SystemVerilog into Verilog-2005 HDL that can be parsed by Yosys.
 
-`chip.input('rtl', '', '<your_vhdl_file_name>')`
+::
 
-`chip.input('rtl', '', '<your_system_verilog_file_name>')`
+    chip.input('rtl', '', '<your_vhdl_file_name>')
+
+::
+
+    chip.input('rtl', '', '<your_system_verilog_file_name>')
 
 For large designs, it may be convenient to organize your HDL files into a directory tree that is processed using Python functions, so that the above calls can be embedded in loops.
 
@@ -118,7 +133,9 @@ Adding source files from a registered package
 
 When importing IP from a package in the Silicon Compiler package registry, the same function calls are used as described above, but it is also necessary to specify the package name.  The call takes the form:
 
-`chip.input('rtl', '', '<your_system_verilog_file_name>', package='<package_name>')`
+::
+
+    chip.input('rtl', '', '<your_system_verilog_file_name>', package='<package_name>')
 
 
 Set Timing Constraints
@@ -126,7 +143,9 @@ Set Timing Constraints
 
 Timing constraints must be provided in a single SDC file.  The SDC file must be added to the Silicon Compiler chip object for inclusion.  Include the call
 
-`chip.add('input', 'constraint', 'sdc', '<your_sdc_file_name>')`
+::
+
+    chip.add('input', 'constraint', 'sdc', '<your_sdc_file_name>')
 
 in your Silicon Compiler run script
 
@@ -138,7 +157,9 @@ Pin constraints may be provided in one of two files:
 * A JSON pin constraints file
 * A VPR XML placement constraints file
 
-> [!NOTE] If you need to specify placement constraints for design blocks in addition to specifying pin constraints, the XML placement constraints file must be used.
+.. note::
+
+   If you need to specify placement constraints for design blocks in addition to specifying pin constraints, the XML placement constraints file must be used.
 
 JSON Pin Constraint Specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -177,7 +198,7 @@ Any compiler directives that are required for HDL synthesis should be specified 
 
    chip.add('option', 'define', <compiler_directive>)
 
-For complete Silicon Compiler option specifications, refer to []().
+For complete Silicon Compiler option specifications, refer to `Silicon Compiler's documentation for supported option settings <https://docs.siliconcompiler.com/en/stable/reference_manual/schema.html#param-option-ref>`_.
 
 Add Execution Calls
 -------------------
@@ -189,4 +210,4 @@ The final two lines of every run script should be the same:
    chip.run()
    chip.summary()
    
-The `run()` call invokes the RTL-to-bitstream flow with all settings specified.  The `summary()` call reports results of the run in tabular form.  Included in the summary results are key design metrics such as FPGA resource utilization and tool execution runtimes.
+The run() call invokes the RTL-to-bitstream flow with all settings specified.  The summary() call reports results of the run in tabular form.  Included in the summary results are key design metrics such as FPGA resource utilization and tool execution runtimes.
