@@ -12,7 +12,7 @@ urls = {Homepage = "https://github.com/zeroasiccorp/ebrick-fpga-cad"}
 requires-python = ">= 3.8"
 dependencies = [
     "autodocsumm",
-    "siliconcompiler == 0.21.5",
+    "siliconcompiler == 0.21.6",
     "sphinx",
     "sphinx-rtd-theme",
     "switchboard-hw == 0.0.38",
@@ -28,7 +28,7 @@ test = [
     "flake8 == 7.0.0"
 ]
 examples = [
-    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@767861e1b50edbc4c70a21ee8b079ac83e0303e9"
+    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@25b288dfac8cf70a68f82c18e01b65a808db57b5"
 ]
 
 [tool.setuptools]
