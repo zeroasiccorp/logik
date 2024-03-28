@@ -9,4 +9,4 @@ The minimum requirement is to specify a target clock frequency using the `create
 create_clock <>
 ```
 
-For specifics on VPR's supported timing constraints, please consult the `VPR SDC Commmand support page<https://docs.verilogtorouting.org/en/latest/vpr/sdc_commands/>`_
+For specifics on VPR's supported timing constraints, please consult the `VPR SDC Commmand support page <https://docs.verilogtorouting.org/en/latest/vpr/sdc_commands/>`_
