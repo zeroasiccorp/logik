@@ -51,7 +51,7 @@ Then launch a terminal:
 * Windows: Open `Windows PowerShell` from the Start menu.
 
 ```console
-docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_tools:latest
+docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_runner:latest
 ```
 
 ### Installing Required Software Manually
