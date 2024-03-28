@@ -14,7 +14,7 @@ VPR natively supports pin constraint specification as a subset of its generic pl
 
 To make use of these constraints it is necessary to have detailed information about the structure of the FPGA that is being targeted.  FPGA resources are mapped in VPR to a grid laid out on an (X,Y) coordinate system.
 
-Use of this format is ``required`` in order to constrain the placement of logic blocks.  However, typically specifying placement constraints for logic blocks is not necessary in this RTL-to-bitstream flow.
+Use of this format is required in order to constrain the placement of logic blocks.  However, typically specifying placement constraints for logic blocks is not necessary in this RTL-to-bitstream flow.
 
 If only pin constraints need to be specified, knowledge of this coordinate system is not necessary.  Instead, a port-to-port mapping between user ports and ebrick-fpga embedded FPGA ports can be specified in JSON format.  This format is described below.
 
