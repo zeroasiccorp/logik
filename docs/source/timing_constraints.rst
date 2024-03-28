@@ -5,8 +5,8 @@ VPR is the place and route engine used in Zero ASIC FPGA chiplet and eFPGA chipl
 
 The minimum requirement is to specify a target clock frequency using the `create_clock` constraint:
 
-```
-create_clock -period <float> <name of clock port>
-```
+::
+   
+   create_clock -period <float> <name of clock port>
 
 For specifics on VPR's supported timing constraints, please consult the `VPR SDC Commmand support page <https://docs.verilogtorouting.org/en/latest/vpr/sdc_commands/>`_
