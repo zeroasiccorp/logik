@@ -7,18 +7,19 @@ For most designs, the example Silicon Compiler run scripts provided with <tool_n
 
 Constructing a Silicon Compiler run script can be broken down into the following steps:
 
-* Import modules
-* Create main function
-* Create chip object
-* Select part name
-* Register packages (if needed)
-* Import libraries (if needed)
-* Set input source files
-* Set timing constraints
-* Set pin constraints
-* Add options
-* Add execution calls
+* :ref:`import_modules`
+* :ref:`Create_main_function`
+* :ref:`Create_chip_object`
+* :ref:`Select_part_name`
+* :ref:`Register_packages`
+* :ref:`Import_libraries`
+* :ref:`Set_input_source_files`
+* :ref:`Set_timing_constraints`
+* :ref:`Set_pin_constraints`
+* :ref:`Add_options`
+* :ref:`Add_execution_calls`
   
+.. _import_modules:
 
 Import modules
 --------------
@@ -34,6 +35,8 @@ The minimum import requirements in a <tool_name> Silicon Compiler run script are
 
 
 Additional module imports may be required depending on project-specific requirements.
+
+.. _Create_main_function:
 
 Create Main Function
 --------------------
@@ -53,6 +56,8 @@ In Python, an executable main() function is implemented with the following code:
 
 Experienced Python programmers may prefer to use their own scripting methodology for executing the script instead of the above.  Any approach that conforms to both Python and Silicon Compiler requirements should work.
 
+.. _Create_chip_object:
+
 Create Chip Object
 ------------------
 
@@ -69,6 +74,8 @@ Nearly all components of a Silicon Compiler run script are calls to member funct
 
 Throughout this documentation, "chip" will be used to refer to the Chip class instance.  However, there is no requirement that the instance be assigned to this variable name.
 
+.. _Select_part_name:
+
 Select part name
 ----------------
 
@@ -83,6 +90,8 @@ In your Silicon Compiler run script, include the following call
    chip.set('fpga', 'partname', 'ebrick_fpga_demo')
 
 to select the ebrick_fpga_demo part as your selected part name.
+
+.. _Register_packages:
 
 Register Packages (if needed)
 -----------------------------
@@ -104,6 +113,8 @@ An example use case for the package registry is shown below, outlining how to im
 
    This method is also used for importing Zero ASIC IP blocks (e.g. UMI)
 
+
+.. _Import_libraries:
 
 Set input source files
 ----------------------
@@ -128,6 +139,8 @@ Limited support is provided for VHDL and SystemVerilog inputs.  The limits to su
 
 For large designs, it may be convenient to organize your HDL files into a directory tree that is processed using Python functions, so that the above calls can be embedded in loops.
 
+.. _Set_input_source_files:
+
 Adding source files from a registered package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -137,6 +150,7 @@ When importing IP from a package in the Silicon Compiler package registry, the s
 
     chip.input('rtl', '', '<your_system_verilog_file_name>', package='<package_name>')
 
+.. _Set_timing_constraints:
 
 Set Timing Constraints
 ----------------------
@@ -148,6 +162,8 @@ Timing constraints must be provided in a single SDC file.  The SDC file must be 
     chip.add('input', 'constraint', 'sdc', '<your_sdc_file_name>')
 
 in your Silicon Compiler run script
+
+.. _Set_pin_constraints:
 
 Set Pin Constraints
 --------------------
@@ -187,6 +203,8 @@ The XML placement constraints file must be added to the Silicon Compiler chip ob
 
 in your Silicon Compiler run script.
 
+.. _Add_options:
+
 Add Options
 -----------
 
@@ -199,6 +217,8 @@ Any compiler directives that are required for HDL synthesis should be specified 
    chip.add('option', 'define', <compiler_directive>)
 
 For complete Silicon Compiler option specifications, refer to `Silicon Compiler's documentation for supported option settings <https://docs.siliconcompiler.com/en/stable/reference_manual/schema.html#param-option-ref>`_.
+
+.. _Add_execution_calls:
 
 Add Execution Calls
 -------------------
