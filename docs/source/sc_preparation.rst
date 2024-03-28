@@ -1,7 +1,7 @@
 Preparing the Silicon Compiler Run Script
 =========================================
 
-Developing a Silicon Compiler run script for RTL-to-bitstream flow execution follows the same fundamental approach as developing a script for any Silicon Compiler flow execution.  Additional resources for understanding Silicon Compiler fundamentals are available at
+Developing a Silicon Compiler run script for RTL-to-bitstream flow execution follows the same fundamental approach as developing a script for any Silicon Compiler flow execution.  Additional resources for understanding Silicon Compiler fundamentals are available at `docs.siliconcompiler.com <https://docs.siliconcompiler.com>`_
 
 For most designs, the example Silicon Compiler run scripts provided with <tool_name> can be used as templates for creating your own.  The commands used in these examples and the general method for constructing run scripts are described below.
 
@@ -123,19 +123,31 @@ All HDL source files must be added to the Silicon Compiler chip object for inclu
 
 ::
 
-    chip.input('rtl', 'verilog', <your_hdl_file_name>)
+    chip.input(<your_hdl_file_name>)
 
-for Verilog source.
+Support is provided for Verilog, VHDL and SystemVerilog inputs.
 
-Limited support is provided for VHDL and SystemVerilog inputs.  The limits to support are imposed by the capabilities of GHDL and sv2v, respectively, for translating VHDL and SystemVerilog into Verilog-2005 HDL that can be parsed by Yosys.
+.. note::
+
+   Mixed-language flows are not yet supported.  All HDL source files must be written in the same language.
+
+When using VHDL, it is required to add
 
 ::
 
-    chip.input('rtl', '', '<your_vhdl_file_name>')
+   chip.set('option', 'frontend', 'systemverilog')
+
+to your run script to trigger Silicon Compiler to execute ghdl prior to running synthesis.
+
+When using SystemVerilog, it is required to add
 
 ::
 
-    chip.input('rtl', '', '<your_system_verilog_file_name>')
+   chip.set('option', 'frontend', 'vhdl')
+
+to your run script to trigger Silicon Compiler to execute sv2v prior to running synthesis.
+
+When using Verilog, the default frontend option, Surelog, is used, and no function call is required to enable it.
 
 For large designs, it may be convenient to organize your HDL files into a directory tree that is processed using Python functions, so that the above calls can be embedded in loops.
 
@@ -148,7 +160,7 @@ When importing IP from a package in the Silicon Compiler package registry, the s
 
 ::
 
-    chip.input('rtl', '', '<your_system_verilog_file_name>', package='<package_name>')
+    chip.input('<your_file_name>', package='<package_name>')
 
 .. _Set_timing_constraints:
 
@@ -175,14 +187,14 @@ Pin constraints may be provided in one of two files:
 
 .. note::
 
-   If you need to specify placement constraints for design blocks in addition to specifying pin constraints, the XML placement constraints file must be used.
+   If you need to specify placement constraints for design logic blocks in addition to specifying pin constraints, the XML placement constraints file must be used.
 
 JSON Pin Constraint Specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The JSON pin constraint file is unique to this flow.  For additional information on creating the JSON pin constraint file, see []().
+The JSON pin constraint file is unique to this flow.  For additional information on creating the JSON pin constraint file, see :doc:`pin_constraints`.
 
-The XML placement constraints file must be added to the Silicon Compiler chip object for inclusion.  Include the call
+The JSON placement constraints file must be added to the Silicon Compiler chip object for inclusion.  Include the call
 
 ::
 
@@ -193,13 +205,13 @@ in your Silicon Compiler run script
 VPR XML Placement Constraint Specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-VPR XML placement constraints are portable to any VPR-based place and route flow.  For additional information on creating a VPR XML placement constraint file, see ()[].
+VPR XML placement constraints are portable to any VPR-based place and route flow.  For additional information on creating a VPR XML placement constraint file, see `VPR's documentation for placement constraints <https://docs.verilogtorouting.org/en/latest/vpr/placement_constraints/>`_.
 
 The XML placement constraints file must be added to the Silicon Compiler chip object for inclusion.  Include the call
 
 ::
    
-   chip.add('input', 'constraint', '', '<your_xml_file_name>')
+   chip.add('input', 'constraint', 'pins', '<your_xml_file_name>')
 
 in your Silicon Compiler run script.
 
@@ -208,15 +220,13 @@ in your Silicon Compiler run script.
 Add Options
 -----------
 
-Numerous options can be added to your run script to control Silicon Compiler behavior or configure tools in the RTL-to-bitstream flow to behave as desired.
+Numerous options can be added to your run script to control Silicon Compiler behavior or configure tools in the RTL-to-bitstream flow to behave as desired.  For complete Silicon Compiler option specifications, refer to `Silicon Compiler's documentation for supported option settings <https://docs.siliconcompiler.com/en/stable/reference_manual/schema.html#param-option-ref>`_.
 
-Any compiler directives that are required for HDL synthesis should be specified as Silicon Compiler options.  These are furnished with Chip class member function calls of the form
+In particular, any compiler directives that are required for HDL synthesis should be specified as Silicon Compiler options.  These are furnished with Chip class member function calls of the form
 
 ::
 
    chip.add('option', 'define', <compiler_directive>)
-
-For complete Silicon Compiler option specifications, refer to `Silicon Compiler's documentation for supported option settings <https://docs.siliconcompiler.com/en/stable/reference_manual/schema.html#param-option-ref>`_.
 
 .. _Add_execution_calls:
 
