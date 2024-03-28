@@ -22,7 +22,7 @@ Once Docker is installed, launch the Docker Desktop application.
 
 ::
    
-   docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_tools:latest
+   docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_runner:latest
        
 Building Software From Source
 -----------------------------
