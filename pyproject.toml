@@ -11,12 +11,7 @@ readme = "README.md"
 urls = {Homepage = "https://github.com/zeroasiccorp/ebrick-fpga-cad"}
 requires-python = ">= 3.8"
 dependencies = [
-    "autodocsumm",
     "siliconcompiler == 0.21.6",
-    "sphinx",
-    "sphinx-rtd-theme",
-    "switchboard-hw == 0.0.38",
-    "umi @ git+https://github.com/zeroasiccorp/umi@main"
 ]
 license = {text = "Zero ASIC Proprietary"}
 version = "0.0.2"
@@ -27,8 +22,15 @@ test = [
     "pytest-timeout == 2.3.1",
     "flake8 == 7.0.0"
 ]
+docs = [
+    "Sphinx == 7.2.6",
+    "sphinx-rtd-theme == 2.0.0",
+    "autodocsumm == 0.2.12"
+]
 examples = [
-    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@25b288dfac8cf70a68f82c18e01b65a808db57b5"
+    "switchboard-hw == 0.0.38",
+    "umi @ git+https://github.com/zeroasiccorp/umi@main",
+    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@767861e1b50edbc4c70a21ee8b079ac83e0303e9"
 ]
 
 [tool.setuptools]

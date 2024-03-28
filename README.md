@@ -67,7 +67,7 @@ To prepare this repository for use, it is necessary to do the following.  If you
 * Create a Python virtual environment, e.g. `python3 -m venv venv; source venv/bin/activate`
 * Install Python packages within your virtual environment: `pip install --upgrade pip; pip install .`
 * (required only for running examples) Install additional packages for running examples: `pip install .[examples]`
-* Build documentation:  `cd docs; make html`
+* Build documentation:  `pip install .[docs]; cd docs; make html`
 
 ## Testing Setup:  RTL-to-Bitstream for an 8-bit Adder
 
