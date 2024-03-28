@@ -12,7 +12,7 @@ urls = {Homepage = "https://github.com/zeroasiccorp/ebrick-fpga-cad"}
 requires-python = ">= 3.8"
 dependencies = [
     "autodocsumm",
-    "siliconcompiler == 0.21.5",
+    "siliconcompiler == 0.21.6",
     "sphinx",
     "sphinx-rtd-theme",
     "switchboard-hw == 0.0.38",
