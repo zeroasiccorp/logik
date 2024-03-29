@@ -11,9 +11,15 @@ def main():
     fasm_file = sys.argv[1]
     bitstream_map_file = sys.argv[2]
     json_bitstream_file = sys.argv[3]
+    dat_bitstream_file = sys.argv[4]
+    bin_bitstream_file = sys.argv[5]
 
     config_bitstream = fasm2bitstream(fasm_file, bitstream_map_file)
     write_bitstream_json(config_bitstream, json_bitstream_file)
+    flattened_bitstream = generate_flattened_bitstream(config_bitstream)
+    write_bitstream_data(flattened_bitstream, dat_bitstream_file)
+    binary_bitstream = format_binary_bitstream(flattened_bitstream)
+    write_bitstream_binary(binary_bitstream, bin_bitstream_file)
 
 
 def write_bitstream_json(config_bitstream, json_bitstream_file):
@@ -55,7 +61,14 @@ def calculate_bitstream_rows(bitstream_map):
 
 def calculate_address_size(bitstream_map):
 
-    return get_max_bitstream_address_length(bitstream_map)
+    max_length = 0
+
+    for x in range(len(bitstream_map)):
+        for y in range(len(bitstream_map[x])):
+            if (len(bitstream_map[x][y]) > max_length):
+                max_length = len(bitstream_map[x][y])
+
+    return max_length
 
 
 def calculate_config_data_width(bitstream_map):
@@ -101,7 +114,9 @@ def generate_flattened_bitstream(bitstream_map):
 
     input_bus_width = x_length + y_length + address_length
 
-    bitstream_vector = [0] * pow(2, input_bus_width)
+    default_entry = format(0, "0x").zfill(int(config_data_width / 4))
+
+    bitstream_vector = [default_entry] * pow(2, input_bus_width)
 
     for x in range(len(bitstream_map)):
         for y in range(len(bitstream_map[x])):
@@ -116,125 +131,6 @@ def generate_flattened_bitstream(bitstream_map):
                 bitstream_vector[vector_address] = formatted_data
 
     return bitstream_vector
-
-
-# The native bitstream in this flow organizes data into a 4-D array
-# The first dimension is the X-coordinate in the VPR model
-# The second dimension is the Y coordinate in the VPR model
-# The third coordinate is an address within the X,Y coordinate
-# that maps to a <config_data_width> wide word in the bitstream
-# The fourth coordinate is the bit index in the word at
-# (X, Y, address)
-# The job of this function is to reformat that map into a vector
-# of words that are the full width of whatever UMI port is being
-# used to do bitstream loading on the FPGA.  It does this by
-# measuring the dimensions of the bitstream that it receives and
-# using those dimensions to map the bitstream data to a vector
-# of words that are the same width as the UMI data bus.
-# Currently it is assumed that the bitstream loader on the FPGA
-# receives data over UMI in such a way that data for a particular
-# array (X,Y) coordinate must be assigned to a fixed position
-# within the UMI data bus (i.e. if (0, 1) data comes in on
-# umi_data[7:0] once, it must do so always).  To enforce this
-# alignment, zero-padding the UMI data may be necessary depending on
-# the FPGA array size, and this function takes care of that too.
-# In this implementation, the array that is returned passes back one
-# bitstream word per array element, so it's up to the receiver
-# of this data to assemble it into UMI words of the correct size
-def generate_umi_bitstream(bitstream_map,
-                           umi_rom_data_width=128,
-                           reverse=True,
-                           show_map=False,
-                           verbose=False):
-
-    num_bitstream_columns = calculate_bitstream_columns(bitstream_map)
-    num_bitstream_rows = calculate_bitstream_rows(bitstream_map)
-    # address_length = calculate_address_size(bitstream_map)
-    config_data_width = calculate_config_data_width(bitstream_map)
-    # x_length = int.bit_length(num_bitstream_columns - 1)
-    # y_length = int.bit_length(num_bitstream_rows - 1)
-
-    if ((config_data_width != 8) and (config_data_width != 16) and (config_data_width != 32)):
-        exit()
-
-    umi_bitstream = []
-
-    if (umi_rom_data_width > config_data_width):
-        addresses_per_rom_address = int(math.ceil(umi_rom_data_width / config_data_width))
-    else:
-        addresses_per_rom_address = 1
-
-    config_words_per_address = int(umi_rom_data_width / config_data_width)
-
-    umi_addresses_per_row = int(math.ceil(num_bitstream_columns / addresses_per_rom_address))
-
-    num_column_slots = umi_addresses_per_row * addresses_per_rom_address
-    # num_padding_slots = num_column_slots - num_bitstream_columns
-
-    # bitstream_address_width = x_length + y_length + address_length
-
-    bitstream_size = calculate_bitstream_size(bitstream_map, num_column_slots)
-
-    max_tile_bitstream_size = get_max_bitstream_address_length(bitstream_map)
-
-    if (reverse):
-        start_address = bitstream_size - addresses_per_rom_address
-        stop_address = -1
-        address_increment = -1 * addresses_per_rom_address * umi_addresses_per_row
-    else:
-        start_address = 0
-        stop_address = bitstream_size
-        address_increment = addresses_per_rom_address * umi_addresses_per_row
-
-    # We choose to format this array of bitstream data such that there is
-    # one complete UMI data word per entry in the bitstream data array that
-    # we return.  To make that happen, count the number of config words we
-    # process, concatenate each word to a variable as we go, and then
-    # every time we hit the count of config words per UMI word, dump the
-    # current word onto the array and start again.
-    config_word_counter = 0
-    cur_umi_word = ''
-
-    for address in range(start_address, stop_address, address_increment):
-
-        for k in range(umi_addresses_per_row):
-            for j in range(config_words_per_address - 1, -1, -1):
-
-                x, y, addr = get_bitstream_map_location(address,
-                                                        k,
-                                                        j,
-                                                        config_words_per_address,
-                                                        umi_addresses_per_row,
-                                                        num_bitstream_columns,
-                                                        num_bitstream_rows,
-                                                        max_tile_bitstream_size,
-                                                        bitstream_size,
-                                                        reverse=False)
-
-                if (x >= num_bitstream_columns):
-                    cur_config_word = format(0, "0x").zfill(int(config_data_width / 4))
-                else:
-                    address_in_range = check_bitstream_map_address(x, y, addr, bitstream_map)
-                    if (address_in_range):
-                        bitstream_data = concatenate_data(bitstream_map[x][y][addr])
-                    else:
-                        bitstream_data = 0
-
-                    cur_config_word = format(bitstream_data, "0x").zfill(int(config_data_width / 4))
-
-                cur_umi_word += cur_config_word
-                config_word_counter += 1
-                if (config_word_counter == config_words_per_address):
-                    umi_bitstream.append(cur_umi_word)
-                    config_word_counter = 0
-                    cur_umi_word = ''
-
-    # ***ASSUMPTION:  The above loop *should* be designed such that
-    #                 the number of entries always ends with a complete
-    #                 umi word, such that we don't have to do any
-    #                 cleanup/zero padding here at the end
-
-    return umi_bitstream
 
 
 def concatenate_data(data_array):
@@ -288,38 +184,20 @@ def get_bitstream_map_location(base_address,
     return x, y, addr
 
 
-def calculate_bitstream_size(bitstream_map, num_column_slots):
-
-    bitstream_size = len(bitstream_map) * num_column_slots
-    bitstream_size *= get_max_bitstream_address_length(bitstream_map)
-    return bitstream_size
-
-
-def get_max_bitstream_address_length(bitstream_map):
-
-    max_length = 0
-
-    for x in range(len(bitstream_map)):
-        for y in range(len(bitstream_map[x])):
-            if (len(bitstream_map[x][y]) > max_length):
-                max_length = len(bitstream_map[x][y])
-
-    return max_length
-
-
-def format_binary_bitstream(bitstream_data):
+def format_binary_bitstream(bitstream_data, word_size=8):
 
     converted_data = []
 
     for element in bitstream_data:
         element_temp = int(element.rstrip(), 16)
-        data_lsb = element_temp & ((1 << 64) - 1)
-        data_msb = (element_temp >> 64) & ((1 << 64) - 1)
+        sub_element_count = math.ceil(word_size / 8)
+        for i in range(sub_element_count):
+            cur_data_word = element_temp & ((1 << 8) - 1)
+            converted_data.append(cur_data_word)
+            element_temp = element_temp >> 8
 
-        converted_data.append(data_lsb)
-        converted_data.append(data_msb)
+    bitstream_data_array = np.array(converted_data, np.uint8)
 
-    bitstream_data_array = np.array(converted_data, np.uint64)
     return bitstream_data_array
 
 
@@ -442,3 +320,7 @@ def format_binary_bitstream_address(address, address_width):
 
     formatted_address = format(address, 'b').zfill(address_width)
     return str(address_width) + "'b" + formatted_address
+
+
+if __name__ == "__main__":
+    main()
