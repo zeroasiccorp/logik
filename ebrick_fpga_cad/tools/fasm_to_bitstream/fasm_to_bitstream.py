@@ -342,7 +342,6 @@ def load_fasm_data(filename, all_warnings=False, verbose=False):
 
     # "Canonicalize" the feature list, as described here:
     # https://fasm.readthedocs.io/en/latest/specification/syntax.html
-    # -PG 8/7/2022
 
     canonical_fasm_feature_list = []
 
@@ -350,9 +349,7 @@ def load_fasm_data(filename, all_warnings=False, verbose=False):
         feature = feature.rstrip()
         if ("=" in feature):
             feature_fields = feature.split("=")
-            if (len(feature_fields) != 2):
-                print("load_fasm_data() ERROR: wrong number of fields for FASM feature assignment")
-            else:
+            if (len(feature_fields) == 2):
                 feature_name = feature_fields[0]
                 feature_value = feature_fields[1]
 
@@ -369,8 +366,6 @@ def load_fasm_data(filename, all_warnings=False, verbose=False):
                     feature_array = feature_value.split("'b")
 
                     if (len(feature_name_fields) < 2):
-                        print("load_fasm_data()",
-                              "wrong number of fields for array FASM feature value")
                         errors += 1
 
                     else:
