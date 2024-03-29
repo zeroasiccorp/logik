@@ -167,13 +167,21 @@ When importing IP from a package in the Silicon Compiler package registry, the s
 Set Timing Constraints
 ----------------------
 
+.. warning::
+
+   The demo architecture provided with this distrbution implements a unit delay model.  Provided examples demonstrate the RTL-to-bitstream flow without an SDC file.  Examples that include SDC files are planned for a future release.
+
 Timing constraints must be provided in a single SDC file.  The SDC file must be added to the Silicon Compiler chip object for inclusion.  Include the call
 
 ::
 
     chip.add('input', 'constraint', 'sdc', '<your_sdc_file_name>')
 
-in your Silicon Compiler run script
+in your Silicon Compiler run script.
+
+.. note::
+
+   If no SDC file is provided, the flow will still run to completion.  Timing analysis will be disabled during the place and route steps.
 
 .. _Set_pin_constraints:
 
