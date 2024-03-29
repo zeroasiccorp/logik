@@ -167,7 +167,7 @@ When importing IP from a package in the Silicon Compiler package registry, the s
 Set Timing Constraints
 ----------------------
 
-.. warning::
+.. note::
 
    The demo architecture provided with this distrbution implements a unit delay model.  Provided examples demonstrate the RTL-to-bitstream flow without an SDC file.  Examples that include SDC files are planned for a future release.
 
