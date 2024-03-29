@@ -146,21 +146,6 @@ def concatenate_data(data_array):
     return data_sum
 
 
-def check_bitstream_map_address(x, y, addr, bitstream_map):
-
-    in_range = True
-    if not (x < len(bitstream_map)):
-        in_range = False
-    elif not (y < len(bitstream_map[x])):
-        in_range = False
-    elif not (addr < len(bitstream_map[x][y])):
-        in_range = False
-    else:
-        in_range = True
-
-    return in_range
-
-
 def get_bitstream_map_location(base_address,
                                umi_addr_offset,
                                umi_column_index,
@@ -314,12 +299,6 @@ def invert_address_map(address_map):
                     feature_index[address_map[x][y][address][bit]]['bit'] = bit
 
     return feature_index
-
-
-def format_binary_bitstream_address(address, address_width):
-
-    formatted_address = format(address, 'b').zfill(address_width)
-    return str(address_width) + "'b" + formatted_address
 
 
 if __name__ == "__main__":
