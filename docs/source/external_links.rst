@@ -10,7 +10,7 @@ Click "Github" to go to the project github page.  Click "Documentation" to go to
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+
 | Icarus Verilog               | `Icarus Github <https://github.com/steveicarus/iverilog>`_                   | `Icarus Documentation <http://iverilog.icarus.com/>`_                  |
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+
-| Silicon Compiler             | `SC Github <https://github.com/siliconcompiler/siliconcompiler>`_            | `SC Documentation <https:docs.siliconcompiler.com>`_                   |
+| Silicon Compiler             | `SC Github <https://github.com/siliconcompiler/siliconcompiler>`_            | `SC Documentation <https://docs.siliconcompiler.com>`_                 |
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+
 | Verilator                    | `Verilator Github <https://github.com/verilator/verilator>`_                 | `Verilator Documentation <https://verilator.org/guide/latest/>`_       |
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+

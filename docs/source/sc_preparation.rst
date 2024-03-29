@@ -135,19 +135,23 @@ When using VHDL, it is required to add
 
 ::
 
-   chip.set('option', 'frontend', 'systemverilog')
-
+   chip.set('option', 'frontend', 'vhdl')
+   
 to your run script to trigger Silicon Compiler to execute ghdl prior to running synthesis.
 
 When using SystemVerilog, it is required to add
 
 ::
 
-   chip.set('option', 'frontend', 'vhdl')
+   chip.set('option', 'frontend', 'systemverilog')
 
 to your run script to trigger Silicon Compiler to execute sv2v prior to running synthesis.
 
 When using Verilog, the default frontend option, Surelog, is used, and no function call is required to enable it.
+
+.. note::
+
+   Silicon Compiler supports additional front end options, including flows for high-level synthesis.  For all front end compilation considerations not described above, please consult `Silicon Compiler Frontend documentation <https://docs.siliconcompiler.com/en/stable/user_guide/tutorials/hw_frontends.html>`_
 
 For large designs, it may be convenient to organize your HDL files into a directory tree that is processed using Python functions, so that the above calls can be embedded in loops.
 
