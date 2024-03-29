@@ -7,7 +7,7 @@ Welcome to the demo edition of <name>.  In this edition, the following features 
 * Example Zero ASIC eFPGA architecture with the following resources:
 
   +----------------------------------------------------------+--------+
-  | 4-LUTs                                                   | 6576   |
+  | 4-input LUTs                                             | 6576   |
   +----------------------------------------------------------+--------+
   | Registers                                                | 6576   |
   +----------------------------------------------------------+--------+
