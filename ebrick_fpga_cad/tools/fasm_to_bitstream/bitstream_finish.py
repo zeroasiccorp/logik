@@ -31,7 +31,7 @@ def run(chip):
     if len(bitstream_maps) == 1:
         json_outfile = f"outputs/{topmodule}.json"
         binary_outfile = f"outputs/{topmodule}.bin"
-        
+
         # Finishing steps are as follows:
         # 1. Convert FASM to IR
         config_bitstream = fasm_utils.fasm2bitstream(fasm_file, bitstream_maps[0])
