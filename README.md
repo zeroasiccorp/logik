@@ -1,14 +1,14 @@
 # Logik
 
 
-## Introduction 
+## Introduction
 
-Logik is a light weight configurable open source rtl-to-bitstream FPGA accessible through a simple Python interface. Logik builds on a number of robust open source projects, including:
+Logik is a light weight configurable open source rtl-to-bitstream FPGA flow accessible through a simple Python interface. Logik builds on a number of robust open source projects, including:
 
 
 * [Silicon Compiler](https://github.com/siliconcompiler/siliconcompiler): Hardware build tool
 * [Yosys](https://github.com/YosysHQ/yosys): Logic synthesis tool
-* [VPR](https://github.com/verilog-to-routing/vtr-verilog-to-routing): FPGA place and route tool 
+* [VPR](https://github.com/verilog-to-routing/vtr-verilog-to-routing): FPGA place and route tool
 * [GHDL](https://ghdl.github.io/ghdl/): VHDL parser
 * [Surelog](https://github.com/chipsalliance/Surelog): SystemVerilog parser
 
@@ -16,25 +16,23 @@ Logik is a light weight configurable open source rtl-to-bitstream FPGA accessibl
 
 | Feature              | Status |
 |----------------------|--------|
-| Languages            | Verilog, SystemVerilog, VHDL
+| Design Languages     | Verilog, SystemVerilog, VHDL, C, Python
 | Bitstream generation | Supported
-| RAM mapping          | Supported
-| ALU mapping          | Supported
 | Pin mapping          | Supported
-| SDC                  | Supported (subset)
+| SDC                  | Supported
 | Multi-clock          | Work in progress
 | STA                  | Work in progress (similar to other open source projects)
 
 ## Example
 
-Converting RTL to a bitstream can be done in a few lines of Python code as demonstrated in the [adder example](/examples/adder) show below. 
+Converting RTL to a bitstream can be done in a few lines of Python code as demonstrated in the [adder example](/examples/adder) show below.
 
 ```python
 from siliconcompiler import Chip
 
 chip = Chip('adder')                                        # specify the top module
 chip.input('./adder.v')                                     # add an input file
-chip.add('fpga', 'partname', 'za')                          # part to compile for     
+chip.add('fpga', 'partname', 'za')                          # part to compile for
 chip.add('input', 'constraint', 'timing', './adder.sdc')    # timing constraints file
 chip.add('input', 'constraint', 'pinmap', './adder.pcf')    # pin constraints file
 chip.add('option', 'quiet', True)                           # run in quiet mode
