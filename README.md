@@ -1,89 +1,64 @@
-# ebrick-fpga-cad
-This repository contains RTL-to-bitstream and other CAD support for ebrick-fpga.
+# Logik
 
-HDL simulation support is not explicitly provided within this repository.  However, [Silicon Compiler](https://siliconcompiler.com) supports HDL simulation flows using open source simulators.  Consult Silicon Compiler documentation for details.
 
-The RTL-to-bitstream flow is implemented as a custom [Silicon Compiler](https://siliconcompiler.com) flow graph:
+## Introduction
 
-![image info](images/fpga_flow.png)
+Logik is a light weight configurable open source rtl-to-bitstream FPGA flow accessible through a simple Python interface. Logik builds on a number of robust open source projects, including:
 
-This README documents how to set up and make use of the software contained in this repository, and how to run the flow on an example design to test your setup.  
 
-## System Software Requirements
+* [Silicon Compiler](https://github.com/siliconcompiler/siliconcompiler): Hardware build tool
+* [Yosys](https://github.com/YosysHQ/yosys): Logic synthesis tool
+* [VPR](https://github.com/verilog-to-routing/vtr-verilog-to-routing): FPGA place and route tool
+* [GHDL](https://ghdl.github.io/ghdl/): VHDL parser
+* [Surelog](https://github.com/chipsalliance/Surelog): SystemVerilog parser
 
-* Ubuntu 20.04
-* Python 3.8 or higher
-* git
+![image info](images/logik_flow.svg)
 
-## Installing Required EDA Software
+| Feature              | Status |
+|----------------------|--------|
+| Design Languages     | Verilog, SystemVerilog, VHDL, C, Python
+| Bitstream generation | Supported
+| Pin mapping          | Supported
+| SDC                  | Supported
+| Multi-clock          | Work in progress
+| STA                  | Work in progress (similar to other open source projects)
 
-This flow makes use of several open-source electronic design automation (EDA) tools.  Currently the minimum required EDA tools are:
+## Example
 
-* [Surelog](https://github.com/chipsalliance/Surelog)
-* [Yosys](https://yosyshq.readthedocs.io/en/latest/tools.html#yosys)
-* [VPR](https://docs.verilogtorouting.org),
-* [Silicon Compiler](https://docs.siliconcompiler.com).
+Converting RTL to a bitstream can be done in a few lines of Python code as demonstrated in the [adder example](/examples/adder) show below.
 
-For VHDL support, [GHDL](https://ghdl.github.io/ghdl/) is also required.
+```python
+from siliconcompiler import Chip
 
-For SystemVerilog support, [sv2v](https://github.com/zachjs/sv2v?tab=readme-ov-file#sv2v-systemverilog-to-verilog) is also required.
-
-To integrate this software with a complete FPGA development environment or to run HDL simulations on provided examples, simulation tools are also needed.  The following open source options are available:
-
-* [GTKWave](https://gtkwave.sourceforge.net/)
-* [IcarusVerilog](http://iverilog.icarus.com/)
-* [Verilator](https://verilator.org/guide/latest/)
-
-There are two options for setting up these tools:  running within a docker container and installing required software locally.
-
-### Running Within Docker
-
-First, install Docker if you haven't already.  Here are the instructions for various platforms:
-* [Linux Docker installation](https://docs.docker.com/desktop/install/linux-install/)
-* [macOS Docker installation](https://docs.docker.com/desktop/install/mac-install/)
-* [Windows Docker installation](https://docs.docker.com/desktop/install/windows-install/)
-
-Once Docker is installed, launch the Docker Desktop application.
-
-Then launch a terminal:
-* Ubuntu: `Ctrl`-`Alt`-`T` or run the Terminal application from the Dash
-* macOS: `Cmd-Space` to open Spotlight, then type `Terminal` and press `Enter`
-* Windows: Open `Windows PowerShell` from the Start menu.
-
-```console
-docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_runner:latest
+chip = Chip('adder')                                        # specify the top module
+chip.input('./adder.v')                                     # add an input file
+chip.add('fpga', 'partname', 'za')                          # part to compile for
+chip.add('input', 'constraint', 'timing', './adder.sdc')    # timing constraints file
+chip.add('input', 'constraint', 'pinmap', './adder.pcf')    # pin constraints file
+chip.add('option', 'quiet', True)                           # run in quiet mode
+chip.add('option', 'remote', True)                          # run compiler through siliconcompiler.com
+chip.add('option', 'output', './adder.bin')                 # name of output bitstream file
+chip.run()                                                  # start compilation
+chip.summary()                                              # print out a summary of compiler run
 ```
 
-### Installing Required Software Manually
+To verify the functionality of the bitstream, you can upload the adder.bin to an [FPGA Digital Twin](https://www.zeroasic.com/emulation?demo=fpga) made available through the Zero ASIC emulation portal.
 
-If you do not have docker installed, or you wish to install tools directly on your system, [Silicon Compiler's install scripts](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools) may also be consulted.  Please bear in mind these are furnished for reference only; your system may impose additional or alternative requirements.  
+## Installation
 
-The definitive authority for each tool is its own documentation; links are provided above.
+Logik is available as wheel packages on PyPI for macOS, Windows and Linux platforms. For working Python 3.8-3.12 environment, just use pip.
 
-## Repository Setup
-To prepare this repository for use, it is necessary to do the following.  If you run within docker, these commands should be run inside your docker container:
-
-* Clone this repository:  `git clone https://github.com/zeroasiccorp/ebrick-fpga-cad`
-* Create a Python virtual environment, e.g. `python3 -m venv venv; source venv/bin/activate`
-* Install Python packages within your virtual environment: `pip install --upgrade pip; pip install .`
-* (required only for running examples) Install additional packages for running examples: `pip install .[examples]`
-* Build documentation:  `pip install .[docs]; cd docs; make html`
-
-## Testing Setup:  RTL-to-Bitstream for an 8-bit Adder
-
-To test your setup, run the following to try the flow on a trivial circuit (8-bit adder):
-
-```console
-cd examples/adder
-python3 adder.py
+```sh
+python -m pip install --upgrade logik
 ```
 
-The resulting bitstream is located at `build/adder/job0/bitstream/0/outputs/adder.dat`.  To it test out with our web-based emulation tool, head over to [https://www.zeroasic.com/emulation#run](https://www.zeroasic.com/emulation#run).  Click the "FPGA" tab under "Select a Demo" (left side of the window) and follow the instructions provided there.
- 
-## Additional Examples and Documentation
+Running Logik natively on a local machine, requires installing all dependencies. Complete installation instructions can be found in the [SiliconCompiler Installation Guie](). For convenience, all EDA tools required by Logik are also packaged as a docker container [HERE]().
 
-To run additional examples and learn more about the flow, please consult the user guide built in the repository setup step; this can be accessed by opening
+## Documentation
 
-```console
-firefox ./docs/build/html/index.html
-```
+## License
+
+[MIT](LICENSE)
+
+## Issues / Bugs
+We use [GitHub Issues](https://github.com/zeroasiccorp/logik/issues) for tracking requests and bugs.
