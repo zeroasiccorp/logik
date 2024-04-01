@@ -22,7 +22,7 @@ Required EDA Software Tools
 ---------------------------
 
 +------------------------------+------------------------------------------------------------------------------------------------+
-| Silicon Compiler             | `SC Documentation <https:docs.siliconcompiler.com>`_                                           |
+| Silicon Compiler             | `SC Documentation <https://docs.siliconcompiler.com>`_                                         |
 +------------------------------+------------------------------------------------------------------------------------------------+
 | Surelog                      | `Surelog Documentation <https://github.com/chipsalliance/Surelog?tab=readme-ov-file#surelog>`_ |
 +------------------------------+------------------------------------------------------------------------------------------------+
