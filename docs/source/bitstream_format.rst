@@ -16,10 +16,6 @@ Understanding the details of bitstream formatting is typically necessary only fo
 Working with FASM Bitstream Data
 --------------------------------
 
-.. warning::
-
-   The FASM file format is not defined by Zero ASIC.
-
 A FASM file is comprised of an enumeration of "features" that are enabled or have non-zero values.  Each feature is assigned a plain-text label.
 
 End user post-processing of the FASM file is not recommended as making use of the data requires precise knowledge of the underlying FPGA architecture.  For all considerations related to parsing the format, please consult `FASM documentation <https://fasm.readthedocs.io/en/latest/>`_
@@ -35,7 +31,7 @@ For each FPGA architecture supported by the flow, a bitstream map file is provid
 
 .. warning::
 
-   Architecture bitstream map files are cached by Silicon Compiler for use within the flow and may not be easily accessible by end users.  To discuss making use of them outside this flow, please contact Zero ASIC.
+   Architecture bitstream map files are cached by Silicon Compiler for use within the flow and may not be easily accessible by end users.
 
 Working with Binary Bitstream Data
 ----------------------------------
