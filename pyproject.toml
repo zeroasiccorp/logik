@@ -4,16 +4,16 @@ requires = [
 ]
 
 [project]
-name = "ebrick-fpga-cad"
+name = "logik"
 authors = [{name = "Zero ASIC"}]
 description = "Library containing proprietary RTL-to-bitstream and other CAD support for ebrick-fpga."
 readme = "README.md"
-urls = {Homepage = "https://github.com/zeroasiccorp/ebrick-fpga-cad"}
+urls = {Homepage = "https://github.com/zeroasiccorp/logik"}
 requires-python = ">= 3.8"
 dependencies = [
     "siliconcompiler == 0.21.6",
 ]
-license = {text = "Zero ASIC Proprietary"}
+license = {file = "LICENSE"}
 version = "0.0.2"
 
 [project.optional-dependencies]
