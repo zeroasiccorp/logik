@@ -1,7 +1,6 @@
 name: Wheels
 
 on:
-  push:
   workflow_dispatch:
   release:
     types:
