@@ -3,7 +3,7 @@
 import os
 
 from siliconcompiler import Chip
-from ebrick_fpga_cad.targets import ebrick_fpga_target
+from logik.targets import logik_target
 
 import lambdalib
 import umi
@@ -13,7 +13,7 @@ def setup(chip, part_name=None):
     # 1. Defining the project
     # Set default part name
     if not part_name:
-        part_name = 'ebrick_fpga_demo'
+        part_name = 'logik_demo'
     chip.set('fpga', 'partname', part_name, clobber=False)
     part_name = chip.get('fpga', 'partname')
 
@@ -42,7 +42,7 @@ def setup(chip, part_name=None):
     chip.add('option', 'idir', 'rtl', package='umi_fir_filter')
 
     # 3. Load target
-    chip.load_target(ebrick_fpga_target)
+    chip.load_target(logik_target)
 
     # 4. Define constraints
     if chip.get('option', 'mode') == 'fpga':
