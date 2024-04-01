@@ -1,4 +1,4 @@
-from ebrick_fpga_cad.tools.generate_vpr_constraints import \
+from logik.tools.generate_vpr_constraints import \
     generate_vpr_constraints as constraint_utils
 from siliconcompiler.tools.vpr.vpr import find_single_file
 

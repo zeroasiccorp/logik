@@ -1,4 +1,4 @@
-from ebrick_fpga_cad.tools.fasm_to_bitstream import \
+from logik.tools.fasm_to_bitstream import \
     fasm_to_bitstream as fasm_utils
 
 

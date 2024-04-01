@@ -1,14 +1,14 @@
 from siliconcompiler.package import register_private_github_data_source
 
 
-fpga_version = 'v0.1.17'
+fpga_version = 'v0.1.22'
 
 
 def register_package(fpga, package_name, artifact):
     register_private_github_data_source(
         fpga,
         package_name,
-        repository='zeroasiccorp/ebrick-fpga-cad',
+        repository='zeroasiccorp/logik',
         release=fpga_version,
         artifact=artifact)
 
