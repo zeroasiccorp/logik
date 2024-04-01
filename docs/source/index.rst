@@ -44,6 +44,7 @@ Documentation Table of Contents
     timing_constraints	      
     pin_constraints
     template_constraints
+    bitstream_format
     external_links
     
 

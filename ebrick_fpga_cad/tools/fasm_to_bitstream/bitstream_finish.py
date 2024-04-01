@@ -30,16 +30,22 @@ def run(chip):
 
     if len(bitstream_maps) == 1:
         json_outfile = f"outputs/{topmodule}.json"
-        dat_outfile = f"outputs/{topmodule}.dat"
-        umi_outfile = f"outputs/{topmodule}.umi"
         binary_outfile = f"outputs/{topmodule}.bin"
+
+        # Finishing steps are as follows:
+        # 1. Convert FASM to IR
         config_bitstream = fasm_utils.fasm2bitstream(fasm_file, bitstream_maps[0])
+
+        # 2.  Write IR to JSON for inspection purposes
         fasm_utils.write_bitstream_json(config_bitstream, json_outfile)
-        dat_bitstream = fasm_utils.generate_flattened_bitstream(config_bitstream)
-        fasm_utils.write_bitstream_data(dat_bitstream, dat_outfile)
-        umi_bitstream = fasm_utils.generate_umi_bitstream(config_bitstream)
-        fasm_utils.write_bitstream_data(umi_bitstream, umi_outfile)
-        binary_bitstream = fasm_utils.format_binary_bitstream(umi_bitstream)
+
+        # 3.  Flatten the IR to a 1D address space
+        flattened_bitstream = fasm_utils.generate_flattened_bitstream(config_bitstream)
+
+        # 4.  Format the flattened bitstream to binary
+        binary_bitstream = fasm_utils.format_binary_bitstream(flattened_bitstream)
+
+        # 5.  Write binary to file
         fasm_utils.write_bitstream_binary(binary_bitstream, binary_outfile)
 
     elif len(bitstream_maps) == 0:
