@@ -7,7 +7,7 @@ import pytest
 @pytest.mark.timeout(300)
 @pytest.mark.parametrize("part_name",
                          [
-                             'ebrick_fpga_demo',
+                             'logik_demo',
                          ])
 def test_py(setup_example_test, part_name):
     setup_example_test('adder')
@@ -19,7 +19,7 @@ def test_py(setup_example_test, part_name):
 @pytest.mark.timeout(300)
 @pytest.mark.parametrize("part_name",
                          [
-                             'ebrick_fpga_demo',
+                             'logik_demo',
                          ])
 def test_cli(setup_example_test, part_name):
     adder_dir = setup_example_test('adder')
