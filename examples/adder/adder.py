@@ -3,10 +3,10 @@
 import os
 
 from siliconcompiler import Chip
-from ebrick_fpga_cad.targets import ebrick_fpga_target
+from logik.targets import logik_target
 
 
-def main(part_name='ebrick_fpga_demo'):
+def main(part_name='logik_demo'):
     chip = Chip('adder')
 
     if __name__ == '__main__':
@@ -31,7 +31,7 @@ def main(part_name='ebrick_fpga_demo'):
              os.path.join(project_path, 'constraints', f'pin_constraints_{set_part_name}.json'))
 
     # 3. Load target
-    chip.load_target(ebrick_fpga_target)
+    chip.load_target(logik_target)
 
     chip.set('option', 'quiet', True)
 

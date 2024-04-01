@@ -16,7 +16,7 @@ def _check_fir_filter(manifest):
 @pytest.mark.timeout(300)
 @pytest.mark.parametrize("part_name",
                          [
-                             'ebrick_fpga_demo',
+                             'logik_demo',
                          ])
 def test_py(setup_example_test, part_name):
     setup_example_test('umi_fir_filter')
@@ -30,7 +30,7 @@ def test_py(setup_example_test, part_name):
 @pytest.mark.timeout(300)
 @pytest.mark.parametrize("part_name",
                          [
-                             'ebrick_fpga_demo',
+                             'logik_demo',
                          ])
 def test_cli(setup_example_test, part_name):
     umi_fir_filter_dir = setup_example_test('umi_fir_filter')

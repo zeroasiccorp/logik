@@ -1,8 +1,8 @@
 import siliconcompiler
 from siliconcompiler.targets import utils
 
-from ebrick_fpga_cad.fpgas import ebrick_fpga_demo
-from ebrick_fpga_cad.flows import ebrick_fpga_flow
+from logik.fpgas import logik_demo
+from logik.flows import logik_flow
 
 
 ####################################################
@@ -19,20 +19,20 @@ def setup(chip):
         chip.error('FPGA partname has not been set.', fatal=True)
 
     # 2.  Load all available FPGAs
-    chip.use(ebrick_fpga_demo)
+    chip.use(logik_demo)
 
     if part_name not in chip.getkeys('fpga'):
         chip.error(f'{part_name} has not been loaded', fatal=True)
 
     # 3. Load flow
-    chip.use(ebrick_fpga_flow)
+    chip.use(logik_flow)
 
     # 4. Setup default show tools
     utils.set_common_showtools(chip)
 
     # 5. Select default flow
     chip.set('option', 'mode', 'fpga', clobber=False)
-    chip.set('option', 'flow', 'ebrick_fpga_flow', clobber=False)
+    chip.set('option', 'flow', 'logik_flow', clobber=False)
 
 
 #########################

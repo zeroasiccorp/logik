@@ -6,8 +6,8 @@ from siliconcompiler.tools.vpr import place as vpr_place
 from siliconcompiler.tools.vpr import route as vpr_route
 from siliconcompiler.tools.genfasm import bitstream as genfasm_bitstream
 
-from ebrick_fpga_cad.tools.fasm_to_bitstream import bitstream_finish
-from ebrick_fpga_cad.tools.generate_vpr_constraints import constraint_gen
+from logik.tools.fasm_to_bitstream import bitstream_finish
+from logik.tools.generate_vpr_constraints import constraint_gen
 
 
 ############################################################################
@@ -20,7 +20,7 @@ def make_docs(chip):
 ############################################################################
 # Flowgraph Setup
 ############################################################################
-def setup(chip, flowname='ebrick_fpga_flow'):
+def setup(chip, flowname='logik_flow'):
     '''
     '''
 

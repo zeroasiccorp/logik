@@ -12,7 +12,7 @@ def main():
                                help="architecture-specific mapping of constraint pins "
                                     "to FPGA core pins")
     option_parser.add_argument("json_constraints",
-                               help="architecture-independent ebrick constraints file")
+                               help="JSON pin constraints file")
     option_parser.add_argument("constraints_file_out",
                                help="constraints XML file name")
 

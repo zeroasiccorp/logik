@@ -1,14 +1,14 @@
 import os
 from siliconcompiler import FPGA, Chip
-from ebrick_fpga_cad.fpgas import _common
+from logik.fpgas import _common
 
 
 ####################################################
-# Setup for ebrick_fpga_demo Family FPGAs
+# Setup for logik_demo Family FPGAs
 ####################################################
 def setup(chip):
     '''
-    The ebrick_fpga_demo FPGA family is a set of
+    The logik_demo FPGA family is a set of
     open source architectures used as illustrative
     examples for academic FPGA architectures.  They
     are based on numerous examples furnished over the
@@ -28,17 +28,17 @@ def setup(chip):
     all_fpgas = []
 
     all_part_names = [
-        'ebrick_fpga_demo',
-        'ebrick_fpga_demo_mini',
+        'logik_demo',
+        'logik_demo_mini',
     ]
 
     # Settings common to all parts in family
     for part_name in all_part_names:
 
-        fpga = FPGA(chip, part_name, package=f'ebrick_fpga-{part_name}')
+        fpga = FPGA(chip, part_name, package=f'logik-{part_name}')
         _common.register_package(
             fpga,
-            f'ebrick_fpga-{part_name}',
+            f'logik-{part_name}',
             f'{part_name}_cad.tar.gz')
 
         fpga.set('fpga', part_name, 'vendor', vendor)
@@ -52,13 +52,13 @@ def setup(chip):
 
         cad_root = os.path.join(f'{part_name}_cad', 'cad')
         fpga.set('fpga', part_name, 'file', 'archfile',
-                 os.path.join(cad_root, 'ebrick_fpga_core.xml'))
+                 os.path.join(cad_root, 'logik_demo_core.xml'))
         fpga.set('fpga', part_name, 'file', 'graphfile',
-                 os.path.join(cad_root, 'ebrick_fpga_core_rr_graph.xml'))
+                 os.path.join(cad_root, 'logik_demo_core_rr_graph.xml'))
 
         _common.set_fpga_resources(fpga)
 
-        if ((part_name == 'ebrick_fpga_demo') or (part_name == 'ebrick_fpga_demo_mini')):
+        if ((part_name == 'logik_demo') or (part_name == 'logik_demo_mini')):
             techlib_root = os.path.join(f'{part_name}_cad', 'techlib')
 
             flop_library = os.path.join(techlib_root, 'tech_flops.v')
@@ -87,15 +87,15 @@ def setup(chip):
 
             fpga.add('fpga', part_name, 'var', 'dsp_blackbox_options', 'BLACKBOX_MACROS')
 
-            bitstream_map_file = os.path.join(cad_root, 'ebrick_fpga_core_bitstream_map.json')
+            bitstream_map_file = os.path.join(cad_root, 'logik_demo_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
 
             gasket_map_file = os.path.join(cad_root, f'{part_name}_gasket_map.json')
             fpga.set('fpga', part_name, 'file', 'gasket_map', gasket_map_file)
 
-            if (part_name == 'ebrick_fpga_demo'):
+            if (part_name == 'logik_demo'):
                 fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
-            elif (part_name == 'ebrick_fpga_demo_mini'):
+            elif (part_name == 'logik_demo_mini'):
                 fpga.set('fpga', part_name, 'var', 'channelwidth', '136')
 
         all_fpgas.append(fpga)
