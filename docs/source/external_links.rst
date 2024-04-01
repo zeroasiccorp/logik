@@ -10,9 +10,9 @@ Click "Github" to go to the project github page.  Click "Documentation" to go to
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+
 | Icarus Verilog               | `Icarus Github <https://github.com/steveicarus/iverilog>`_                   | `Icarus Documentation <http://iverilog.icarus.com/>`_                  |
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+
-| Silicon Compiler             | `SC Github <https://github.com/siliconcompiler/siliconcompiler>`_            | `SC Documentation <https:docs.siliconcompiler.com>`_                   |
+| Silicon Compiler             | `SC Github <https://github.com/siliconcompiler/siliconcompiler>`_            | `SC Documentation <https://docs.siliconcompiler.com>`_                 |
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+
-| Verilator                    | `Verilator Github <https://github.com/verilator/verilator>`_                 | `Documentation <https://verilator.org/guide/latest/>`_                 |
+| Verilator                    | `Verilator Github <https://github.com/verilator/verilator>`_                 | `Verilator Documentation <https://verilator.org/guide/latest/>`_       |
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+
 | Verilog-to-Routing (VPR)     | `VPR Github <https://github.com/verilog-to-routing/vtr-verilog-to-routing>`_ | `VPR Documentation <https://docs.verilogtorouting.org/en/latest/>`_    |
 +------------------------------+------------------------------------------------------------------------------+------------------------------------------------------------------------+
