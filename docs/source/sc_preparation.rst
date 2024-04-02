@@ -31,7 +31,7 @@ The minimum import requirements in a <tool_name> Silicon Compiler run script are
 ::
 
    import siliconcompiler
-   from ebrick_fpga_cad.targets import ebrick_fpga_target
+   from logik.targets import logik_target
 
 
 Additional module imports may be required depending on project-specific requirements.
@@ -81,15 +81,15 @@ Select part name
 
 .. note::
 
-   As of this writing, the only part name that is enabled for use is "ebrick_fpga_demo"
+   As of this writing, the only part name that is enabled for use is "logik_demo"
 
 In your Silicon Compiler run script, include the following call
 
 ::
 
-   chip.set('fpga', 'partname', 'ebrick_fpga_demo')
+   chip.set('fpga', 'partname', 'logik_demo')
 
-to select the ebrick_fpga_demo part as your selected part name.
+to select the logik_demo part as your selected part name.
 
 .. _Register_packages:
 
