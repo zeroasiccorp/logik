@@ -24,14 +24,14 @@ def main():
     write_json_constraints(
         pin_constraints,
         os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                     f"pin_constraints_{part_name}.json"))
+                     f"pin_constraints_{part_name}.pcf"))
 
 
 def generate_mapped_constraints(part_name):
 
     pin_constraints = {}
 
-    if (part_name == 'ebrick_fpga_demo'):
+    if (part_name == 'logik_demo'):
 
         for i in range(8):
             pin_constraints[f'a[{i}]'] = {

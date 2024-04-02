@@ -93,8 +93,8 @@ def setup(chip):
             bitstream_map_file = os.path.join(cad_root, 'logik_demo_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
 
-            gasket_map_file = os.path.join(cad_root, f'{part_name}_gasket_map.json')
-            fpga.set('fpga', part_name, 'file', 'gasket_map', gasket_map_file)
+            constraint_map_file = os.path.join(cad_root, f'{part_name}_constraint_map.json')
+            fpga.set('fpga', part_name, 'file', 'constraints_map', constraint_map_file)
 
             if (part_name == 'logik_demo'):
                 fpga.set('fpga', part_name, 'var', 'channelwidth', '136')

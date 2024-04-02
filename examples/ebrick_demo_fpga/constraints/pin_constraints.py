@@ -5,7 +5,7 @@ import argparse
 import json
 import os
 
-import ebrick_fpga_cad.templates.ebrick_fpga_demo.umi_pin_constraints as ebrick_fpga_demo
+import logik.templates.logik_demo.umi_pin_constraints as logik_demo
 
 
 def main():
@@ -23,14 +23,14 @@ def main():
     write_json_constraints(
         pin_constraints,
         os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                     f"pin_constraints_{part_name}.json"))
+                     f"pin_constraints_{part_name}.pcf"))
 
 
 def generate_mapped_constraints(part_name):
 
     pin_constraints = {}
 
-    if (part_name == 'ebrick_fpga_demo'):
+    if (part_name == 'logik_demo'):
 
         pin_constraints["fpga_clk[0]"] = {
             "direction": 'input',
@@ -106,14 +106,14 @@ def generate_mapped_constraints(part_name):
         # ***NOTE:  bringing in pin constraints here at the end with update
         #           will allow us to place the boilerplate UMI pin constraints
         #           at the end of the JSON file
-        umi_pins = ebrick_fpga_demo.generate_umi_pin_constraints(umi_data_width=32,
-                                                                 umi_ports_used=[1, 2, 3],
-                                                                 port_types=["uhost_req",
-                                                                             "uhost_resp",
-                                                                             "udev_req",
-                                                                             "udev_resp"],
-                                                                 umi_port_num_offset=1,
-                                                                 index_control_bits=True)
+        umi_pins = logik_demo.generate_umi_pin_constraints(umi_data_width=32,
+                                                           umi_ports_used=[1, 2, 3],
+                                                           port_types=["uhost_req",
+                                                                       "uhost_resp",
+                                                                       "udev_req",
+                                                                       "udev_resp"],
+                                                           umi_port_num_offset=1,
+                                                           index_control_bits=True)
         pin_constraints.update(umi_pins)
 
     else:

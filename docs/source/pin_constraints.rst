@@ -16,14 +16,14 @@ To make use of these constraints it is necessary to have detailed information ab
 
 Use of this format is required in order to constrain the placement of logic blocks.  However, typically specifying placement constraints for logic blocks is not necessary in this RTL-to-bitstream flow.
 
-If only pin constraints need to be specified, knowledge of this coordinate system is not necessary.  Instead, a port-to-port mapping between user ports and ebrick-fpga embedded FPGA ports can be specified in JSON format.  This format is described below.
+If only pin constraints need to be specified, knowledge of this coordinate system is not necessary.  Instead, a port-to-port mapping between user ports and eFPGA ports/FPGA pins can be specified in JSON format.  This format is described below.
 
 
-JSON Pin Constraints
---------------------
-Specifying pin constraints in JSON format is supported so that users can specify a mapping between ports in their top-level RTL and port or pin names defined in the FPGA architecture.
+JSON Pin Constraints (PCF)
+--------------------------
+Specifying pin constraints in JSON format is supported so that users can specify a mapping between ports in their top-level RTL and port or pin names defined in the FPGA architecture.  The required structure of the JSON file is referred to within Silicon Compiler as PCF format to distinguish it from other JSON files, and the .pcf file extension is used as an indicator that a file is of this type.
 
-The JSON pin constraint file is organized as a dictionary of JSON objects where keys in the dictionary are user port names and values are two-element dictionaries containing the port direction and the ebrick_core port name to which that user port should be mapped.  The port direction is specified with the "direction" key and the the ebrick_core port name is specified with the "pin" key.  This syntax is shown in the example below:
+The PCF file is organized as a dictionary of JSON objects where keys in the dictionary are user port names and values are two-element dictionaries containing the port direction and the FPGA top level port name to which that user port should be mapped.  The port direction is specified with the "direction" key and the the FPGA top level port name is specified with the "pin" key.  This syntax is shown in the example below:
 
 Example Pin Constraint Syntax
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -31,7 +31,7 @@ The minimum import requirements in a <tool_name> Silicon Compiler run script are
 ::
 
    import siliconcompiler
-   from ebrick_fpga_cad.targets import ebrick_fpga_target
+   from logik.targets import logik_target
 
 
 Additional module imports may be required depending on project-specific requirements.
@@ -81,15 +81,15 @@ Select part name
 
 .. note::
 
-   As of this writing, the only part name that is enabled for use is "ebrick_fpga_demo"
+   As of this writing, the only part name that is enabled for use is "logik_demo"
 
 In your Silicon Compiler run script, include the following call
 
 ::
 
-   chip.set('fpga', 'partname', 'ebrick_fpga_demo')
+   chip.set('fpga', 'partname', 'logik_demo')
 
-to select the ebrick_fpga_demo part as your selected part name.
+to select the logik_demo part as your selected part name.
 
 .. _Register_packages:
 
@@ -194,7 +194,7 @@ Set Pin Constraints
 
 Pin constraints may be provided in one of two files:
 
-* A JSON pin constraints file
+* A JSON pin constraints file (PCF)
 * A VPR XML placement constraints file
 
 .. note::
@@ -210,9 +210,19 @@ The JSON placement constraints file must be added to the Silicon Compiler chip o
 
 ::
 
-   chip.add('input', 'constraint', 'pinmap', '<your_json_file_name>')
+   chip.input('<your_pcf_file_name>')
+
+If your project defines itself as a package using Silicon Compiler's package registry, specify the package name as well:
+
+::
+
+   chip.input('<your_pcf_file_name>', package=<your_package_name>)
 
 in your Silicon Compiler run script
+
+.. note::
+
+   The .pcf file extension must be used
 
 VPR XML Placement Constraint Specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

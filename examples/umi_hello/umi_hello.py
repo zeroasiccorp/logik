@@ -13,7 +13,7 @@ def setup(chip, part_name=None):
     # 1. Defining the project
     # Set default part name
     if not part_name:
-        part_name = 'logik_demo_mini'
+        part_name = 'logik_demo'
     chip.set('fpga', 'partname', part_name, clobber=False)
     part_name = chip.get('fpga', 'partname')
 
@@ -30,9 +30,8 @@ def setup(chip, part_name=None):
 
     # 4. Define constraints
     if chip.get('option', 'mode') == 'fpga':
-        chip.add('input', 'constraint', 'pinmap',
-                 os.path.join('constraints', f'pin_constraints_{part_name}.json'),
-                 package='umi_hello')
+        chip.input(os.path.join('constraints', f'pin_constraints_{part_name}.pcf'),
+                   package="umi_hello")
 
 
 def main(part_name=None):

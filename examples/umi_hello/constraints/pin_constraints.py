@@ -7,7 +7,7 @@ import argparse
 import json
 import os
 
-from ebrick_fpga_cad.templates.ebrick_fpga_demo.umi_pin_constraints \
+from logik.templates.logik_demo.umi_pin_constraints \
     import generate_umi_pin_constraints
 
 
@@ -17,7 +17,7 @@ def main():
     option_parser.add_argument(
         "part_name",
         nargs='?',
-        default="ebrick_fpga_demo_mini",
+        default="logik_demo",
         help="specify part number to prep, or specify all to build all parts in parts catalog"
     )
 
@@ -29,14 +29,14 @@ def main():
     write_json_constraints(
         pin_constraints,
         os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                     f"pin_constraints_{part_name}.json"))
+                     f"pin_constraints_{part_name}.pcf"))
 
 
 def generate_mapped_constraints(part_name):
 
     pin_constraints = {}
 
-    if (part_name == 'ebrick_fpga_demo_mini'):
+    if (part_name == 'logik_demo'):
         pin_constraints["clk"] = {
             "direction": 'input',
             "pin": 'clk[0]'
@@ -44,7 +44,7 @@ def generate_mapped_constraints(part_name):
 
         pin_constraints["nreset"] = {
             "direction": 'input',
-            "pin": 'gpio_in[48]'
+            "pin": 'gpio_in[0]'
         }
 
         pin_constraints.update(
