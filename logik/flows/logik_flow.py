@@ -1,13 +1,8 @@
 # Copyright 2024 Zero ASIC Corporation
 # Licensed under the MIT License (see LICENSE for details)
 
-from siliconcompiler import Flow, Chip
-from siliconcompiler.flows._common import setup_frontend
-
-from siliconcompiler.tools.yosys import syn_fpga as yosys_syn
-from siliconcompiler.tools.vpr import place as vpr_place
-from siliconcompiler.tools.vpr import route as vpr_route
-from siliconcompiler.tools.genfasm import bitstream as genfasm_bitstream
+from siliconcompiler import Chip
+from siliconcompiler.flows import fpgaflow
 
 from logik.tools.fasm_to_bitstream import bitstream_finish
 
@@ -26,36 +21,13 @@ def setup(chip, flowname='logik_flow'):
     '''
     '''
 
-    flow = Flow(chip, flowname)
+    flow = fpgaflow.setup(chip,
+                          flowname='logik_flow',
+                          fpgaflow_type='vpr')
 
-    flow_pipe = [
-        ('syn', yosys_syn),
-        ('place', vpr_place),
-        ('route', vpr_route),
-        ('genfasm', genfasm_bitstream),
-        ('bitstream', bitstream_finish),
-    ]
-
-    flowtools = setup_frontend(chip)
-    flowtools.extend(flow_pipe)
-
-    # Minimal setup
-    index = '0'
-    prevstep = None
-    for step, tool_module in flowtools:
-        # Flow
-        flow.node(flowname, step, tool_module)
-        if prevstep:
-            flow.edge(flowname, prevstep, step)
-        # Hard goals
-        for metric in ('errors', 'warnings', 'drvs', 'unconstrained',
-                       'holdwns', 'holdtns', 'holdpaths',
-                       'setupwns', 'setuptns', 'setuppaths'):
-            flow.set('flowgraph', flowname, step, index, 'goal', metric, 0)
-        # Metrics
-        for metric in ('luts', 'dsps', 'brams', 'registers', 'pins'):
-            flow.set('flowgraph', flowname, step, index, 'weight', metric, 1.0)
-        prevstep = step
+    # Add bitstream generation task
+    flow.node(flowname, 'convert_bitstream', bitstream_finish)
+    flow.edge(flowname, 'bitstream', 'convert_bitstream')
 
     return flow
 
@@ -63,4 +35,4 @@ def setup(chip, flowname='logik_flow'):
 ##################################################
 if __name__ == "__main__":
     flow = make_docs(Chip('<flow>'))
-    flow.write_flowgraph(f"{flow.top()}.png", flow=flow.top())
+    flow.write_flowgraph(f"{flow.top()}.png", flow=flow.top(), landscape=True)
