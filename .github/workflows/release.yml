@@ -1,4 +1,4 @@
-name: eFPGA Release
+name: Logik FPGA Release
 
 on:
   workflow_dispatch:
@@ -26,11 +26,11 @@ jobs:
             --pattern '*_demo*_cad.tar.gz' \
             --repo zeroasiccorp/zeroasic-efpga
 
-      - name: Create eFPGA Core Release
+      - name: Create Core Release
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ inputs.release_tag }}
           token: ${{ secrets.ZA_TOKEN }}
-          name: eFPGA Release ${{ inputs.release_tag }}
+          name: ${{ inputs.release_tag }}
           files: '*_cad.tar.gz'
