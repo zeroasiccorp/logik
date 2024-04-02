@@ -5,7 +5,7 @@
   },
   "nreset": {
     "direction": "input",
-    "pin": "gpio_in[48]"
+    "pin": "gpio_in[0]"
   },
   "uhost_req_valid": {
     "direction": "output",

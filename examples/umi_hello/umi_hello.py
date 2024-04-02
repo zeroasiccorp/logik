@@ -10,7 +10,7 @@ def setup(chip, part_name=None):
     # 1. Defining the project
     # Set default part name
     if not part_name:
-        part_name = 'logik_demo_mini'
+        part_name = 'logik_demo'
     chip.set('fpga', 'partname', part_name, clobber=False)
     part_name = chip.get('fpga', 'partname')
 
