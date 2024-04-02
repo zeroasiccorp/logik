@@ -34,8 +34,7 @@ def main(part_name='logik_demo'):
     chip.set('option', 'entrypoint', 'ebrick_core_fpga_wrapper')
 
     # 3. Define constraints
-    chip.input('constraint', 'pinmap',
-               os.path.join('constraints', f'pin_constraints_{set_part_name}.pcf'),
+    chip.input(os.path.join('constraints', f'pin_constraints_{set_part_name}.pcf'),
                package='logik_demo')
 
     # 3. Load target

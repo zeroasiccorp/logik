@@ -46,8 +46,7 @@ def setup(chip, part_name=None):
 
     # 4. Define constraints
     if chip.get('option', 'mode') == 'fpga':
-        chip.input('constraint', 'pinmap',
-                   os.path.join('constraints', f'pin_constraints_{part_name}.pcf'),
+        chip.input(os.path.join('constraints', f'pin_constraints_{part_name}.pcf'),
                    package='umi_fir_filter')
 
     # 5. Customize steps for this design
