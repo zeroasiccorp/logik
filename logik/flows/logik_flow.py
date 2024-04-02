@@ -1,3 +1,6 @@
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 from siliconcompiler import Flow, Chip
 from siliconcompiler.flows._common import setup_frontend
 

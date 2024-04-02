@@ -1,8 +1,8 @@
-//adder.v
-//Peter Grossmann
-//9 August 2022
-//$Id$
-//$Log$
+/*******************************************************************************
+ * Copyright 2024 Zero ASIC Corporation
+ *
+ * Licensed under the MIT License (see LICENSE for details)
+ ******************************************************************************/
 
 module adder
   # (

@@ -1,3 +1,6 @@
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 from logik.tools.fasm_to_bitstream import \
     fasm_to_bitstream as fasm_utils
 

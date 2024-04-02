@@ -1,3 +1,6 @@
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 import os
 from siliconcompiler import FPGA, Chip
 from logik.fpgas import _common
