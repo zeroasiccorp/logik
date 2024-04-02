@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 from siliconcompiler import Chip
 from logik.targets import logik_target
 

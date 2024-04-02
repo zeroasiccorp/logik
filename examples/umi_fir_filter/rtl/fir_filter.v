@@ -1,3 +1,9 @@
+/*******************************************************************************
+ * Copyright 2024 Zero ASIC Corporation
+ *
+ * Licensed under the MIT License (see LICENSE for details)
+ ******************************************************************************/
+
 //This module implements a simple N-tap FIR filter
 //The goal is to provide a very explicit, clear, flexible
 //implementation of the canonical FIR filter equation.

@@ -1,3 +1,9 @@
+/*******************************************************************************
+ * Copyright 2024 Zero ASIC Corporation
+ *
+ * Licensed under the MIT License (see LICENSE for details)
+ ******************************************************************************/
+
 module tree_adder
   # (
      parameter DATA_WIDTH = 16,

@@ -1,3 +1,9 @@
+/*******************************************************************************
+ * Copyright 2024 Zero ASIC Corporation
+ *
+ * Licensed under the MIT License (see LICENSE for details)
+ ******************************************************************************/
+
 module umi_hello #(
     parameter CMD_WIDTH = 32,
     parameter ADDR_WIDTH = 64, 
