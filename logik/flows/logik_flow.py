@@ -7,7 +7,6 @@ from siliconcompiler.tools.vpr import route as vpr_route
 from siliconcompiler.tools.genfasm import bitstream as genfasm_bitstream
 
 from logik.tools.fasm_to_bitstream import bitstream_finish
-from logik.tools.generate_vpr_constraints import constraint_gen
 
 
 ############################################################################
@@ -55,8 +54,6 @@ def setup(chip, flowname='logik_flow'):
             flow.set('flowgraph', flowname, step, index, 'weight', metric, 1.0)
         prevstep = step
 
-    flow.node(flowname, 'constraint_gen', constraint_gen)
-    flow.edge(flowname, 'constraint_gen', 'place')
 
     return flow
 
