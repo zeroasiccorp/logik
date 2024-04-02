@@ -10,7 +10,7 @@ def get_package_name(part_name):
 
 def get_download_url(part_name):
     root = "https://github.com/zeroasiccorp/logik/releases/download"
-    return f"{root}/{fpga_version}/{part_name}_cad.tar.gz"
+    return f"{root}/fpga-{fpga_version}/{part_name}_cad.tar.gz"
 
 
 def set_fpga_resources(fpga):
