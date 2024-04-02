@@ -60,7 +60,7 @@ The meaning of these parameters is described in the table below
 +---------------------+-----------------------------------------------------------------------------------------------------------+
 | umi_addr_width      | sets the number of bits in the UMI source and destination address busses                                  |
 +---------------------+-----------------------------------------------------------------------------------------------------------+
-| umi_ports_used      | Each UMI port in is numbered.  UMI port 0 is reserved for bitstream loading.                  |
+| umi_ports_used      | Each UMI port in is numbered.  UMI port 0 is reserved for bitstream loading.                              |
 |                     | UMI ports 1, 2, and 3 are user-accessible.  This parameter allows specification of which                  |
 |                     | of the UMI ports are used in user RTL code.  Changing this value to enumerate only ports                  |
 |                     | that are used prevents unused constraints from being generated.                                           |
