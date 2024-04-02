@@ -194,7 +194,7 @@ Set Pin Constraints
 
 Pin constraints may be provided in one of two files:
 
-* A JSON pin constraints file
+* A JSON pin constraints file (PCF)
 * A VPR XML placement constraints file
 
 .. note::
@@ -210,9 +210,19 @@ The JSON placement constraints file must be added to the Silicon Compiler chip o
 
 ::
 
-   chip.add('input', 'constraint', 'pinmap', '<your_json_file_name>')
+   chip.input('<your_pcf_file_name>')
+
+If your project defines itself as a package using Silicon Compiler's package registry, specify the package name as well:
+
+::
+
+   chip.input('<your_pcf_file_name>', package=<your_package_name>)
 
 in your Silicon Compiler run script
+
+.. note::
+
+   The .pcf file extension must be used
 
 VPR XML Placement Constraint Specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
