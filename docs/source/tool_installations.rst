@@ -31,7 +31,7 @@ Several resources are offered to assist in the installation process when tools n
 
 Silicon Compiler's documentation provides reference install scripts for tools used in its flows.  These can be used as startpoints for developing install scripts for your particular system and are available at `https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools <https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools>`_
 
-Additionally, the external links page in this documentation points to documentation for open source software used in the flow.  Each of these software tools maintains its own installation instructions.  For the most up-to-date information on each software's installation procedure, its own documentation should be consulted.
+Additionally, the :doc:`external_links` page in this documentation points to documentation for open source software used in the flow.  Each of these software tools maintains its own installation instructions.  For the most up-to-date information on each software's installation procedure, its own documentation should be consulted.
 
 
 
