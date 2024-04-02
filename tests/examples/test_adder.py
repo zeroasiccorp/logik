@@ -8,8 +8,10 @@ import pytest
 
 
 @pytest.mark.timeout(300)
-def test_py(setup_example_test):
-    setup_example_test('adder')
+def test_py(setup_example_test, monkeypatch):
+    adder_dir = setup_example_test('adder')
+
+    monkeypatch.chdir(adder_dir)
 
     import adder
     adder.hello_adder()
@@ -19,5 +21,5 @@ def test_py(setup_example_test):
 def test_cli(setup_example_test):
     adder_dir = setup_example_test('adder')
 
-    proc = subprocess.run([os.path.join(adder_dir, 'adder.py')])
+    proc = subprocess.run([os.path.join(adder_dir, 'adder.py')], cwd=adder_dir)
     assert proc.returncode == 0
