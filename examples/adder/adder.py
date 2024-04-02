@@ -27,8 +27,7 @@ def main(part_name='logik_demo'):
     chip.input(os.path.join(project_path, 'rtl', 'adder.v'))
 
     # 3. Define constraints
-    chip.add('input', 'constraint', 'pinmap',
-             os.path.join(project_path, 'constraints', f'pin_constraints_{set_part_name}.json'))
+    chip.input(os.path.join(project_path, 'constraints', f'pin_constraints_{set_part_name}.pcf'))
 
     # 3. Load target
     chip.load_target(logik_target)
