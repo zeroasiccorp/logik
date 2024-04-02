@@ -1,27 +1,20 @@
-# Logik
 
+![image info](images/logik_logo.jpg)
+
+----
 
 ## Introduction
 
-Logik is a light weight configurable open source rtl-to-bitstream FPGA flow accessible through a simple Python interface. Logik builds on a number of robust open source projects, including:
-
+Logik is a light weight open source FPGA tool chain with a simple Python interface. Logik builds on a number of robust open source projects, including:
 
 * [Silicon Compiler](https://github.com/siliconcompiler/siliconcompiler): Hardware build tool
 * [Yosys](https://github.com/YosysHQ/yosys): Logic synthesis tool
 * [VPR](https://github.com/verilog-to-routing/vtr-verilog-to-routing): FPGA place and route tool
 * [GHDL](https://ghdl.github.io/ghdl/): VHDL parser
 * [Surelog](https://github.com/chipsalliance/Surelog): SystemVerilog parser
+* [FASM](https://github.com/chipsalliance/fasm): FPGA Assembly Parser and Generator
 
 ![image info](images/logik_flow.svg)
-
-| Feature              | Status |
-|----------------------|--------|
-| Design Languages     | Verilog, SystemVerilog, VHDL, C, Python
-| Bitstream generation | Supported
-| Pin mapping          | Supported
-| SDC                  | Supported
-| Multi-clock          | Work in progress
-| STA                  | Work in progress (similar to other open source projects)
 
 ## Example
 
@@ -43,6 +36,22 @@ chip.summary()                                              # print out a summar
 ```
 
 To verify the functionality of the bitstream, you can upload the adder.bin to an [FPGA Digital Twin](https://www.zeroasic.com/emulation?demo=fpga) made available through the Zero ASIC emulation portal.
+
+
+## Hardware Platforms Supported
+
+Logik was launched with day one support for Zero ASICs FPGA chiplets. More architectures will be added if there is interest and support.
+
+## Features
+
+| Feature              | Status |
+|----------------------|--------|
+| Design Languages     | Verilog, SystemVerilog, VHDL, C, Python
+| Bitstream generation | Supported
+| Pin mapping          | Supported
+| SDC                  | Supported
+| Multi-clock          | Work in progress
+| STA                  | Work in progress (similar to other open source projects)
 
 ## Installation
 
