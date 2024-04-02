@@ -7,7 +7,7 @@ from siliconcompiler import Chip
 from logik.targets import logik_target
 
 
-def hello_adder():
+def hello_adder(remote=False):
 
     # Create compilation object
     chip = Chip('adder')
@@ -20,7 +20,7 @@ def hello_adder():
 
     # Compiler options
     chip.set('option', 'quiet', True)
-    chip.set('option', 'remote', True)
+    chip.set('option', 'remote', remote)
 
     # Select target fpga
     chip.set('fpga', 'partname', 'logik_demo')
@@ -36,4 +36,11 @@ def hello_adder():
 
 
 if __name__ == "__main__":
-    hello_adder()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-remote', action='store_true',
+        help='Build bitstream in the cloud instead of using local tools.')
+    args = parser.parse_args()
+
+    hello_adder(remote=args.remote)

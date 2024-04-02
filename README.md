@@ -76,7 +76,7 @@ if __name__ == "__main__":
     hello_adder()
 ```
 
-This code can be run via `./adder.py` in the [examples/adder](examples/adder/) directory, resulting in an FPGA bitstream at `build/adder/job0/convert_bitstream/0/outputs/adder.bin`.
+This code can be run with `./adder.py -remote` in the [examples/adder](examples/adder/) directory, resulting in an FPGA bitstream at `build/adder/job0/convert_bitstream/0/outputs/adder.bin`.
 
 To test out the generated bitstream, you can upload it to an emulated FPGA device running in the Zero ASIC [Digital Twin Platform](https://www.zeroasic.com/emulation?demo=fpga).
 
@@ -107,7 +107,7 @@ Running natively on your local machine will require a number of prerequisite too
 
 ## Running Docker
 
-A [Docker image](https://github.com/siliconcompiler/siliconcompiler/pkgs/container/sc_runner) with the required tools is available for folks who prefer that route. The following command starts a new container from that image and maps the local directory `sc_work` to the path `/sc_work` in the container.
+A [Docker image](https://github.com/siliconcompiler/siliconcompiler/pkgs/container/sc_runner) is provided for users who wish to avoid the installation of the pre-requisite tools. The following command starts a new container from that image and maps the local directory `sc_work` to the path `/sc_work` in the container.
 
 ```sh
 docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_runner:latest
