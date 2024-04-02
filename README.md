@@ -1,5 +1,7 @@
-
 ![image info](images/logik_logo_with_text.png)
+
+[![Regression](https://github.com/zeroasiccorp/logik/actions/workflows/regression.yml/badge.svg)](https://github.com/zeroasiccorp/logik/actions/workflows/regression.yml)
+[![Lint](https://github.com/zeroasiccorp/logik/actions/workflows/lint.yml/badge.svg)](https://github.com/zeroasiccorp/logik/actions/workflows/lint.yml)
 
 -----------------------------------------------------------------------------------
 
