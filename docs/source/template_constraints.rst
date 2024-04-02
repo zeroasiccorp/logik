@@ -6,10 +6,10 @@ A full UMI interface with both device and host request and response ports requir
 * Users may make use of UMI pin constraint templates provided with this software 
 * Users may develop their own automation scripts for generating UMI port constraints
 
-Importing ebrick UMI Pin Constraints from a Template
+Importing UMI Pin Constraints from a Template
 ----------------------------------------------------
 
-ebrick-fpga devices with UMI interfaces require an exact set of pin constraints that is used to connect user-defined UMI ports to the corresponding UMI port signals internal to the ebrick-fpga core.  The required pin constraints are the same for all users, so a template for these constraints is provided for import into users' Silicon Compiler run scripts.
+eFPGA devices with UMI interfaces require an exact set of pin constraints that is used to connect user-defined UMI ports to the corresponding UMI port signals internal to the FPGA core.  The required pin constraints are the same for all users, so a template for these constraints is provided for import into users' Silicon Compiler run scripts.
 
 To make use of the pin constraints template, users must do the following:
 
@@ -19,7 +19,7 @@ To make use of the pin constraints template, users must do the following:
 Constraints Template Integration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-ebrick-fpga UMI pin constraint templates are implemented as Python functions.  For each ebrick-fpga device, there is a corresponding Python module called umi_pin_constraints.py provided as part of the templates submodule of this software.  Each module contains a function called
+eFPGA UMI pin constraint templates are implemented as Python functions.  For each UMI-enabled eFPGA device, there is a corresponding Python module called umi_pin_constraints.py provided as part of the templates submodule of this software.  Each module contains a function called
 
 ::
 
@@ -29,7 +29,7 @@ This can be imported into a user-defined pin constraints generator using
    
 ::
 
-   import ebrick_fpga_cad.templates.<ebrick-fpga part name>.umi_pin_constraints as <ebrick-fpga part name>
+   import logik.templates.<eFPGA part name>.umi_pin_constraints as <eFPGA part name>
 
 The function takes a standard set of parameters that can be used to control constraints generation behavior.  The API is as follows:
 
@@ -60,7 +60,7 @@ The meaning of these parameters is described in the table below
 +---------------------+-----------------------------------------------------------------------------------------------------------+
 | umi_addr_width      | sets the number of bits in the UMI source and destination address busses                                  |
 +---------------------+-----------------------------------------------------------------------------------------------------------+
-| umi_ports_used      | Each UMI port in ebrick-fpga is numbered.  UMI port 0 is reserved for bitstream loading.                  |
+| umi_ports_used      | Each UMI port in is numbered.  UMI port 0 is reserved for bitstream loading.                              |
 |                     | UMI ports 1, 2, and 3 are user-accessible.  This parameter allows specification of which                  |
 |                     | of the UMI ports are used in user RTL code.  Changing this value to enumerate only ports                  |
 |                     | that are used prevents unused constraints from being generated.                                           |
@@ -77,7 +77,7 @@ The meaning of these parameters is described in the table below
 Pin Constraint Template UMI Port Naming Conventions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following tables show what signal names must be used in user RTL to name UMI interface signals for compatibility with ebrick-fpga UMI pin constraint templates.
+The following tables show what signal names must be used in user RTL to name UMI interface signals for compatibility with eFPGA UMI pin constraint templates.
 
 All signals with names ending in "ready" or "valid" may be specified as scalars or as multi-bit busses.  When specified as scalars, calls to the generate_umi_pin_constraints constraint template generator functions must set the index_control_bits parameter to False.
 
