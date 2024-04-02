@@ -6,21 +6,29 @@ from logik.targets import logik_target
 def hello_adder():
 
     # Create compilation object
-    chip = Chip('adder')                                   # Specify top module
+    chip = Chip('adder')
 
-    # User Settings
-    chip.input('adder.v')                                  # Define source files
-    chip.input('adder.pcf')                                # Define source files
-    chip.set('option', 'quiet', True)                      # Quite compiler mode
+    # Specify Design sources
+    chip.input('adder.v')
 
-    # Select Flow and Part name
-    chip.set('fpga', 'partname', 'logik_demo')             # Set FPGA part name
-    chip.load_target(logik_target)                         # Load flow/part target
+    # Specify pin constraints
+    #chip.input('adder.pcf')
+    chip.add('input', 'constraint', 'pinmap', 'adder.pcf')
 
-    # Run Compiler
+    # Compiler options
+    chip.set('option', 'quiet', True)
+    #chip.set('option', 'remote', True)
+
+    # Select target fpga
+    chip.set('fpga', 'partname', 'logik_demo')
+
+    # Load target settings
+    chip.load_target(logik_target)
+
+    # Run compiler
     chip.run()
 
-    # Gather Compiler Metrics
+    # Display compiler results
     chip.summary()
 
 if __name__ == "__main__":
