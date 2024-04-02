@@ -44,6 +44,7 @@ Documentation Table of Contents
     pin_constraints
     template_constraints
     bitstream_format
+    logik_demo
     external_links
     
 
