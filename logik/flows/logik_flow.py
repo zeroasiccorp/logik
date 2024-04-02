@@ -55,9 +55,6 @@ def setup(chip, flowname='logik_flow'):
             flow.set('flowgraph', flowname, step, index, 'weight', metric, 1.0)
         prevstep = step
 
-    flow.node(flowname, 'constraint_gen', constraint_gen)
-    flow.edge(flowname, 'constraint_gen', 'place')
-
     return flow
 
 
