@@ -7,7 +7,6 @@ from siliconcompiler.tools.vpr import route as vpr_route
 from siliconcompiler.tools.genfasm import bitstream as genfasm_bitstream
 
 from logik.tools.fasm_to_bitstream import bitstream_finish
-from logik.tools.generate_vpr_constraints import constraint_gen
 
 
 ############################################################################
