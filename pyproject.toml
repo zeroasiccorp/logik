@@ -14,7 +14,10 @@ dependencies = [
     "siliconcompiler == 0.21.7",
 ]
 license = {file = "LICENSE"}
-version = "0.0.2"
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "logik.__version__"}
 
 [project.optional-dependencies]
 test = [
