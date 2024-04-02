@@ -1,7 +1,7 @@
-Demo Edition
-============
+Logik Demo Edition
+==================
 
-Welcome to the demo edition of <name>.  In this edition, the following features are showcased:
+Welcome to the demo edition of Logik.  In this edition, the following features are showcased:
 
 * RTL to bitstream automation flow for Zero ASIC FPGA/eFPGA architectures, powered by `Silicon Compiler <https://www.siliconcompiler.com>`_
 * Example Zero ASIC eFPGA architecture with the following resources:
@@ -21,7 +21,6 @@ Welcome to the demo edition of <name>.  In this edition, the following features 
   +----------------------------------------------------------+--------+
 
 * Example designs for reference in adopting the flow
-* Tutorials for running the flow and seeing bitstream output run on Zero ASIC's <name> platform.
 * Documentation providing step-by-step guidance for setup and execution of the flow
   
 Documentation Table of Contents

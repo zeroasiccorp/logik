@@ -48,7 +48,7 @@ When mapped into this address space, bitstream words are ordered from lowest add
 
 The binary format does not specify a word size; instead, this is dictated by the FPGA Architecture.  Words are treated as binary strings that, when read left to right, are read MSB to LSB.  The packing of bitstream words into bytes in a binary file is dictated by Python's tofile() function.  Implementations of a binary bitstream file reader should account for this so that when the bitstream is read back word ordering in this address space is preserved.
 
-To make this more concrete, consider the ebrick_fpga_demo architecture.  ebrick_fpga_demo is organized as a 37x31 array of elements.  This means that six bits are needed to represent the X coordinate and five bits are needed to represent the Y coordinate.  The number of word addresses needed at each (X,Y) coordinate in the array varies.  To make a uniform address space, the maximum required word address dictates the number of bits of word address used.  In the case of ebrick_fpga_demo, the maximum word address is 141, so eight bits of word address are needed.  The binary bitstream address format is thus nineteen bits wide and organized as follows:
+To make this more concrete, consider the logik_demo architecture.  logik_demo is organized as a 37x31 array of elements.  This means that six bits are needed to represent the X coordinate and five bits are needed to represent the Y coordinate.  The number of word addresses needed at each (X,Y) coordinate in the array varies.  To make a uniform address space, the maximum required word address dictates the number of bits of word address used.  In the case of logik_demo, the maximum word address is 141, so eight bits of word address are needed.  The binary bitstream address format is thus nineteen bits wide and organized as follows:
 
 +--------------+--------------+--------------+
 | [18:14]      | [13:8]       | [7:0]        |
@@ -56,4 +56,4 @@ To make this more concrete, consider the ebrick_fpga_demo architecture.  ebrick_
 | Y coordinate | X coordinate | word address |
 +--------------+--------------+--------------+
 
-ebrick_fpga_demo uses 8-bit bitstream words.  The ordering of the words in the binary file thus begins with word address 0 at array coordinate (0,0) and the last word is word address 141 at array coordinate (37, 31).
+logik_demo uses 8-bit bitstream words.  The ordering of the words in the binary file thus begins with word address 0 at array coordinate (0,0) and the last word is word address 141 at array coordinate (37, 31).
