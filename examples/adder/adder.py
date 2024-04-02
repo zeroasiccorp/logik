@@ -1,43 +1,27 @@
 #!/usr/bin/env python3
 
-import os
-
 from siliconcompiler import Chip
 from logik.targets import logik_target
 
+def hello_adder():
 
-def main(part_name='logik_demo'):
-    chip = Chip('adder')
+    # Create compilation object
+    chip = Chip('adder')                                   # Specify top module
 
-    if __name__ == '__main__':
-        chip.create_cmdline(
-            switchlist=[
-                '-fpga_partname'
-            ])
+    # User Settings
+    chip.input('adder.v')                                  # Define source files
+    chip.input('adder.pcf')                                # Define source files
+    chip.set('option', 'quiet', True)                      # Quite compiler mode
 
-    # Set default part name
-    chip.set('fpga', 'partname', part_name, clobber=False)
+    # Select Flow and Part name
+    chip.set('fpga', 'partname', 'logik_demo')             # Set FPGA part name
+    chip.load_target(logik_target)                         # Load flow/part target
 
-    set_part_name = chip.get('fpga', 'partname')
-
-    # 1. Defining the project
-
-    # 2. Define source files
-    project_path = os.path.abspath(os.path.dirname(__file__))
-    chip.input(os.path.join(project_path, 'rtl', 'adder.v'))
-
-    # 3. Define constraints
-    chip.add('input', 'constraint', 'pinmap',
-             os.path.join(project_path, 'constraints', f'pin_constraints_{set_part_name}.json'))
-
-    # 3. Load target
-    chip.load_target(logik_target)
-
-    chip.set('option', 'quiet', True)
-
+    # Run Compiler
     chip.run()
+
+    # Gather Compiler Metrics
     chip.summary()
 
-
 if __name__ == "__main__":
-    main()
+    hello_adder()
