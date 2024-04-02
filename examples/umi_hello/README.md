@@ -11,7 +11,7 @@ python -m pip install --upgrade logik
 Then build the bitstream with:
 
 ```console
-./umi_hello.py
+./umi_hello.py -remote
 ```
 
 This will take a couple of minutes, and resulting in a bitstream at `build/umi_hello/job0/convert_bitstream/0/outputs/umi_hello.bin`.  Head over to the ZA [Digital Twin Platform](https://www.zeroasic.com/emulation?demo=fpga) and follow the instructions there to simulate the bitstream.
