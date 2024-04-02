@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
 This code can be run via `./adder.py` in the [examples/adder](examples/adder/) directory, resulting in an FPGA bitstream at `build/adder/job0/convert_bitstream/0/outputs/adder.bin`.
 
-To test out the generated bitstream, you can upload it to a emulated FPGA device running in the Zero ASIC [Digital Twin Platform](https://www.zeroasic.com/emulation?demo=fpga).
+To test out the generated bitstream, you can upload it to an emulated FPGA device running in the Zero ASIC [Digital Twin Platform](https://www.zeroasic.com/emulation?demo=fpga).
 
 
 ## More Examples
