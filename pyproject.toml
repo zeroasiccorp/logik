@@ -6,7 +6,7 @@ requires = [
 [project]
 name = "logik"
 authors = [{name = "Zero ASIC"}]
-description = "Library containing RTL to bitstream support for FPGAs that support open source CAD tool chains."
+description = "Logik is a light weight FPGA tool chain based on mature open source technologies."
 readme = "README.md"
 urls = {Homepage = "https://github.com/zeroasiccorp/logik"}
 requires-python = ">= 3.8"
