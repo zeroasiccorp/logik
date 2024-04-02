@@ -28,7 +28,7 @@ def generate_mapped_constraints(part_name):
 
     pin_constraints = {}
 
-    if (part_name == 'ebrick_fpga_demo'):
+    if (part_name == 'logik_demo'):
 
         for i in range(8):
             pin_constraints[f'a[{i}]'] = {
