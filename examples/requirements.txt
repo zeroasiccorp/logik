@@ -1,0 +1,3 @@
+switchboard-hw == 0.0.38
+umi @ git+https://github.com/zeroasiccorp/umi@main
+ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@10884c0bb10674611cb21ae9327b2d6ad36606de
