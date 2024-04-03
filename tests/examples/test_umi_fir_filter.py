@@ -1,3 +1,6 @@
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 import pytest
 import subprocess
 import os
@@ -8,7 +11,7 @@ def _check_fir_filter(manifest):
     chip = Chip('umi_fir_filter')
     chip.read_manifest(manifest)
 
-    for step in ('syn', 'place', 'route', 'genfasm'):
+    for step in ('syn', 'place', 'route', 'bitstream'):
         assert chip.get('metric', 'brams', step=step, index=0) == 2
         assert chip.get('metric', 'dsps', step=step, index=0) == 8
 

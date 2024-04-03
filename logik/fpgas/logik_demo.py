@@ -1,3 +1,6 @@
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 import os
 from siliconcompiler import FPGA, Chip
 from logik.fpgas import _common
@@ -34,12 +37,11 @@ def setup(chip):
 
     # Settings common to all parts in family
     for part_name in all_part_names:
-
-        fpga = FPGA(chip, part_name, package=f'logik-{part_name}')
-        _common.register_package(
-            fpga,
-            f'logik-{part_name}',
-            f'{part_name}_cad.tar.gz')
+        fpga = FPGA(chip, part_name, package=_common.get_package_name(part_name))
+        fpga.register_package_source(
+            _common.get_package_name(part_name),
+            path=_common.get_download_url(part_name),
+            ref=_common.fpga_version)
 
         fpga.set('fpga', part_name, 'vendor', vendor)
 
@@ -90,8 +92,8 @@ def setup(chip):
             bitstream_map_file = os.path.join(cad_root, 'logik_demo_core_bitstream_map.json')
             fpga.set('fpga', part_name, 'file', 'bitstream_map', bitstream_map_file)
 
-            gasket_map_file = os.path.join(cad_root, f'{part_name}_gasket_map.json')
-            fpga.set('fpga', part_name, 'file', 'gasket_map', gasket_map_file)
+            constraint_map_file = os.path.join(cad_root, f'{part_name}_constraint_map.json')
+            fpga.set('fpga', part_name, 'file', 'constraints_map', constraint_map_file)
 
             if (part_name == 'logik_demo'):
                 fpga.set('fpga', part_name, 'var', 'channelwidth', '136')

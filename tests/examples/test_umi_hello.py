@@ -9,17 +9,17 @@ import pytest
 
 @pytest.mark.timeout(300)
 def test_py(setup_example_test, monkeypatch):
-    adder_dir = setup_example_test('adder')
+    umi_hello_dir = setup_example_test('umi_hello')
 
-    monkeypatch.chdir(adder_dir)
+    monkeypatch.chdir(umi_hello_dir)
 
-    import adder
-    adder.hello_adder()
+    import umi_hello
+    umi_hello.umi_hello()
 
 
 @pytest.mark.timeout(300)
 def test_cli(setup_example_test):
-    adder_dir = setup_example_test('adder')
+    umi_hello_dir = setup_example_test('umi_hello')
 
-    proc = subprocess.run([os.path.join(adder_dir, 'adder.py')], cwd=adder_dir)
+    proc = subprocess.run([os.path.join(umi_hello_dir, 'umi_hello.py')], cwd=umi_hello_dir)
     assert proc.returncode == 0

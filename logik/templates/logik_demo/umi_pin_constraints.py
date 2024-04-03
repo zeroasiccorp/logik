@@ -1,4 +1,5 @@
-# umi_pin_constraints.py
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
 
 import json
 

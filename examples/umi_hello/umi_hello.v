@@ -1,3 +1,9 @@
+/*******************************************************************************
+ * Copyright 2024 Zero ASIC Corporation
+ *
+ * Licensed under the MIT License (see LICENSE for details)
+ ******************************************************************************/
+
 module umi_hello #(
     parameter CMD_WIDTH = 32,
     parameter ADDR_WIDTH = 64, 
@@ -22,13 +28,10 @@ module umi_hello #(
     input [DATA_WIDTH-1:0] udev_req_data,
     output udev_req_ready
 );
-    // message to print.  must end with a newline, and the
-    // LENGTH parameter must be update to be equal to the
-    // number of characters in the message.  note that
-    // newline ("\n") is one character.
+    // message to print
 
-    localparam [7:0] LENGTH = 13;
-    localparam [8*LENGTH-1:0] MESSAGE = "Hello World!\n";
+    localparam MESSAGE = "Hello World!\n";
+    localparam LENGTH = $bits(MESSAGE) / 8;
 
     // address where characters should be sent (implemented in
     // the emulation infrastructure)
@@ -37,21 +40,21 @@ module umi_hello #(
 
     // walk through the message, printing out each character
 
-    reg [7:0] count = 0;
+    reg [31:0] count = 0;
 
     always @(posedge clk) begin
         if (!nreset) begin
-            count <= 'd0;
-            uhost_req_valid <= 1'b0;
+            count <= 0;
+            uhost_req_valid <= 0;
         end else if (uhost_req_valid && uhost_req_ready) begin
-            count <= count + 'd1;
+            count <= count + 1;
             uhost_req_valid <= 1'b0;
         end else begin
-            if ((0 <= count) && (count < LENGTH)) begin
+            if (count <= (LENGTH - 1)) begin
                 uhost_req_valid <= 'b1;
                 uhost_req_cmd <= 'h5;  // posted write
                 uhost_req_dstaddr <= PUTC_ADDR;
-                uhost_req_data[7:0] <= MESSAGE[8'd8 * (LENGTH - 8'd1 - count) +: 8];
+                uhost_req_data[7:0] <= MESSAGE[8 * (LENGTH - 1 - count) +: 8];
             end else begin
                 uhost_req_valid <= 'b0;
             end
