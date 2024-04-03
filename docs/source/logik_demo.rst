@@ -92,6 +92,17 @@ Block RAMs (BRAMs)
 
 Each block RAM (BRAM) consists of 8KB of single-port SRAM, organized as 2K 32-bit words.  The 8KB of SRAM can be used to emulate 4KB of simple dual-port SRAM with one write port, one read port, and one common clock.  It may also be used to emulate 1K 64-bit words when configured as single-port RAM.
 
+An abstract representation of the BRAM is shown in the block diagram below.  The block diagram also shows the pinout of the BRAM.  Two ports are provided, denoted with the port name suffixes _a and "_b".  Each port has a write enable (we), chip enable (ce), read enable (re), address (addr), data input (din) and data output (dout) port.  A common clock is shared between the two ports.
+
+.. image:: ../../images/logik_demo_BRAM_Block_Diagram.png
+
+For end users of logik_demo, knowledge of the BRAM port list is not required.  Typically, HDL code is used to infer BRAM instances, `Yosys documentation of supported memory patterns <https://yosyshq.readthedocs.io/projects/yosys/en/latest/using_yosys/synthesis/memory.html#supported-memory-patterns>`_ discusses coding styles to help infer memories.
+
+The BRAM instance shown above is not directly instantiated in synthesized netlists.  Instead, an instance corresponding to a specific operating mode of the BRAM is instantiated.  The BRAM operating modes are discussed next.
+
+BRAM Operating Modes
+^^^^^^^^^^^^^^^^^^^^
+
 Both single-port and dual-port operation support configurable bit widths and address depth.  Technology mapping during synthesis automatically maps RAMs of size > 8KB into multiple block RAM instances and selects one of the operating modes.  Each operating mode is delineated by a unique instance type in the synthesized netlist and specifies single-port or dual port, the effective word count, and the bits per word for the BRAM when in that mode.
 
 The table below enumerates the BRAM operating modes, and the netlist macro names corresponding to each mode.
@@ -164,7 +175,7 @@ logik_demo UMI Port Mapping
 
 Included in the Logik flow support for logik_demo is a reference template auto-generating constraints that the UMI interfaces to top level ports.  In a complete eFPGA solution with UMI ports, the constraints generation template must correctly map eFPGA top level ports to specific locations elsewhere on chip that exchange UMI data between the eFPGA and other parts of the system.  The tables below show how the logik_demo umi_io_in and umi_io_out busses map to the three UMI ports supported by the architecture.
 
-For more information about how these ports are used in UMI interfaces, please consult `the Signal UMI Layer section of the UMI Github repository README <https://github.com/zeroasiccorp/umi?tab=readme-ov-file#4-signal-umi-layer-sumi>`_
+For more information about how these ports are used in UMI interfaces, please consult `the Signal UMI Layer section of the UMI Github repository README <https://github.com/zeroasiccorp/umi>`_
 
 Device Request Port
 +++++++++++++++++++
