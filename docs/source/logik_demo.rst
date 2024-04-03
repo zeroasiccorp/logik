@@ -29,14 +29,28 @@ Lookup Tables and Registers
 
 logik_demo contains 4-input lookup tables (LUTs) for implementing general purpose logic.  During logic synthesis, digital logic is mapped to these LUTs.
 
-Each LUT is paired with a D flip-flop to form a basic logic element (BLE).  BLE inputs and LUT inputs are wired together and thus equivalent.  Each flip flop can be configured with or without any of the following features:  asynchronous set, asynchronous reset, built-in enable bit.  Logic synthesis determines how many flip-flops are needed of each configuration type.  Placement and routing determine whether or not to pair LUT with its flip-flop.  Ifn the lut is paired, the BLE output receives the flip-flop output; otherwise, it receives the LUT output.  The BLE output interfaces to the FPGA's programmable interconnect. 
+Each LUT is paired with a D flip-flop to form a basic logic element (BLE), as shown in the block diagram below.
 
-All LUTs are clustered into groups of eight to form configurable logic blocks (CLBs).  Each CLB shares 18 inputs amongst its eight LUTs.  The CLB contains local interconnect that allows a subset of the 18 CLB inputs, the 8 LUT outputs, and the 8 flip flop outputs to be selected as input to each BLE.
+.. image:: ../../images/BLE4_Block_Diagram.png
+	   :scale: 50%
+
+BLE inputs and LUT inputs are wired together and thus equivalent.  Each flip flop can be configured with or without any of the following features:  asynchronous set, asynchronous reset, built-in enable bit.  Logic synthesis determines how many flip-flops are needed of each configuration type.  Placement and routing determine whether or not to pair LUT with its flip-flop.  If the lut is paired, the BLE output receives the flip-flop output; otherwise, it receives the LUT output.  The BLE output interfaces to the FPGA's programmable interconnect. 
+
+All LUTs are clustered into groups of eight to form configurable logic blocks (CLBs), as shown in in the block diagram below.
+
+.. image:: ../../images/CLB4_Block_Diagram.png
+	   :scale: 50%
+	  
+Each CLB shares 18 inputs amongst its eight LUTs.  The CLB contains local interconnect encapsulated in a circuit called the crossbar that allows a subset of the 18 CLB inputs, the 8 LUT outputs, and the 8 flip flop outputs to be selected as input to each BLE.  For clarity, feedback paths from LUT/BLE outputs to the crossbar are not shown in the diagram.
 
 Multiply-Add Engine (MAE)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The multiply-add engine (MAE) is a configurable arithmetic unit suitable for use in many digital signal processing (DSP) applications.  The key blocks are a multiplier and an adder, which can be used one at a time or together as a multiply-accumulate (MAC) unit.  An 18x18 multiplier receives data directly from the ebrick-fpga global interconnect or optionally from flip-flops to re-register data for improved throughput.  The output of the multiplier can be routed directly out of the MAE to global interconnect to realize a purely combinational multiplier circuit or routed through a bank of flip-flops.  In either case, this output can instead be routed through a 40-bit accumulator so that the MAE can be used as a MAC rather than a multiplier.  Both the multiplier and accumulator can be registered to create a pipelined MAC.  The accumulator can also be used by itself, in which case MAE inputs are routed directly to it. 
+The multiply-add engine (MAE) is a configurable arithmetic unit suitable for use in many digital signal processing (DSP) applications.  A block diagram is shown below
+
+.. image:: ../../images/logik_demo_MAE_Block_Diagram.png
+
+The key blocks are a multiplier and an adder, which can be used one at a time or together as a multiply-accumulate (MAC) unit.  An 18x18 multiplier receives data directly from the logik_demo global interconnect or optionally from flip-flops to re-register data for improved throughput.  The output of the multiplier can be routed directly out of the MAE to global interconnect to realize a purely combinational multiplier circuit or routed through a bank of flip-flops.  In either case, this output can instead be routed through a 40-bit accumulator so that the MAE can be used as a MAC rather than a multiplier.  Both the multiplier and accumulator can be registered to create a pipelined MAC.  The accumulator can also be used by itself, in which case MAE inputs are routed directly to it. 
 
 Each of these options maps to a specific MAE operational mode set by the configuration bitstream.  The MAE operational modes each map to a particular netlist macro name during synthesis.  The modes and their features are shown in the table below.
 
@@ -76,7 +90,7 @@ Each of these options maps to a specific MAE operational mode set by the configu
 Block RAMs (BRAMs)
 ^^^^^^^^^^^^^^^^^^
 
-Each block RAM (BRAM) consists 8KB of single-port SRAM, organized as 2K 32-bit words.  The 8KB of SRAM can be used to emulate 4KB of simple dual-port SRAM with one write port, one read port, and one common clock.  It may also be used to emulate 1K 64-bit words when configured as single-port RAM.
+Each block RAM (BRAM) consists of 8KB of single-port SRAM, organized as 2K 32-bit words.  The 8KB of SRAM can be used to emulate 4KB of simple dual-port SRAM with one write port, one read port, and one common clock.  It may also be used to emulate 1K 64-bit words when configured as single-port RAM.
 
 Both single-port and dual-port operation support configurable bit widths and address depth.  Technology mapping during synthesis automatically maps RAMs of size > 8KB into multiple block RAM instances and selects one of the operating modes.  Each operating mode is delineated by a unique instance type in the synthesized netlist and specifies single-port or dual port, the effective word count, and the bits per word for the BRAM when in that mode.
 
