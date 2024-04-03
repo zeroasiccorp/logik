@@ -33,13 +33,13 @@ Design sources, constraints, and compile configuration is specified by the user 
 
 ## Getting Started
 
-The Logik project is available through PyPi and can be installed using pip. If you want to run locally on your machine, you will need to [install all of the pre-requisites]((#installation)) or launch the [Logik Docker image](#running-docker).
+The Logik project is available through PyPi and can be installed using pip. If you want to run locally on your machine, you will need to [install all of the pre-requisites](#installation) or launch the [Logik Docker image](#running-docker).
 
 ```sh
 python -m pip install --upgrade logik
 ```
 
-The following example illustrate some essential Logik features. The source code for the example is located in the [examples/adder](examples/adder/) directory. For complete documentation of all options available, see the [SiliconCompiler project](https://github.com/siliconcompiler/siliconcompiler/blob/main/README.md). 
+The following example illustrate some essential Logik features. For complete documentation of all options available, see the [SiliconCompiler project](https://github.com/siliconcompiler/siliconcompiler/blob/main/README.md). 
 
 ```python
 from siliconcompiler import Chip
@@ -89,8 +89,7 @@ To test out the generated bitstream, you can upload it to an emulated FPGA devic
 
 ## Documentation
 
-* [Logik User Guide]()
-* [Logik Reference Manual]()
+* [Logik Documentation](https://logik.readthedocs.io/en/latest/)
 * [SiliconCompiler Documentation](https://docs.siliconcompiler.com/en/stable/)
 
 
