@@ -10,6 +10,12 @@ To run this example, install Logik if you haven't already:
 python -m pip install --upgrade logik
 ```
 
+Then install Logik examples' package dependencies:
+
+```console
+pip install -r examples/requirements.txt
+```
+
 Then in this directory run
 
 ```
