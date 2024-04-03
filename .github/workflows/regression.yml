@@ -10,7 +10,7 @@ on:
 
 jobs:
   pytest:
-    name: Run ebrick-fpga CAD flow tests
+    name: Run CAD flow tests
 
     runs-on: ubuntu-latest
     container:
