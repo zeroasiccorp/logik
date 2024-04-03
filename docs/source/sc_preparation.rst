@@ -1,7 +1,7 @@
 Preparing the Silicon Compiler Run Script
 =========================================
 
-Developing a Silicon Compiler run script for RTL-to-bitstream flow execution follows the same fundamental approach as developing a script for any Silicon Compiler flow execution.  Additional resources for understanding Silicon Compiler fundamentals are available at `docs.siliconcompiler.com <https://docs.siliconcompiler.com>`_
+Developing a Silicon Compiler run script for RTL-to-bitstream flow execution follows the same fundamental approach as developing a script for any Silicon Compiler flow execution.  Additional resources for understanding Silicon Compiler fundamentals are available at `docs.siliconcompiler.com <https://docs.siliconcompiler.com/en/stable>`_
 
 For most designs, the example Silicon Compiler run scripts provided with <tool_name> can be used as templates for creating your own.  The commands used in these examples and the general method for constructing run scripts are described below.
 
@@ -17,16 +17,17 @@ Constructing a Silicon Compiler run script can be broken down into the following
 * :ref:`Set_timing_constraints`
 * :ref:`Set_pin_constraints`
 * :ref:`Add_options`
+* :ref:`Configure_remote_execution`
 * :ref:`Add_execution_calls`
   
 .. _import_modules:
 
-Import modules
+Import Modules
 --------------
 
 All Silicon Compiler run scripts are pure Python scripts that import Silicon Compiler functionality like any other Python module.  Similarly, the <tool_name> RTL-to-bitstream flow is enabled as a set of Python modules that integrate to Silicon Compiler.
 
-The minimum import requirements in a <tool_name> Silicon Compiler run script are:
+The minimum import requirements in a Logik Silicon Compiler run script are:
 
 ::
 
@@ -41,7 +42,7 @@ Additional module imports may be required depending on project-specific requirem
 Create Main Function
 --------------------
 
-Since the Silicon Compiler run script is just a Python script, executing it from the command-line requires the same infrastructure as any other Python script.  In most design flows, the most convenient way to enable this will be to simply encapsulate the script in a main() function:
+Since the Silicon Compiler run script is just a Python script, executing it from the command line requires the same infrastructure as any other Python script.  In most design flows, the most convenient way to enable this will be to simply encapsulate the script in a main() function:
 
 In Python, an executable main() function is implemented with the following code:
 
@@ -76,8 +77,10 @@ Throughout this documentation, "chip" will be used to refer to the Chip class in
 
 .. _Select_part_name:
 
-Select part name
+Select Part Name
 ----------------
+
+Silicon Compiler associates each FPGA/eFPGA architecture with a unique ID called a part name.
 
 .. note::
 
@@ -111,7 +114,7 @@ An example use case for the package registry is shown below, outlining how to im
 
 .. _Import_libraries:
 
-Set input source files
+Set Input Source Files
 ----------------------
 
 All HDL source files must be added to the Silicon Compiler chip object for inclusion.  For each HDL file, include the following call in your Silicon Compiler run script
@@ -152,7 +155,7 @@ For large designs, it may be convenient to organize your HDL files into a direct
 
 .. _Set_input_source_files:
 
-Adding source files from a registered package
+Adding Source Files From a Registered Package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When importing IP from a package in the Silicon Compiler package registry, the same function calls are used as described above, but it is also necessary to specify the package name.  The call takes the form:
@@ -244,6 +247,16 @@ In particular, any compiler directives that are required for HDL synthesis shoul
 ::
 
    chip.add('option', 'define', <compiler_directive>)
+
+
+.. _Configure_remote_execution:
+   
+Configure Remote Execution (optional)
+-------------------------------------
+
+Silicon Compiler supports job submission to remote servers.
+
+There are multiple ways to enable this execution model.  Consult `Silicon Compiler remote processing <https://docs.siliconcompiler.com/en/stable/development_guide/remote_processing.html>`_ documentation for details.
 
 .. _Add_execution_calls:
 

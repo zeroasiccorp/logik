@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 import os
 
 from ebrick_demo import ebrick
@@ -34,9 +37,8 @@ def main(part_name='logik_demo'):
     chip.set('option', 'entrypoint', 'ebrick_core_fpga_wrapper')
 
     # 3. Define constraints
-    chip.add('input', 'constraint', 'pinmap',
-             os.path.join('constraints', f'pin_constraints_{set_part_name}.json'),
-             package='logik_demo')
+    chip.input(os.path.join('constraints', f'pin_constraints_{set_part_name}.pcf'),
+               package='logik_demo')
 
     # 3. Load target
     chip.load_target(logik_target)

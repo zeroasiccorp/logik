@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 import argparse
 import json
 import os
@@ -26,7 +29,7 @@ def main():
     write_json_constraints(
         pin_constraints,
         os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                     f"pin_constraints_{part_name}.json"))
+                     f"pin_constraints_{part_name}.pcf"))
 
 
 def generate_mapped_constraints(part_name):

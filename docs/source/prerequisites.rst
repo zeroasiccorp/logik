@@ -21,20 +21,16 @@ The following general purpose software must be installed on your system to use t
 Required EDA Software Tools
 ---------------------------
 
-+------------------------------+------------------------------------------------------------------------------------------------+
-| Silicon Compiler             | `SC Documentation <https://docs.siliconcompiler.com>`_                                         |
-+------------------------------+------------------------------------------------------------------------------------------------+
-| Surelog                      | `Surelog Documentation <https://github.com/chipsalliance/Surelog?tab=readme-ov-file#surelog>`_ |
-+------------------------------+------------------------------------------------------------------------------------------------+
-| Verilog-to-Routing (VPR)     | `VPR Documentation <https://docs.verilogtorouting.org/en/latest/>`_                            |
-+------------------------------+------------------------------------------------------------------------------------------------+
-| Yosys                        | `Yosys Documentation <https://yosyshq.readthedocs.io/en/latest/>`_                             |
-+------------------------------+------------------------------------------------------------------------------------------------+
+* Silicon Compiler
+* Surelog
+* Yosys
+* VPR
 
-For VHDL support, `GHDL <https://ghdl.github.io/ghdl/>`_ is also required.
+For VHDL support, GHDL is also required
 
-For SystemVerilog support, `sv2v <https://github.com/zachjs/sv2v?tab=readme-ov-file#sv2v-systemverilog-to-verilog>`_ is also required.
+For SystemVerilog support, sv2v is also required.
 
+For links to all EDA software Github repositories and documentation pages, please consult the :doc:`external_links`.
 
 Optional EDA Software Tools
 ---------------------------
@@ -43,14 +39,12 @@ While not required to run the RTL-to-bitstream flow, HDL simulation support is r
 
 Either of the following open-source simulators may be used for HDL simulation:
 
-+------------------------------+------------------------------------------------------------------------+
-| Icarus Verilog               | `Icarus Documentation <http://iverilog.icarus.com/>`_                  |
-+------------------------------+------------------------------------------------------------------------+
-| Verilator                    | `Verilator Documentation <https://verilator.org/guide/latest/>`_       |
-+------------------------------+------------------------------------------------------------------------+
-
+* Icarus Verilog
+* Verilator
+  
 For waveform viewing, GTKWave is an available open source viewer:
 
-+------------------------------+------------------------------------------------------------------------+
-| GTKWave                      | `Gtkwave Documentation <https://gtkwave.sourceforge.net/>`_            |
-+------------------------------+------------------------------------------------------------------------+
+* GTKWave
+  
+For links to all EDA software Github repositories and documentation pages, please consult the :doc:`external_links`.
+
