@@ -32,8 +32,8 @@ docs = [
 ]
 examples = [
     "switchboard-hw == 0.0.38",
-    "umi @ git+https://github.com/zeroasiccorp/umi@main",
-    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@10884c0bb10674611cb21ae9327b2d6ad36606de"
+    "umi @ git+https://github.com/zeroasiccorp/umi@f6d8fea9e6270b89a2c38860a4af512383cbc6ef",
+    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@3be131b428d1771e3f56fdf10d0e9420ed5bf260"
 ]
 
 [tool.setuptools]
