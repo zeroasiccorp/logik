@@ -11,8 +11,9 @@ def hello_adder():
 
     # Create compilation object
     chip = Chip('adder')
+    chip.create_cmdline(switchlist=['-remote'])
 
-    # Specify Design sources
+    # Specify design sources
     chip.input('adder.v')
 
     # Specify pin constraints
@@ -20,7 +21,6 @@ def hello_adder():
 
     # Compiler options
     chip.set('option', 'quiet', True)
-    # chip.set('option', 'remote', True)
 
     # Select target fpga
     chip.set('fpga', 'partname', 'logik_demo')
