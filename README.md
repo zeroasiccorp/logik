@@ -5,18 +5,11 @@
 
 -----------------------------------------------------------------------------------
 
-Logik is a light weight FPGA tool chain based on mature open source technologies, including:
-
-* [Silicon Compiler](https://github.com/siliconcompiler/siliconcompiler): Hardware compiler framework
-* [Yosys](https://github.com/YosysHQ/yosys): Logic synthesis
-* [VPR](https://github.com/verilog-to-routing/vtr-verilog-to-routing): FPGA place and route
-* [GHDL](https://ghdl.github.io/ghdl/): VHDL parser
-* [Surelog](https://github.com/chipsalliance/Surelog): SystemVerilog parser
-* [FASM](https://github.com/chipsalliance/fasm): FPGA assembly parser and generator
-
-Design sources, constraints, and compile configuration is specified by the user through a simple Python interface. Compilation is managed by the SiliconCompiler framework. Logik supports most of the features you would expect in a commercial proprietary FPGA tool chain.
+Logik is an open source FPGA toolchain that fully automates converting RTL to bits, including synthesis, placement, routing, bitstream generation, and analysis. Users enter design sources, constraints, and compile options through a simple [SiliconCompiler](https://github.com/siliconcompiler/siliconcompiler/) Python API. Once setup is complete, automated compilation can be initiated with a single line run command.
 
 ![logik_flow](https://raw.githubusercontent.com/zeroasiccorp/logik/main/images/logik_flow.svg)
+
+Logik supports most of the features you would expect in a commercial proprietary FPGA tool chain.
 
 | Feature                  | Status |
 |--------------------------|--------|
@@ -101,7 +94,16 @@ Logik is available as wheel packages on PyPI for macOS, Windows and Linux platfo
 python -m pip install --upgrade logik
 ```
 
-Running natively on your local machine will require a number of prerequisite tools (Yosys, Surelog, VPR). Automated Ubuntu based install scripts are included for convenience within the SiliconCompiler project. Detailed instructions for installing all tools can be found in the [SiliconCompiler Installation Guide](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools).
+Running natively on your local machine will require installing a number of prerequisites:
+
+* [Silicon Compiler](https://github.com/siliconcompiler/siliconcompiler): Hardware compiler framework
+* [Yosys](https://github.com/YosysHQ/yosys): Logic synthesis
+* [VPR](https://github.com/verilog-to-routing/vtr-verilog-to-routing): FPGA place and route
+* [GHDL](https://ghdl.github.io/ghdl/): VHDL parser
+* [Surelog](https://github.com/chipsalliance/Surelog): SystemVerilog parser
+* [FASM](https://github.com/chipsalliance/fasm): FPGA assembly parser and generator
+
+Automated Ubuntu based install scripts are included for convenience within the SiliconCompiler project. Detailed instructions for installing all tools can be found in the [SiliconCompiler Installation Guide](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools).
 
 
 ## Running Docker
