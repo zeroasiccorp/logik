@@ -1,4 +1,4 @@
-![image info](images/logik_logo_with_text.png)
+![Logik](https://raw.githubusercontent.com/zeroasiccorp/logik/main/images/logik_logo_with_text.png)
 
 [![Regression](https://github.com/zeroasiccorp/logik/actions/workflows/regression.yml/badge.svg)](https://github.com/zeroasiccorp/logik/actions/workflows/regression.yml)
 [![Lint](https://github.com/zeroasiccorp/logik/actions/workflows/lint.yml/badge.svg)](https://github.com/zeroasiccorp/logik/actions/workflows/lint.yml)
@@ -16,6 +16,8 @@ Logik is a light weight FPGA tool chain based on mature open source technologies
 
 Design sources, constraints, and compile configuration is specified by the user through a simple Python interface. Compilation is managed by the SiliconCompiler framework. Logik supports most of the features you would expect in a commercial proprietary FPGA tool chain.
 
+![logik_flow](https://raw.githubusercontent.com/zeroasiccorp/logik/main/images/logik_flow.svg)
+
 | Feature                  | Status |
 |--------------------------|--------|
 | Design languages         | Verilog, SystemVerilog, VHDL
@@ -29,8 +31,6 @@ Design sources, constraints, and compile configuration is specified by the user 
 | Multi-clock designs      | In progress
 | FPGA devices             | ZA
 
-![image info](images/logik_flow.svg)
-
 ## Getting Started
 
 The Logik project is available through PyPi and can be installed using pip. If you want to run locally on your machine, you will need to [install all of the pre-requisites](#installation) or launch the [Logik Docker image](#running-docker).
@@ -39,7 +39,7 @@ The Logik project is available through PyPi and can be installed using pip. If y
 python -m pip install --upgrade logik
 ```
 
-The following example illustrate some essential Logik features. For complete documentation of all options available, see the [SiliconCompiler project](https://github.com/siliconcompiler/siliconcompiler/blob/main/README.md). 
+The following example illustrate some essential Logik features. For complete documentation of all options available, see the [SiliconCompiler project](https://github.com/siliconcompiler/siliconcompiler/blob/main/README.md).
 
 ```python
 from siliconcompiler import Chip
@@ -48,7 +48,7 @@ from logik.targets import logik_target
 def hello_adder():
 
     # Create compilation object
-    chip = Chip('adder')                                  
+    chip = Chip('adder')
 
     # Specify design sources
     chip.input('adder.v')
@@ -64,7 +64,7 @@ def hello_adder():
     chip.set('fpga', 'partname', 'logik_demo')
 
     # Load target settings
-    chip.load_target(logik_target)                        
+    chip.load_target(logik_target)
 
     # Run compiler
     chip.run()
