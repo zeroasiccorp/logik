@@ -10,13 +10,13 @@ To run this example, install Logik if you haven't already:
 python -m pip install --upgrade logik
 ```
 
-Then install this example's package dependencies:
+Then in this directory install this example's package dependencies:
 
 ```console
 pip install -r requirements.txt
 ```
 
-Then in this directory run
+Then run
 
 ```
 python3 ebrick_demo_fpga.py
