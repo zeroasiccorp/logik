@@ -34,11 +34,11 @@ Each LUT is paired with a D flip-flop to form a basic logic element (BLE).  BLE 
 All LUTs are clustered into groups of eight to form configurable logic blocks (CLBs).  Each CLB shares 18 inputs amongst its eight LUTs.  The CLB contains local interconnect that allows a subset of the 18 CLB inputs, the 8 LUT outputs, and the 8 flip flop outputs to be selected as input to each BLE.
 
 Multiply-Add Engine (MAE)
-^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The multiply-add engine (MAE) is a configurable arithmetic unit suitable for use in many digital signal processing (DSP) applications.  The key blocks are a multiplier and an adder, which can be used one at a time or together as a multiply-accumulate (MAC) unit.  An 18x18 multiplier receives data directly from the ebrick-fpga global interconnect or optionally from flip-flops to re-register data for improved throughput.  The output of the multiplier can be routed directly out of the MAE to global interconnect to realize a purely combinational multiplier circuit or routed through a bank of flip-flops.  In either case, this output can instead be routed through a 40-bit accumulator so that the MAE can be used as a MAC rather than a multiplier.  Both the multiplier and accumulator can be registered to create a pipelined MAC.  The accumulator can also be used by itself, in which case MAE inputs are routed directly to it. 
 
-Each of these options maps to a specific MAE operational mode set by the configuration bitstream.  The MAE operational modes each map to a particular netlist macro name during synthesis.  The modes and their features are documented below:
+Each of these options maps to a specific MAE operational mode set by the configuration bitstream.  The MAE operational modes each map to a particular netlist macro name during synthesis.  The modes and their features are shown in the table below.
 
 +-------------+----------------------+----------------------------------+----------------+
 | Function    | Synthesis Macro Name | Ports Registered                 | Latency        |
@@ -78,7 +78,9 @@ Block RAMs (BRAMs)
 
 Each block RAM (BRAM) consists 8KB of single-port SRAM, organized as 2K 32-bit words.  The 8KB of SRAM can be used to emulate 4KB of simple dual-port SRAM with one write port, one read port, and one common clock.  It may also be used to emulate 1K 64-bit words when configured as single-port RAM.
 
-Both single-port and dual-port operation support configurable bit widths and address depth.  Technology mapping during synthesis automatically maps RAMs of size > 8KB into multiple block RAM instances and selects one of the operating modes listed in the table below for the BRAM to operate in.  Each operating mode is delineated by a unique instance type in the synthesized netlist and specifies single-port or dual port, the effective word count, and the bits per word for the BRAM when in that mode.
+Both single-port and dual-port operation support configurable bit widths and address depth.  Technology mapping during synthesis automatically maps RAMs of size > 8KB into multiple block RAM instances and selects one of the operating modes.  Each operating mode is delineated by a unique instance type in the synthesized netlist and specifies single-port or dual port, the effective word count, and the bits per word for the BRAM when in that mode.
+
+The table below enumerates the BRAM operating modes, and the netlist macro names corresponding to each mode.
 
 +------------------+--------+-----------+----------------------+
 | Port Type        | #Words | Bits/Word | Synthesis Macro Name |
@@ -123,10 +125,12 @@ For more information on PCF, see :doc:`pin_constraints`
 
 The logik_demo architecture has three types of I/O resources:
 
-* Clocks -- three clock signals are provided.  All user clocks must map to one of three ports.  Designs with more than three clocks do not fit on this architectre.
+* Clocks -- three clock signals are provided.  All user clocks must map to one of these three ports.  Designs with more than three clocks do not fit on this architectre.
 * GPIOs -- 64 general purpose I/Os are provided.  Each GPIO is associated with one index of both the gpio_in port and the gpio_out port of the logik_demo top level.  For example, once a user port is assigned to gpio_in[0], gpio_out[0] may not be used for a user output.
 * UMI interfaces -- logik_demo implements UMI interfaces as subsections of a wide I/O bus comprised of the umi_io_in and umi_io_out ports.  Like the GPIOs, each bit of the UMI interface bus is associated with one index of both the umi_io_in and umi_io_out busses.  For example, once a user port is assigned to umi_io_in[0], umi_io_out[0] may not be used for a user output.
 
+The table below enumerates the I/O ports in ebrick_demo and specifies their bus widths.  All indices in the bit range are legal options for specifying pin constraints, provided that the GPIO and UMI input/output usage restrictions described above are observed.
+  
 +------------+-----------+-----------+------------------------------------------+
 | Port Name  | Direction | Bit Range | Notes                                    |
 +------------+-----------+-----------+------------------------------------------+
@@ -144,7 +148,9 @@ The logik_demo architecture has three types of I/O resources:
 logik_demo UMI Port Mapping
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Included in the Logik flow support for logik_demo is a reference template auto-generating constraints that the UMI interfaces to top level ports.  In a complete eFPGA solution with UMI ports, that constraints generation template must correctly map eFPGA top level ports to specific locations elsewhere on chip that exchange UMI data between the eFPGA and other parts of the system.  The tables below show how the logik_demo umi_io_in and umi_io_out busses map to the three UMI ports supported by the architecture.
+Included in the Logik flow support for logik_demo is a reference template auto-generating constraints that the UMI interfaces to top level ports.  In a complete eFPGA solution with UMI ports, the constraints generation template must correctly map eFPGA top level ports to specific locations elsewhere on chip that exchange UMI data between the eFPGA and other parts of the system.  The tables below show how the logik_demo umi_io_in and umi_io_out busses map to the three UMI ports supported by the architecture.
+
+For more information about how these ports are used in UMI interfaces, please consult `the Signal UMI Layer section of the UMI Github repository README <https://github.com/zeroasiccorp/umi?tab=readme-ov-file#4-signal-umi-layer-sumi>`_
 
 Device Request Port
 +++++++++++++++++++
