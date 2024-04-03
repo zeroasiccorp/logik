@@ -1,7 +1,7 @@
 Preparing the Silicon Compiler Run Script
 =========================================
 
-Developing a Silicon Compiler run script for RTL-to-bitstream flow execution follows the same fundamental approach as developing a script for any Silicon Compiler flow execution.  Additional resources for understanding Silicon Compiler fundamentals are available at `docs.siliconcompiler.com <https://docs.siliconcompiler.com>`_
+Developing a Silicon Compiler run script for RTL-to-bitstream flow execution follows the same fundamental approach as developing a script for any Silicon Compiler flow execution.  Additional resources for understanding Silicon Compiler fundamentals are available at `docs.siliconcompiler.com <https://docs.siliconcompiler.com/en/stable>`_
 
 For most designs, the example Silicon Compiler run scripts provided with <tool_name> can be used as templates for creating your own.  The commands used in these examples and the general method for constructing run scripts are described below.
 
