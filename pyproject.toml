@@ -6,15 +6,18 @@ requires = [
 [project]
 name = "logik"
 authors = [{name = "Zero ASIC"}]
-description = "Library containing RTL to bitstream support for FPGAs that support open source CAD tool chains."
+description = "Logik is a light weight FPGA tool chain based on mature open source technologies."
 readme = "README.md"
 urls = {Homepage = "https://github.com/zeroasiccorp/logik"}
 requires-python = ">= 3.8"
 dependencies = [
-    "siliconcompiler == 0.21.6",
+    "siliconcompiler == 0.21.7",
 ]
 license = {file = "LICENSE"}
-version = "0.0.2"
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "logik.__version__"}
 
 [project.optional-dependencies]
 test = [
@@ -30,7 +33,7 @@ docs = [
 examples = [
     "switchboard-hw == 0.0.38",
     "umi @ git+https://github.com/zeroasiccorp/umi@main",
-    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@25b288dfac8cf70a68f82c18e01b65a808db57b5"
+    "ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@10884c0bb10674611cb21ae9327b2d6ad36606de"
 ]
 
 [tool.setuptools]

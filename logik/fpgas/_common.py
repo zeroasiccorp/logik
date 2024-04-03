@@ -1,16 +1,16 @@
-from siliconcompiler.package import register_private_github_data_source
-
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
 
 fpga_version = 'v0.1.22'
 
 
-def register_package(fpga, package_name, artifact):
-    register_private_github_data_source(
-        fpga,
-        package_name,
-        repository='zeroasiccorp/logik',
-        release=fpga_version,
-        artifact=artifact)
+def get_package_name(part_name):
+    return f"logik-fpga-{part_name}"
+
+
+def get_download_url(part_name):
+    root = "https://github.com/zeroasiccorp/logik/releases/download"
+    return f"{root}/fpga-{fpga_version}/{part_name}_cad.tar.gz"
 
 
 def set_fpga_resources(fpga):

@@ -1,43 +1,39 @@
 #!/usr/bin/env python3
 
-import os
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
 
 from siliconcompiler import Chip
 from logik.targets import logik_target
 
 
-def main(part_name='logik_demo'):
+def hello_adder():
+
+    # Create compilation object
     chip = Chip('adder')
 
-    if __name__ == '__main__':
-        chip.create_cmdline(
-            switchlist=[
-                '-fpga_partname'
-            ])
+    # Specify Design sources
+    chip.input('adder.v')
 
-    # Set default part name
-    chip.set('fpga', 'partname', part_name, clobber=False)
+    # Specify pin constraints
+    chip.input('adder.pcf')
 
-    set_part_name = chip.get('fpga', 'partname')
+    # Compiler options
+    chip.set('option', 'quiet', True)
+    # chip.set('option', 'remote', True)
 
-    # 1. Defining the project
+    # Select target fpga
+    chip.set('fpga', 'partname', 'logik_demo')
 
-    # 2. Define source files
-    project_path = os.path.abspath(os.path.dirname(__file__))
-    chip.input(os.path.join(project_path, 'rtl', 'adder.v'))
-
-    # 3. Define constraints
-    chip.add('input', 'constraint', 'pinmap',
-             os.path.join(project_path, 'constraints', f'pin_constraints_{set_part_name}.json'))
-
-    # 3. Load target
+    # Load target settings
     chip.load_target(logik_target)
 
-    chip.set('option', 'quiet', True)
-
+    # Run compiler
     chip.run()
+
+    # Display compiler results
     chip.summary()
 
 
 if __name__ == "__main__":
-    main()
+    hello_adder()

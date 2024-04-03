@@ -1,4 +1,8 @@
-//ebrick_core_fpga_wrapper.v
+/*******************************************************************************
+ * Copyright 2024 Zero ASIC Corporation
+ *
+ * Licensed under the MIT License (see LICENSE for details)
+ ******************************************************************************/
 
 //This file puts a wrapper around the ebrick_core to adapt it so that it can
 //be mapped to valid ebrick-fpga core pins for placement, routing, and pinout

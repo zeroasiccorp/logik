@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 import os
 
 from siliconcompiler import Chip
@@ -27,9 +30,8 @@ def setup(chip, part_name=None):
 
     # 4. Define constraints
     if chip.get('option', 'mode') == 'fpga':
-        chip.add('input', 'constraint', 'pinmap',
-                 os.path.join('constraints', f'pin_constraints_{part_name}.json'),
-                 package='umi_hello')
+        chip.input(os.path.join('constraints', f'pin_constraints_{part_name}.pcf'),
+                   package="umi_hello")
 
 
 def main(part_name=None):

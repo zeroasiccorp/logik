@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Copyright 2024 Zero ASIC Corporation
+# Licensed under the MIT License (see LICENSE for details)
+
 import json
 import math
 import numpy as np
