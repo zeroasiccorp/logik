@@ -14,7 +14,7 @@ Logik is a light weight FPGA tool chain based on mature open source technologies
 * [Surelog](https://github.com/chipsalliance/Surelog): SystemVerilog parser
 * [FASM](https://github.com/chipsalliance/fasm): FPGA assembly parser and generator
 
-Design sources, constraints, and compile configuration is specified by the user through a simple Python interface. Compilation is managed by the SiliconCompiler framework. Logik supports most of the features you would expect in a commercial proprietary FPGA tool chain.  
+Design sources, constraints, and compile configuration is specified by the user through a simple Python interface. Compilation is managed by the SiliconCompiler framework. Logik supports most of the features you would expect in a commercial proprietary FPGA tool chain.
 
 | Feature                  | Status |
 |--------------------------|--------|
@@ -39,7 +39,7 @@ The Logik project is available through PyPi and can be installed using pip. If y
 python -m pip install --upgrade logik
 ```
 
-The following example illustrate some essential Logik features. The source code for the example is located in the [./examples/adder](./examples/adder/) directory. For complete documentation of all options available, see the [SiliconCompiler project](https://github.com/siliconcompiler/siliconcompiler/blob/main/README.md). 
+The following example illustrate some essential Logik features. The source code for the example is located in the [examples/adder](examples/adder/) directory. For complete documentation of all options available, see the [SiliconCompiler project](https://github.com/siliconcompiler/siliconcompiler/blob/main/README.md). 
 
 ```python
 from siliconcompiler import Chip
@@ -76,10 +76,9 @@ if __name__ == "__main__":
     hello_adder()
 ```
 
-The resulting FPGA bitstream is generated at './adder/build/adder/job0/bitstream/0/outputs/adder.bin'.
+This code can be run with `./adder.py -remote` in the [examples/adder](examples/adder/) directory, resulting in an FPGA bitstream at `build/adder/job0/convert_bitstream/0/outputs/adder.bin`.
 
-
-To test out your generated bitstream, you can upload it to a emulated FPGA device running in the Zero ASIC [Digital Twin Platform](https://www.zeroasic.com/emulation?demo=fpga).
+To test out the generated bitstream, you can upload it to an emulated FPGA device running in the Zero ASIC [Digital Twin Platform](https://www.zeroasic.com/emulation?demo=fpga).
 
 
 ## More Examples
@@ -90,25 +89,25 @@ To test out your generated bitstream, you can upload it to a emulated FPGA devic
 
 ## Documentation
 
-* [Logic User Guide]()
+* [Logik User Guide]()
 * [Logik Reference Manual]()
 * [SiliconCompiler Documentation](https://docs.siliconcompiler.com/en/stable/)
 
 
 ## Installation
 
-Logik is available as wheel packages on PyPI for macOS, Windows and Linux platforms. For working Python 3.8-3.12 environment, just use pip to install.
+Logik is available as wheel packages on PyPI for macOS, Windows and Linux platforms. For a Python 3.8-3.12 environment, just use pip to install.
 
 ```sh
 python -m pip install --upgrade logik
 ```
 
-Running natively on your local machine will require a number of prerequisite tools (Yosys, Surelog, VPR) a Automated Ubuntu based install scripts are included for convenience within the SiliconCompiler project. Detailed instructions for installing all tools can be found in the [SiliconCompiler Installation Guide](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools).
+Running natively on your local machine will require a number of prerequisite tools (Yosys, Surelog, VPR). Automated Ubuntu based install scripts are included for convenience within the SiliconCompiler project. Detailed instructions for installing all tools can be found in the [SiliconCompiler Installation Guide](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools).
 
 
 ## Running Docker
 
-A docker container is available for folks who prefer that route.
+A [Docker image](https://github.com/siliconcompiler/siliconcompiler/pkgs/container/sc_runner) is provided for users who wish to avoid the installation of the pre-requisite tools. The following command starts a new container from that image and maps the local directory `sc_work` to the path `/sc_work` in the container.
 
 ```sh
 docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_runner:latest
