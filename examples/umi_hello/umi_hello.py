@@ -7,10 +7,11 @@ from siliconcompiler import Chip
 from logik.targets import logik_target
 
 
-def umi_hello(remote=False):
+def umi_hello():
 
     # Create compilation object
     chip = Chip('umi_hello')
+    chip.create_cmdline(switchlist=['-remote'])
 
     # Specify Design sources
     chip.input('umi_hello.v')
@@ -20,7 +21,6 @@ def umi_hello(remote=False):
 
     # Compiler options
     chip.set('option', 'quiet', True)
-    chip.set('option', 'remote', remote)
 
     # Select target fpga
     chip.set('fpga', 'partname', 'logik_demo')
@@ -36,11 +36,4 @@ def umi_hello(remote=False):
 
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-remote', action='store_true',
-        help='Build bitstream in the cloud instead of using local tools.')
-    args = parser.parse_args()
-
-    umi_hello(remote=args.remote)
+    umi_hello()
