@@ -112,11 +112,6 @@ An example use case for the package registry is shown below, outlining how to im
         path='git+https://github.com/YosysHQ/picorv32.git',
         ref='a7b56fc81ff1363d20fd0fb606752458cd810552')
 
-.. note::
-
-   This method is also used for importing Zero ASIC IP blocks (e.g. UMI)
-
-
 .. _Import_libraries:
 
 Set Input Source Files
