@@ -154,7 +154,7 @@ The logik_demo architecture has three types of I/O resources:
 * GPIOs -- 64 general purpose I/Os are provided.  Each GPIO is associated with one index of both the gpio_in port and the gpio_out port of the logik_demo top level.  For example, once a user port is assigned to gpio_in[0], gpio_out[0] may not be used for a user output.
 * UMI interfaces -- logik_demo implements UMI interfaces as subsections of a wide I/O bus comprised of the umi_io_in and umi_io_out ports.  Like the GPIOs, each bit of the UMI interface bus is associated with one index of both the umi_io_in and umi_io_out busses.  For example, once a user port is assigned to umi_io_in[0], umi_io_out[0] may not be used for a user output.
 
-The table below enumerates the I/O ports in ebrick_demo and specifies their bus widths.  All indices in the bit range are legal options for specifying pin constraints, provided that the GPIO and UMI input/output usage restrictions described above are observed.
+The table below enumerates the I/O ports in logik_demo and specifies their bus widths.  All indices in the bit range are legal options for specifying pin constraints, provided that the GPIO and UMI input/output usage restrictions described above are observed.
   
 +------------+-----------+-----------+------------------------------------------+
 | Port Name  | Direction | Bit Range | Notes                                    |
