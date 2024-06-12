@@ -32,6 +32,7 @@ def setup(chip, part_name=None):
     # import lambdalib
     chip.use(lambdalib)
     chip.add('option', 'library', 'lambdalib_stdlib')
+    chip.add('option', 'library', 'lambdalib_auxlib')
 
     # 2. Define source files
     for filename in (
