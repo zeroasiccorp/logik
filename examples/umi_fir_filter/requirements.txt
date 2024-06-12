@@ -1,2 +1,2 @@
 switchboard-hw >= 0.0.38
-umi @ git+https://github.com/zeroasiccorp/umi@main
+umi-hw >= 0.1.0, < 0.2.0
