@@ -23,7 +23,7 @@ version = {attr = "logik.__version__"}
 test = [
     "pytest == 8.2.2",
     "pytest-timeout == 2.3.1",
-    "flake8 == 7.0.0"
+    "flake8 == 7.1.0"
 ]
 docs = [
     "Sphinx == 7.3.7",
