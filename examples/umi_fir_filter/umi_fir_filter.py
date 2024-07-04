@@ -21,7 +21,7 @@ def setup(chip, part_name=None):
     part_name = chip.get('fpga', 'partname')
 
     # Add this repo as a package source
-    chip.register_package_source(
+    chip.register_source(
         name='umi_fir_filter',
         path=os.path.abspath(os.path.dirname(__file__)))
 

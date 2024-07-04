@@ -101,13 +101,13 @@ Register Packages (if needed)
 
 Designs with dependencies on third-party or packaged IP from previous projects may require a method for importing design IP from a source other than local working directories.  In Silicon Compiler, such imports are supported via the Silicon Compiler package registry, and the import process is referred to as registering a package.
 
-Registering a package is enabled with a dedicated Chip class member function called register_package_source().  For complete details on this function, refer to `Silicon Compiler's documentation of the register_package_source() function <https://docs.siliconcompiler.com/en/stable/reference_manual/core_api.html#siliconcompiler.Chip.register_package_source>`_.
+Registering a package is enabled with a dedicated Chip class member function called register_source().  For complete details on this function, refer to `Silicon Compiler's documentation of the register_source() function <https://docs.siliconcompiler.com/en/stable/reference_manual/core_api.html#siliconcompiler.Chip.register_source>`_.
 
-An example use case for the package registry is shown below, outlining how to import a public Github repository so that its contents can be used as a package within Silicon Compiler.  In this example, three parameters are provided to the register_package_source function:  name, path, and ref.  Name specifies a package name to be used when referring to the package elsewhere in code.  Path specifies where Silicon Compiler can obtain the package; in this case, the package is obtained through Github.  ref specifies to Silicon Compiler that the cloned Github repository should be checked out at a particular commit hash.  Specifying ref is not necessary if the package is to be cloned from github on its main branch.
+An example use case for the package registry is shown below, outlining how to import a public Github repository so that its contents can be used as a package within Silicon Compiler.  In this example, three parameters are provided to the register_source function:  name, path, and ref.  Name specifies a package name to be used when referring to the package elsewhere in code.  Path specifies where Silicon Compiler can obtain the package; in this case, the package is obtained through Github.  ref specifies to Silicon Compiler that the cloned Github repository should be checked out at a particular commit hash.  Specifying ref is not necessary if the package is to be cloned from github on its main branch.
 
 ::
 
-    chip.register_package_source(
+    chip.register_source(
         name='picorv32',
         path='git+https://github.com/YosysHQ/picorv32.git',
         ref='a7b56fc81ff1363d20fd0fb606752458cd810552')

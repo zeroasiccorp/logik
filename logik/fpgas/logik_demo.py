@@ -38,7 +38,7 @@ def setup(chip):
     # Settings common to all parts in family
     for part_name in all_part_names:
         fpga = FPGA(chip, part_name, package=_common.get_package_name(part_name))
-        fpga.register_package_source(
+        fpga.register_source(
             _common.get_package_name(part_name),
             path=_common.get_download_url(part_name),
             ref=_common.fpga_version)
