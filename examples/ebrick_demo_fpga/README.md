@@ -22,4 +22,4 @@ Then run
 python3 ebrick_demo_fpga.py
 ```
 
-This script contains a section specifically for importing the ebrick-demo design using Silicon Compiler's package registry.  For additional information, see the [Logik documentation's discussion of Silicon Compiler run script preparation](https://logik.readthedocs.io/en/latest/sc_preparation.html) and [Silicon Compiler's documentation of registering package sources](https://docs.siliconcompiler.com/en/stable/reference_manual/core_api.html#siliconcompiler.Chip.register_package_source).
+This script contains a section specifically for importing the ebrick-demo design using Silicon Compiler's package registry.  For additional information, see the [Logik documentation's discussion of Silicon Compiler run script preparation](https://logik.readthedocs.io/en/latest/sc_preparation.html) and [Silicon Compiler's documentation of registering package sources](https://docs.siliconcompiler.com/en/stable/reference_manual/core_api.html#siliconcompiler.Chip.register_source).

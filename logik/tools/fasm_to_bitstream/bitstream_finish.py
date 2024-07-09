@@ -3,6 +3,8 @@
 
 from logik.tools.fasm_to_bitstream import \
     fasm_to_bitstream as fasm_utils
+from siliconcompiler.tools._common import get_tool_task
+from siliconcompiler import SiliconCompilerError
 
 
 def setup(chip):
@@ -13,7 +15,7 @@ def setup(chip):
     tool = 'fasm_to_bitstream'
     step = chip.get('arg', 'step')
     index = chip.get('arg', 'index')
-    task = chip._get_task(step, index)
+    _, task = get_tool_task(chip, step, index)
 
     part_name = chip.get('fpga', 'partname')
 
@@ -52,9 +54,10 @@ def run(chip):
         fasm_utils.write_bitstream_binary(binary_bitstream, binary_outfile)
 
     elif len(bitstream_maps) == 0:
-        chip.error("fasm_to_bitstream requires a bitstream map file",
-                   fatal=True)
+        raise SiliconCompilerError(
+            "fasm_to_bitstream requires a bitstream map file", chip=chip)
     else:
-        chip.error("Only one bitstream map file can be passed to fasm_to_bitstream.py", fatal=True)
+        raise SiliconCompilerError(
+            "Only one bitstream map file can be passed to fasm_to_bitstream", chip=chip)
 
     return 0

@@ -26,7 +26,7 @@ def main(part_name='logik_demo'):
     ebrick.setup_core_design(chip)
 
     # Add this repository as a package source to pick up a top level wrapper
-    chip.register_package_source(
+    chip.register_source(
         name='logik_demo',
         path=os.path.abspath(os.path.dirname(__file__)))
 
