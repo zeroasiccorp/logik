@@ -1,1 +1,1 @@
-ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@0b342ae3169b1e6b9e5338b60db4492da3c7f760
+ebrick_demo @ git+https://github.com/zeroasiccorp/ebrick-demo.git@dbe55667cd5ff3e99adfd82fbe32b22072019d59
