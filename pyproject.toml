@@ -26,7 +26,7 @@ test = [
     "flake8 == 7.1.0"
 ]
 docs = [
-    "Sphinx == 7.4.0",
+    "Sphinx == 7.4.4",
     "sphinx-rtd-theme == 2.0.0",
     "autodocsumm == 0.2.12"
 ]
