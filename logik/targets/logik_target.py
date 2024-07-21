@@ -30,7 +30,6 @@ def setup(chip):
     chip.use(logik_flow)
 
     # 4. Select default flow
-    chip.set('option', 'mode', 'fpga', clobber=False)
     chip.set('option', 'flow', 'logik_flow', clobber=False)
 
 
