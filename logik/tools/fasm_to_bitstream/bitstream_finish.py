@@ -24,6 +24,10 @@ def setup(chip):
              ",".join(['fpga', part_name, 'file', 'bitstream_map']),
              step=step, index=index)
 
+    chip.add('tool', tool, 'task', task, 'input', f'{chip.top()}.fasm', step=step, index=index)
+    chip.add('tool', tool, 'task', task, 'output', f'{chip.top()}.json', step=step, index=index)
+    chip.add('tool', tool, 'task', task, 'output', f'{chip.top()}.bin', step=step, index=index)
+
 
 def run(chip):
     part_name = chip.get('fpga', 'partname')
