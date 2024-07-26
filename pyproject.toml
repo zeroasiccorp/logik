@@ -21,12 +21,12 @@ version = {attr = "logik.__version__"}
 
 [project.optional-dependencies]
 test = [
-    "pytest == 8.2.2",
+    "pytest == 8.3.2",
     "pytest-timeout == 2.3.1",
     "flake8 == 7.1.0"
 ]
 docs = [
-    "Sphinx == 7.4.5",
+    "Sphinx == 7.4.7",
     "sphinx-rtd-theme == 2.0.0",
     "autodocsumm == 0.2.12"
 ]
