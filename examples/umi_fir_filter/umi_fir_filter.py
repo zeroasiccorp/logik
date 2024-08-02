@@ -8,8 +8,7 @@ import os
 from siliconcompiler import Chip
 from logik.targets import logik_target
 
-import lambdalib
-import umi
+from umi import sumi
 
 
 def setup(chip, part_name=None):
@@ -26,13 +25,7 @@ def setup(chip, part_name=None):
         path=os.path.abspath(os.path.dirname(__file__)))
 
     # import the UMI library
-    chip.use(umi)
-    chip.add('option', 'library', 'umi')
-
-    # import lambdalib
-    chip.use(lambdalib)
-    chip.add('option', 'library', 'lambdalib_stdlib')
-    chip.add('option', 'library', 'lambdalib_auxlib')
+    chip.use(sumi)
 
     # 2. Define source files
     for filename in (
