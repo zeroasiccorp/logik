@@ -23,7 +23,8 @@ def setup(chip, flowname='logik_flow'):
 
     flow = fpgaflow.setup(chip,
                           flowname='logik_flow',
-                          fpgaflow_type='vpr')
+                          fpgaflow_type='vpr',
+                          partname=chip.get('fpga', 'partname'))
 
     # Add bitstream generation task
     flow.node(flowname, 'convert_bitstream', bitstream_finish)
