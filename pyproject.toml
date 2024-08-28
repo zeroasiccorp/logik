@@ -11,7 +11,7 @@ readme = "README.md"
 urls = {Homepage = "https://github.com/zeroasiccorp/logik"}
 requires-python = ">= 3.8"
 dependencies = [
-    "siliconcompiler >= 0.26.0",
+    "siliconcompiler >= 0.27.0",
 ]
 license = {file = "LICENSE"}
 dynamic = ["version"]

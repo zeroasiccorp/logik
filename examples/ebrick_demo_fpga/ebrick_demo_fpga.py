@@ -41,7 +41,7 @@ def main(part_name='logik_demo'):
                package='logik_demo')
 
     # 3. Load target
-    chip.load_target(logik_target)
+    chip.use(logik_target)
 
     # 4. Customize steps for this design
 

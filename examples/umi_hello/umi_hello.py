@@ -26,7 +26,7 @@ def umi_hello():
     chip.set('fpga', 'partname', 'logik_demo')
 
     # Load target settings
-    chip.load_target(logik_target)
+    chip.use(logik_target)
 
     # Run compiler
     chip.run()

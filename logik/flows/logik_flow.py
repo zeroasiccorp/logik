@@ -11,27 +11,20 @@ from logik.tools.fasm_to_bitstream import bitstream_finish
 # DOCS
 ############################################################################
 def make_docs(chip):
-    return setup(chip)
+    return setup()
 
 
 ############################################################################
 # Flowgraph Setup
 ############################################################################
-def setup(chip, flowname='logik_flow'):
+def setup(flowname='logik_flow', partname=None):
     '''
     '''
 
-    try:
-        flow = fpgaflow.setup(
-            chip,
-            flowname='logik_flow',
-            fpgaflow_type='vpr',
-            partname=chip.get('fpga', 'partname'))
-    except:  # noqa E722
-        flow = fpgaflow.setup(
-            flowname='logik_flow',
-            fpgaflow_type='vpr',
-            partname=chip.get('fpga', 'partname'))
+    flow = fpgaflow.setup(
+        flowname='logik_flow',
+        fpgaflow_type='vpr',
+        partname=partname)
 
     # Add bitstream generation task
     flow.node(flowname, 'convert_bitstream', bitstream_finish)
