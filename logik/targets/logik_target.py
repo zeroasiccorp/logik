@@ -27,7 +27,7 @@ def setup(chip):
         raise SiliconCompilerError(f'{part_name} has not been loaded')
 
     # 3. Load flow
-    chip.use(logik_flow)
+    chip.use(logik_flow, partname=part_name)
 
     # 4. Select default flow
     chip.set('option', 'flow', 'logik_flow', clobber=False)

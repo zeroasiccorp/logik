@@ -2,14 +2,14 @@
 # Licensed under the MIT License (see LICENSE for details)
 
 import os
-from siliconcompiler import FPGA, Chip
+from siliconcompiler import FPGA
 from logik.fpgas import _common
 
 
 ####################################################
 # Setup for logik_demo Family FPGAs
 ####################################################
-def setup(chip):
+def setup():
     '''
     The logik_demo FPGA family is a set of
     open source architectures used as illustrative
@@ -37,7 +37,7 @@ def setup(chip):
 
     # Settings common to all parts in family
     for part_name in all_part_names:
-        fpga = FPGA(chip, part_name, package=_common.get_package_name(part_name))
+        fpga = FPGA(part_name, package=_common.get_package_name(part_name))
         fpga.register_source(
             _common.get_package_name(part_name),
             path=_common.get_download_url(part_name),
@@ -107,5 +107,5 @@ def setup(chip):
 
 #########################
 if __name__ == "__main__":
-    for fpga in setup(Chip('<fpga>')):
+    for fpga in setup():
         fpga.write_manifest(f'{fpga.design}.json')

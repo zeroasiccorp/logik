@@ -39,7 +39,7 @@ def setup(chip, part_name=None):
     chip.add('option', 'idir', 'rtl', package='umi_fir_filter')
 
     # 3. Load target
-    chip.load_target(logik_target)
+    chip.use(logik_target)
 
     # 4. Define constraints
     chip.input(os.path.join('constraints', f'pin_constraints_{part_name}.pcf'),
