@@ -47,7 +47,7 @@ def setup():
 
         # Set a variable for VPR to use to detect the correct <fixed_layout> section
         # of the architecture XML file
-        fpga.set('fpga', part_name, 'var', 'device_code', part_name)
+        fpga.set('fpga', part_name, 'var', 'vpr_device_code', part_name)
 
         fpga.set('fpga', part_name, 'lutsize', lut_size)
         fpga.add('fpga', part_name, 'var', 'feature_set', 'async_reset')
