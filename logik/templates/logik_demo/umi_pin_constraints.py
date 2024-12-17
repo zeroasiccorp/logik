@@ -67,7 +67,7 @@ def generate_umi_pin_constraints(fpga_ports_per_umi=300,
             umi_bus_index += 1
 
             for j in range(umi_cmd_width):
-                cur_signal = f'{port}_cmd[{i*umi_cmd_width+j}]'
+                cur_signal = f'{port}_cmd[{i * umi_cmd_width + j}]'
                 mapped_signal_name = f"umi_io_{cur_dir_short}[{umi_bus_index}]"
                 umi_to_fpga_pin_map[cur_signal] = {
                     "direction": cur_dir,
@@ -76,7 +76,7 @@ def generate_umi_pin_constraints(fpga_ports_per_umi=300,
                 umi_bus_index += 1
 
             for j in range(umi_addr_width):
-                cur_signal = f'{port}_dstaddr[{i*umi_addr_width+j}]'
+                cur_signal = f'{port}_dstaddr[{i * umi_addr_width + j}]'
                 mapped_signal_name = f"umi_io_{cur_dir_short}[{umi_bus_index}]"
                 umi_to_fpga_pin_map[cur_signal] = {
                     "direction": cur_dir,
@@ -85,7 +85,7 @@ def generate_umi_pin_constraints(fpga_ports_per_umi=300,
                 umi_bus_index += 1
 
             for j in range(umi_addr_width):
-                cur_signal = f'{port}_srcaddr[{i*umi_addr_width+j}]'
+                cur_signal = f'{port}_srcaddr[{i * umi_addr_width + j}]'
                 mapped_signal_name = f"umi_io_{cur_dir_short}[{umi_bus_index}]"
                 umi_to_fpga_pin_map[cur_signal] = {
                     "direction": cur_dir,
@@ -94,7 +94,7 @@ def generate_umi_pin_constraints(fpga_ports_per_umi=300,
                 umi_bus_index += 1
 
             for j in range(umi_data_width):
-                cur_signal = f'{port}_data[{i*umi_data_width+j}]'
+                cur_signal = f'{port}_data[{i * umi_data_width + j}]'
                 mapped_signal_name = f"umi_io_{cur_dir_short}[{umi_bus_index}]"
                 umi_to_fpga_pin_map[cur_signal] = {
                     "direction": cur_dir,

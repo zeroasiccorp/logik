@@ -1,5 +1,5 @@
 [flake8]
-extend-exclude = testbench/build
+extend-exclude = testbench/build,build,.venv
 max-line-length = 100
 ignore =
     E125,

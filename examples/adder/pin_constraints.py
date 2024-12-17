@@ -42,13 +42,13 @@ def generate_mapped_constraints(part_name):
         for i in range(8):
             pin_constraints[f'b[{i}]'] = {
                 "direction": "input",
-                "pin": f'gpio_in[{i+8}]'
+                "pin": f'gpio_in[{i + 8}]'
             }
 
         for i in range(9):
             pin_constraints[f'y[{i}]'] = {
                 "direction": "output",
-                "pin": f'gpio_out[{i+16}]'
+                "pin": f'gpio_out[{i + 16}]'
             }
 
     else:
@@ -82,7 +82,7 @@ def generate_raw_constraints():
         else:
             pin_constraints[f'y[{i}]'] = {
                 "direction": "output",
-                "pin": f'pad_out_1_5[{i-8}]'
+                "pin": f'pad_out_1_5[{i - 8}]'
             }
 
     return pin_constraints
