@@ -6,23 +6,25 @@
 import os
 
 from siliconcompiler import Chip
-from logik.targets import logik_target
+from logik.flows import logik_flow
+from logik.fpgas import logik_demo
 
 
 def build():
 
     design_name = 'eth_mac_1g'
 
-    part_name = 'z1000'
+    part_name = 'logik_demo'
 
     chip = Chip(f'{design_name}')
 
     # Set default part name
     chip.set('fpga', 'partname', part_name)
 
-    # Logik has a generic Silicon Compiler target that
-    # the part driver plugs into, so we need to use that
-    chip.use(logik_target)
+    # Load target settings
+    chip.set('option', 'flow', 'logik_flow')
+    chip.use(logik_flow)
+    chip.use(logik_demo)
 
     # Define source files from verilog-ethernet repo
 
