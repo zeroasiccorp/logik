@@ -13,7 +13,7 @@ def build():
 
     design_name = 'eth_mac_1g'
 
-    part_name = 'logik_demo'
+    part_name = 'z1000'
 
     chip = Chip(f'{design_name}')
 
@@ -51,7 +51,7 @@ def build():
     chip.input(os.path.join(os.getcwd(), f'{design_name}.sdc'))
 
     # Define pin constraints
-    chip.input(os.path.join(os.getcwd(), f'{design_name}_pin_constraints.pcf'))
+    chip.input(os.path.join(os.getcwd(), f'constraints/{part_name}/pin_constraints.pcf'))
 
     # Customize steps for this design
 
