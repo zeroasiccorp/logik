@@ -20,9 +20,6 @@ def hello_adder():
     # Specify pin constraints
     chip.input('adder.pcf')
 
-    # Specify pin constraints
-    chip.input('adder.sdc')
-
     # Compiler options
     chip.set('option', 'quiet', True)
 
