@@ -6,6 +6,8 @@ from siliconcompiler import Chip, SiliconCompilerError
 from logik.fpgas import logik_demo
 from logik.flows import logik_flow
 
+from logiklib.zeroasic.z1000 import z1000
+
 
 ####################################################
 # Target Setup
@@ -22,6 +24,7 @@ def setup(chip):
 
     # 2.  Load all available FPGAs
     chip.use(logik_demo)
+    chip.use(z1000)
 
     if part_name not in chip.getkeys('fpga'):
         raise SiliconCompilerError(f'{part_name} has not been loaded')
