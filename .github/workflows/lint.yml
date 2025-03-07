@@ -21,6 +21,12 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v4
 
+      - name: Setup permissions
+        run: |
+          echo ${{ secrets.ZA_TOKEN }} | gh auth login --with-token
+          gh auth setup-git
+          git config --global url."https://github".insteadOf git://github
+
       - name: Install Requirements
         run: |
           python3 -m pip install --upgrade pip
