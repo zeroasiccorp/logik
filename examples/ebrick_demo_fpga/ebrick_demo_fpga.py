@@ -8,7 +8,9 @@ import os
 from ebrick_demo import ebrick
 
 from siliconcompiler import Chip
-from logik.targets import logik_target
+
+from logik.flows import logik_flow
+from logik.fpgas import logik_demo
 
 
 def main(part_name='logik_demo'):
@@ -41,7 +43,9 @@ def main(part_name='logik_demo'):
                package='logik_demo')
 
     # 3. Load target
-    chip.use(logik_target)
+    chip.set('option', 'flow', 'logik_flow')
+    chip.use(logik_flow)
+    chip.use(logik_demo)
 
     # 4. Customize steps for this design
 
