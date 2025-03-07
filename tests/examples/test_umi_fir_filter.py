@@ -48,6 +48,7 @@ def test_cli(setup_example_test, part_name):
 
 
 @pytest.mark.timeout(300)
+@pytest.mark.skip(reason="Disabling until switchboard updates are made")
 def test_sim(setup_example_test):
     umi_fir_filter_dir = setup_example_test('umi_fir_filter')
 
