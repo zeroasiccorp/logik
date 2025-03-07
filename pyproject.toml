@@ -11,7 +11,7 @@ readme = "README.md"
 urls = {Homepage = "https://github.com/zeroasiccorp/logik"}
 requires-python = ">= 3.8"
 dependencies = [
-    "za-logiklib @ git+https://github.com/zeroasiccorp/logiklib@main",
+    "za-logiklib @ git+https://github.com/zeroasiccorp/logiklib@add_logik_demo_driver",
     "siliconcompiler >= 0.31.1",
 ]
 license = {file = "LICENSE"}
