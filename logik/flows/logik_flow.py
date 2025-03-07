@@ -17,14 +17,13 @@ def make_docs(chip):
 ############################################################################
 # Flowgraph Setup
 ############################################################################
-def setup(flowname='logik_flow', partname=None):
+def setup(flowname='logik_flow'):
     '''
     '''
 
     flow = fpgaflow.setup(
-        flowname='logik_flow',
-        fpgaflow_type='vpr',
-        partname=partname)
+        flowname=flowname,
+        fpgaflow_type='vpr')
 
     # Add bitstream generation task
     flow.node(flowname, 'convert_bitstream', bitstream_finish)
