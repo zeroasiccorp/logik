@@ -10,7 +10,7 @@ from ebrick_demo import ebrick
 from siliconcompiler import Chip
 
 from logik.flows import logik_flow
-from logik.fpgas import logik_demo
+from logiklib.demo.logik_demo import logik_demo
 
 
 def main(part_name='logik_demo'):
