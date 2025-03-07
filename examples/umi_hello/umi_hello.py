@@ -4,7 +4,8 @@
 # Licensed under the MIT License (see LICENSE for details)
 
 from siliconcompiler import Chip
-from logik.targets import logik_target
+from logik.flows import logik_flow
+from logik.fpgas import logik_demo
 
 
 def umi_hello():
@@ -26,7 +27,9 @@ def umi_hello():
     chip.set('fpga', 'partname', 'logik_demo')
 
     # Load target settings
-    chip.use(logik_target)
+    chip.set('option', 'flow', 'logik_flow')
+    chip.use(logik_flow)
+    chip.use(logik_demo)
 
     # Run compiler
     chip.run()

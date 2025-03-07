@@ -4,7 +4,8 @@
 # Licensed under the MIT License (see LICENSE for details)
 
 from siliconcompiler import Chip
-from logik.targets import logik_target
+from logik.flows import logik_flow
+from logik.fpgas import logik_demo
 
 
 def hello_adder():
@@ -19,6 +20,9 @@ def hello_adder():
     # Specify pin constraints
     chip.input('adder.pcf')
 
+    # Specify pin constraints
+    chip.input('adder.sdc')
+
     # Compiler options
     chip.set('option', 'quiet', True)
 
@@ -26,7 +30,9 @@ def hello_adder():
     chip.set('fpga', 'partname', 'logik_demo')
 
     # Load target settings
-    chip.use(logik_target)
+    chip.set('option', 'flow', 'logik_flow')
+    chip.use(logik_flow)
+    chip.use(logik_demo)
 
     # Run compiler
     chip.run()
