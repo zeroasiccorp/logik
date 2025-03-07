@@ -6,7 +6,8 @@
 import os
 
 from siliconcompiler import Chip
-from logik.targets import logik_target
+from logik.flows import logik_flow
+from logik.fpgas import logik_demo
 
 from umi import sumi
 
@@ -39,7 +40,9 @@ def setup(chip, part_name=None):
     chip.add('option', 'idir', 'rtl', package='umi_fir_filter')
 
     # 3. Load target
-    chip.use(logik_target)
+    chip.set('option', 'flow', 'logik_flow')
+    chip.use(logik_flow)
+    chip.use(logik_demo)
 
     # 4. Define constraints
     chip.input(os.path.join('constraints', f'pin_constraints_{part_name}.pcf'),
