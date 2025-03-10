@@ -45,13 +45,3 @@ def test_cli(setup_example_test, part_name):
     assert proc.returncode == 0
 
     _check_fir_filter('build/umi_fir_filter/job0/umi_fir_filter.pkg.json')
-
-
-@pytest.mark.timeout(300)
-@pytest.mark.skip(reason="Disabling until switchboard updates are made")
-def test_sim(setup_example_test):
-    umi_fir_filter_dir = setup_example_test('umi_fir_filter')
-
-    proc = subprocess.run([os.path.join(umi_fir_filter_dir, 'sim', 'umi_fir_filter_test.py')])
-
-    assert proc.returncode == 0
