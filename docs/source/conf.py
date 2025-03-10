@@ -9,15 +9,20 @@
 import os
 import sys
 
+from datetime import date
+
 sys.path.insert(0, os.path.abspath('../..'))
+
+import logik
+
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Logik'
-copyright = '2024, Zero ASIC'
+copyright = f'2024-{date.today().year}, Zero ASIC'
 author = 'Zero ASIC'
-release = '0.0.6'
+release = logik.__version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
