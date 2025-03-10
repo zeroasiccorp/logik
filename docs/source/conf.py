@@ -13,7 +13,7 @@ from datetime import date
 
 sys.path.insert(0, os.path.abspath('../..'))
 
-import logik
+import logik # noqa E402
 
 
 # -- Project information -----------------------------------------------------
