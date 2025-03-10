@@ -3,7 +3,7 @@ Preparing the Silicon Compiler Run Script
 
 Developing a Silicon Compiler run script for RTL-to-bitstream flow execution follows the same fundamental approach as developing a script for any Silicon Compiler flow execution.  Additional resources for understanding Silicon Compiler fundamentals are available at `docs.siliconcompiler.com <https://docs.siliconcompiler.com/en/stable>`_
 
-For most designs, the example Silicon Compiler run scripts provided with <tool_name> can be used as templates for creating your own.  The commands used in these examples and the general method for constructing run scripts are described below.
+For most designs, the example Silicon Compiler run scripts provided with Logik can be used as templates for creating your own.  The commands used in these examples and the general method for constructing run scripts are described below.
 
 Constructing a Silicon Compiler run script can be broken down into the following steps:
 
@@ -25,7 +25,7 @@ Constructing a Silicon Compiler run script can be broken down into the following
 Import Modules
 --------------
 
-All Silicon Compiler run scripts are pure Python scripts that import Silicon Compiler functionality like any other Python module.  Similarly, the <tool_name> RTL-to-bitstream flow is enabled as a set of Python modules that integrate to Silicon Compiler.
+All Silicon Compiler run scripts are pure Python scripts that import Silicon Compiler functionality like any other Python module.  Similarly, the Logik RTL-to-bitstream flow is enabled as a set of Python modules that integrate to Silicon Compiler.
 
 The minimum import requirements in a Logik Silicon Compiler run script are:
 
