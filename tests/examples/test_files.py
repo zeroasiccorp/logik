@@ -4,7 +4,7 @@
 import pytest
 import siliconcompiler
 
-from logik.fpgas import logik_demo
+from logiklib.demo.logik_demo import logik_demo
 
 
 @pytest.mark.parametrize(

@@ -7,7 +7,7 @@ import os
 
 from siliconcompiler import Chip
 from logik.flows import logik_flow
-from logik.fpgas import logik_demo
+from logiklib.demo.logik_demo import logik_demo
 
 from umi import sumi
 
