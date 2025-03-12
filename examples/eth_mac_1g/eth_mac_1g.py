@@ -5,19 +5,19 @@
 
 from siliconcompiler import Chip
 from logik.flows import logik_flow
-from logiklib.demo.logik_demo import logik_demo
+from logiklib.zeroasic.z1000 import z1000
 
 
-def build(part='logik_demo'):
+def build():
     chip = Chip('eth_mac_1g_wrapper')
 
     # Load target settings
     chip.use(logik_flow)
-    chip.use(logik_demo)
+    chip.use(z1000)
     chip.set('option', 'flow', 'logik_flow')
 
     # Set default part name
-    chip.set('fpga', 'partname', part)
+    chip.set('fpga', 'partname', 'z1000')
 
     # Define source files from verilog-ethernet repo
 
