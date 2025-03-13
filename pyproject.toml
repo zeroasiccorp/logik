@@ -8,7 +8,7 @@ name = "logik"
 authors = [{name = "Zero ASIC"}]
 description = "Logik is a light weight FPGA tool chain based on mature open source technologies."
 readme = "README.md"
-urls = {Homepage = "https://github.com/zeroasiccorp/logik"}
+urls = {Homepage = "https://github.com/siliconcompiler/logik"}
 requires-python = ">= 3.8"
 dependencies = [
     "logiklib @ git+https://github.com/zeroasiccorp/logiklib@main",
