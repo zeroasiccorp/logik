@@ -135,7 +135,7 @@ For each HDL file, include the following call in your Silicon Compiler run scrip
 
 .. note::
 
-   Silicon Compiler supports additional front end options, including flows for high-level synthesis.
+   Silicon Compiler supports multiple front end options, including flows for high-level synthesis.
    For all front end compilation considerations not described above, please consult `Silicon Compiler Frontend documentation <https://docs.siliconcompiler.com/en/stable/user_guide/tutorials/hw_frontends.html>`_
 
 For large designs, it may be convenient to organize your HDL files into a directory tree that is processed using Python functions, so that the above calls can be embedded in loops.
