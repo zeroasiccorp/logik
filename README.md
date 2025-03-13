@@ -1,13 +1,13 @@
-![Logik](https://raw.githubusercontent.com/zeroasiccorp/logik/main/images/logik_logo_with_text.png)
+![Logik](https://raw.githubusercontent.com/siliconcompiler/logik/main/images/logik_logo_with_text.png)
 
-[![Regression](https://github.com/zeroasiccorp/logik/actions/workflows/regression.yml/badge.svg)](https://github.com/zeroasiccorp/logik/actions/workflows/regression.yml)
-[![Lint](https://github.com/zeroasiccorp/logik/actions/workflows/lint.yml/badge.svg)](https://github.com/zeroasiccorp/logik/actions/workflows/lint.yml)
+[![Regression](https://github.com/siliconcompiler/logik/actions/workflows/regression.yml/badge.svg)](https://github.com/siliconcompiler/logik/actions/workflows/regression.yml)
+[![Lint](https://github.com/siliconcompiler/logik/actions/workflows/lint.yml/badge.svg)](https://github.com/siliconcompiler/logik/actions/workflows/lint.yml)
 
 -----------------------------------------------------------------------------------
 
 Logik is an open source FPGA toolchain that fully automates converting RTL to bits, including synthesis, placement, routing, bitstream generation, and analysis. Users enter design sources, constraints, and compile options through a simple [SiliconCompiler](https://github.com/siliconcompiler/siliconcompiler/) Python API. Once setup is complete, automated compilation can be initiated with a single line run command.
 
-![logik_flow](https://raw.githubusercontent.com/zeroasiccorp/logik/main/images/logik_flow.svg)
+![logik_flow](https://raw.githubusercontent.com/siliconcompiler/logik/main/images/logik_flow.svg)
 
 Logik supports most of the features you would expect in a commercial proprietary FPGA tool chain.
 
@@ -117,7 +117,7 @@ docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_runner:la
 
 ## License
 
-[MIT](LICENSE)
+[Apache License 2.0](LICENSE)
 
 ## Issues / Bugs
-We use [GitHub Issues](https://github.com/zeroasiccorp/logik/issues) for tracking requests and bugs.
+We use [GitHub Issues](https://github.com/siliconcompiler/logik/issues) for tracking requests and bugs.
