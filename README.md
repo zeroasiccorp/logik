@@ -117,7 +117,7 @@ docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_runner:la
 
 ## License
 
-[MIT](LICENSE)
+[Apache License 2.0](LICENSE)
 
 ## Issues / Bugs
 We use [GitHub Issues](https://github.com/zeroasiccorp/logik/issues) for tracking requests and bugs.
