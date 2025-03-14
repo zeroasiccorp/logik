@@ -4,13 +4,13 @@
 import pytest
 import siliconcompiler
 
-from logiklib.demo.logik_demo import logik_demo
+from logiklib.demo.K4_N8_6x6 import K4_N8_6x6
 
 
 @pytest.mark.parametrize(
     "part",
     [
-        logik_demo,
+        K4_N8_6x6,
     ])
 def test_file_paths(part):
     chip = siliconcompiler.Chip("test")
