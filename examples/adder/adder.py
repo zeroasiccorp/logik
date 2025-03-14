@@ -5,7 +5,7 @@
 
 from siliconcompiler import Chip
 from logik.flows import logik_flow
-from logiklib.demo.logik_demo_X008Y008 import logik_demo_X008Y008
+from logiklib.demo.K4_N8_6x6 import K4_N8_6x6
 
 
 def hello_adder():
@@ -24,12 +24,12 @@ def hello_adder():
     chip.set('option', 'quiet', True)
 
     # Select target fpga
-    chip.set('fpga', 'partname', 'logik_demo_X008Y008')
+    chip.set('fpga', 'partname', 'K4_N8_6x6')
 
     # Load target settings
     chip.set('option', 'flow', 'logik_flow')
     chip.use(logik_flow)
-    chip.use(logik_demo_X008Y008)
+    chip.use(K4_N8_6x6)
 
     # Run compiler
     chip.run()
