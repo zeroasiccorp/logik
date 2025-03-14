@@ -9,10 +9,6 @@ Bitstream data is generated in this flow in multiple formats:
 
 Understanding the details of bitstream formatting is typically necessary only for writing software drivers to perform bitstream loading for particular FPGA chips.
 
-.. note::
-
-   The logik_demo eFPGA architecture supported in this flow is supplied for demonstration purposes and is not available in physical chips.
-
 The following sections outline how bitstreams are organized in a general sense without specifying the bitstream format for a particular FPGA or eFPGA architecture.
 
 Working with FASM Bitstream Data
@@ -50,12 +46,12 @@ When mapped into this address space, bitstream words are ordered from lowest add
 
 The binary format does not specify a word size; instead, this is dictated by the FPGA/eFPGA architecture.  Words are treated as binary strings that, when read left to right, are read MSB to LSB.  The packing of bitstream words into bytes in a binary file is dictated by Python's tofile() function.  Implementations of a binary bitstream file reader should account for this so that when the bitstream is read back word ordering in this address space is preserved.
 
-To make this more concrete, consider the logik_demo architecture.  logik_demo is organized as a 37x31 array of elements.  This means that six bits are needed to represent the X coordinate and five bits are needed to represent the Y coordinate.  The number of word addresses needed at each (X,Y) coordinate in the array varies.  To make a uniform address space, the maximum required word address dictates the number of bits of word address used.  In the case of logik_demo, the maximum word address is 141, so eight bits of word address are needed.  The binary bitstream address format is thus nineteen bits wide and organized as follows:
+To make this more concrete, consider the an example FPGA architecture with array size 30x30.  An array of this size requires five bits to represent the X coordinate to represent the Y coordinate.  The number of word addresses needed at each (X,Y) coordinate in the array may vary.  To make a uniform address space, the maximum required word address dictates the number of bits of word address used.   If the example FPGA architecture's maximum address is 141, eight bits of word address are needed.  The binary bitstream address format is thus eighteen bits wide and organized as follows:
 
 +--------------+--------------+--------------+
-| [18:14]      | [13:8]       | [7:0]        |
+| [17:13]      | [12:8]       | [7:0]        |
 +--------------+--------------+--------------+
 | Y coordinate | X coordinate | word address |
 +--------------+--------------+--------------+
 
-logik_demo uses 8-bit bitstream words.  The ordering of the words in the binary file thus begins with word address 0 at array coordinate (0,0) and the last word is word address 141 at array coordinate (37, 31).
+The ordering of the words in the binary file thus begins with word address 0 at array coordinate (0,0) and the last word is word address 141 at array coordinate (29, 29).
