@@ -1,2 +1,0 @@
--r umi_fir_filter/requirements.txt
--r umi_hello/requirements.txt

@@ -94,9 +94,9 @@ In your Silicon Compiler run script, include the following call
 
 ::
 
-   chip.set('fpga', 'partname', 'logik_demo')
+   chip.set('fpga', 'partname', <part_name>)
 
-to select the logik_demo part as your selected part name.
+to select `<part_name>` as your selected part name.
 
 .. _Register_packages:
 
