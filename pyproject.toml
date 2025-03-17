@@ -11,7 +11,7 @@ readme = "README.md"
 urls = {Homepage = "https://github.com/siliconcompiler/logik"}
 requires-python = ">= 3.8"
 dependencies = [
-    "logiklib @ git+https://github.com/siliconcompiler/logiklib@main",
+    "logiklib >= 0.1.0",
     "siliconcompiler >= 0.31.1",
 ]
 license = {file = "LICENSE"}
