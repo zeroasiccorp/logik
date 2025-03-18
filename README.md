@@ -7,7 +7,7 @@
 
 Logik is an open source FPGA toolchain with support for high level language parsing, synthesis, placement, routing, bitstream generation, and analysis. Users enter design sources, constraints, and compile options through a simple [SiliconCompiler](https://github.com/siliconcompiler/siliconcompiler/) Python API. Once setup is complete, automated compilation can be initiated with a single line run command.
 
-Logik depends on the [Logiklib](https://github.com/siliconcompiler/lambdalib) which contains the architecture descriptions and device setup files needed to drive the Logik flow.
+Logik depends on the [Logiklib](https://github.com/siliconcompiler/logiklib) which contains the architecture descriptions and device setup files needed to drive the Logik flow.
 
 ![logik_flow](https://raw.githubusercontent.com/siliconcompiler/logik/main/images/logik_flow.svg)
 
