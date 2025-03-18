@@ -1,2 +1,2 @@
-create_clock -period 8 rx_clk
-create_clock -period 8 tx_clk
+create_clock -period 16 rx_clk
+create_clock -period 16 tx_clk
