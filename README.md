@@ -5,7 +5,9 @@
 
 -----------------------------------------------------------------------------------
 
-Logik is an open source FPGA toolchain that fully automates converting RTL to bits, including synthesis, placement, routing, bitstream generation, and analysis. Users enter design sources, constraints, and compile options through a simple [SiliconCompiler](https://github.com/siliconcompiler/siliconcompiler/) Python API. Once setup is complete, automated compilation can be initiated with a single line run command.
+Logik is an open source FPGA tool chain with support for high level language parsing, synthesis, placement, routing, bit-stream generation, and analysis. Users enter design sources, constraints, and compile options through a simple [SiliconCompiler](https://github.com/siliconcompiler/siliconcompiler/) Python API. Once setup is complete, automated compilation can be initiated with a single line run command.
+
+Logik depends on the [Logiklib](https://github.com/siliconcompiler/logiklib) which contains the architecture descriptions and device setup files needed to drive the Logik flow.
 
 ![logik_flow](https://raw.githubusercontent.com/siliconcompiler/logik/main/images/logik_flow.svg)
 
@@ -13,7 +15,7 @@ Logik supports most of the features you would expect in a commercial proprietary
 
 | Feature                  | Status |
 |--------------------------|--------|
-| Design languages         | Verilog, SystemVerilog, VHDL
+| Design languages         | SystemVerilog, Verilog, VHDL
 | ALU synthesis            | Supported
 | RAM synthesis            | Supported
 | Timing constraints (SDC) | Supported
@@ -21,27 +23,37 @@ Logik supports most of the features you would expect in a commercial proprietary
 | Bitstream generation     | Supported
 | IP management            | Supported
 | Remote compilation       | Supported
-| Multi-clock designs      | In progress
-| FPGA devices             | ZA
+| Multi-clock designs      | Supported
+| Supported devices        | Logiklib devices
 
 ## Getting Started
 
-The Logik project is available through PyPi and can be installed using pip. If you want to run locally on your machine, you will need to [install all of the pre-requisites](#installation) or launch the [Logik Docker image](#running-docker).
+The Logik tool chain is available through PyPi and can be installed using pip.
 
 ```sh
 python -m pip install --upgrade logik
 ```
 
+All open source FPGA pre-requisites can be installed via the SiliconCompiler `sc-install` utility.
+
+```sh
+sc-install -group fpga
+```
+
 The following example illustrate some essential Logik features. For complete documentation of all options available, see the [SiliconCompiler project](https://github.com/siliconcompiler/siliconcompiler/blob/main/README.md).
 
 ```python
+
 from siliconcompiler import Chip
-from logik.targets import logik_target
+from logik.flows import logik_flow
+from logiklib.demo.K4_N8_6x6 import K4_N8_6x6
+
 
 def hello_adder():
 
     # Create compilation object
     chip = Chip('adder')
+    chip.create_cmdline(switchlist=['-remote'])
 
     # Specify design sources
     chip.input('adder.v')
@@ -51,13 +63,14 @@ def hello_adder():
 
     # Compiler options
     chip.set('option', 'quiet', True)
-    chip.set('option', 'remote', True)
 
     # Select target fpga
-    chip.set('fpga', 'partname', 'logik_demo')
+    chip.set('fpga', 'partname', 'K4_N8_6x6')
 
     # Load target settings
-    chip.use(logik_target)
+    chip.set('option', 'flow', 'logik_flow')
+    chip.use(logik_flow)
+    chip.use(K4_N8_6x6)
 
     # Run compiler
     chip.run()
@@ -67,18 +80,13 @@ def hello_adder():
 
 if __name__ == "__main__":
     hello_adder()
+
 ```
 
-This code can be run with `./adder.py -remote` in the [examples/adder](examples/adder/) directory, resulting in an FPGA bitstream at `build/adder/job0/convert_bitstream/0/outputs/adder.bin`.
+## Examples
 
-To test out the generated bitstream, you can upload it to an emulated FPGA device running in the Zero ASIC [Digital Twin Platform](https://www.zeroasic.com/emulation?demo=fpga).
-
-
-## More Examples
-
-* [UMI "Hello World"](./examples/umi_hello/)
-* [UMI FIR Filter](./examples/umi_fir_filter)
-* [EBRICK demo](./examples/ebrick_demo_fpga/)
+* [Ethernet](./examples/eth_mac_1g/eth_mac_1g.py): Ethernet MAC compiled for `z1000` architecture
+* [Adder](examples/adder/adder.py): Small adder example compiled for a virtual VPR architecture.
 
 ## Documentation
 
@@ -97,22 +105,19 @@ python -m pip install --upgrade logik
 Running natively on your local machine will require installing a number of prerequisites:
 
 * [Silicon Compiler](https://github.com/siliconcompiler/siliconcompiler): Hardware compiler framework
+* [Slang](https://github.com/MikePopoloski/slang): SystemVerilog Parser
+* [GHDL](https://ghdl.github.io/ghdl/): VHDL parser
 * [Yosys](https://github.com/YosysHQ/yosys): Logic synthesis
 * [VPR](https://github.com/verilog-to-routing/vtr-verilog-to-routing): FPGA place and route
-* [GHDL](https://ghdl.github.io/ghdl/): VHDL parser
-* [Surelog](https://github.com/chipsalliance/Surelog): SystemVerilog parser
 * [FASM](https://github.com/chipsalliance/fasm): FPGA assembly parser and generator
 
-Automated Ubuntu based install scripts are included for convenience within the SiliconCompiler project. Detailed instructions for installing all tools can be found in the [SiliconCompiler Installation Guide](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools).
-
-
-## Running Docker
-
-A [Docker image](https://github.com/siliconcompiler/siliconcompiler/pkgs/container/sc_runner) is provided for users who wish to avoid the installation of the pre-requisite tools. The following command starts a new container from that image and maps the local directory `sc_work` to the path `/sc_work` in the container.
+We recommend using the SiliconCompiler `sc-install` utility to automatically install the correct versions of all open source FPGA tool dependencies.
 
 ```sh
-docker run -it -v "${PWD}/sc_work:/sc_work" ghcr.io/siliconcompiler/sc_runner:latest
+sc-install -group fpga
 ```
+
+Detailed installation instructions can be found in the [SiliconCompiler Installation Guide](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools).
 
 
 ## License
