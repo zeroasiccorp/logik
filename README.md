@@ -5,7 +5,7 @@
 
 -----------------------------------------------------------------------------------
 
-Logik is an open source FPGA toolchain with support for high level language parsing, synthesis, placement, routing, bitstream generation, and analysis. Users enter design sources, constraints, and compile options through a simple [SiliconCompiler](https://github.com/siliconcompiler/siliconcompiler/) Python API. Once setup is complete, automated compilation can be initiated with a single line run command.
+Logik is an open source FPGA tool chain with support for high level language parsing, synthesis, placement, routing, bit-stream generation, and analysis. Users enter design sources, constraints, and compile options through a simple [SiliconCompiler](https://github.com/siliconcompiler/siliconcompiler/) Python API. Once setup is complete, automated compilation can be initiated with a single line run command.
 
 Logik depends on the [Logiklib](https://github.com/siliconcompiler/logiklib) which contains the architecture descriptions and device setup files needed to drive the Logik flow.
 
@@ -23,19 +23,18 @@ Logik supports most of the features you would expect in a commercial proprietary
 | Bitstream generation     | Supported
 | IP management            | Supported
 | Remote compilation       | Supported
-| Multi-clock designs      | In progress
-| Supported devices        | Any Logiklib Device
+| Multi-clock designs      | Supported
+| Supported devices        | Logiklib devices
 
 ## Getting Started
 
 The Logik tool chain is available through PyPi and can be installed using pip.
 
-
 ```sh
 python -m pip install --upgrade logik
 ```
 
-We recommend using the `sc-install` utility from the SiliconCompiler project to automatically install the correct versions of the open source FPGA tool dependencies (eg. Yosys, VPR).
+All open source FPGA pre-requisites can be installed via the SiliconCompiler `sc-install` utility.
 
 ```sh
 sc-install -group fpga
@@ -118,7 +117,7 @@ We recommend using the SiliconCompiler `sc-install` utility to automatically ins
 sc-install -group fpga
 ```
 
-Detailed installatoin instructions can be found in the [SiliconCompiler Installation Guide](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools).
+Detailed installation instructions can be found in the [SiliconCompiler Installation Guide](https://docs.siliconcompiler.com/en/stable/user_guide/installation.html#external-tools).
 
 
 ## License
